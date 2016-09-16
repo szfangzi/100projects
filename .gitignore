@@ -1,0 +1,29 @@
+.idea
+/dist
+Temp
+# Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Dependency directories
+jspm_packages
+
+# Optional npm cache directory
+.npm
+*.log
+*.mp4
+*.mp3
+
+### Yeoman template
+node_modules/
+bower_components/
+
+build/
+dist/
+
+### Sass template
+.sass-cache/
+*.css.map
+
+#.editorconfig
+#.gitignore
+

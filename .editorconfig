@@ -1,0 +1,14 @@
+# EditorConfig
+
+root = true #表示最顶层配置文件, 不会再向上找config文件
+
+[*] # 匹配所有文件
+charset = utf-8
+indent_size = 2
+indent_style = space # 不同编辑器tab规格不一样, 建议space缩进
+insert_final_newline = true # 代码结束的地方自动插入新的一行
+trim_trailing_whitespace = true # 空白行去除空格
+
+[*.md] # markdown文件后缀
+trim_trailing_whitespace = false
+
