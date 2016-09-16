@@ -18,23 +18,83 @@
     <a href="/"><img src="img/logo.png" alt=""></a>
   </div>
   <div class="btns">
-    <a href="javascript:;" class="searchBtn">SEARCH</a>
-    <a href="javascript:;" class="menuBtn">MENU</a>
+    <a href="javascript:;" class="searchBtn">
+      <span class="txt">SEARCH</span><span class="x">X</span>
+    </a>
+    <a href="javascript:;" class="menuBtn">
+      <span class="txt">MENU</span><span class="x">X</span>
+    </a>
   </div>
-  <div class="searchBox">search</div>
-  <!--<div class="menu">-->
-    <!--<ul>-->
-      <!--<li><a href="javascript:;"></a></li>-->
-      <!--<li><a href="javascript:;"></a></li>-->
-      <!--<li><a href="javascript:;"></a></li>-->
-      <!--<li><a href="javascript:;"></a></li>-->
-      <!--<li><a href="javascript:;"></a></li>-->
-      <!--<li><a href="javascript:;"></a></li>-->
-    <!--</ul>-->
-  <!--</div>-->
+  <form class="searchBox hide">
+    <div class="text">Search on Smashing Magazine</div>
+    <div class="searchInputBox clearfix">
+      <input type="text" placeholder="e.g.CSS">
+      <button class="searchBtn">Search</button>
+    </div>
+  </form>
+  <nav class="clearfix hide">
+    <div class="menu smashMenu">
+      <h3>Smashing Pages:</h3>
+      <ul>
+        <li><a href="javascript:;">Books</a></li>
+        <li><a href="javascript:;">eBooks</a></li>
+        <li><a href="javascript:;">Tickets</a></li>
+        <li><a href="javascript:;">Shop</a></li>
+        <li><a href="javascript:;">Email Newsletter</a></li>
+        <li><a href="javascript:;">Jobs</a></li>
+        <li><a href="javascript:;">About us / Impressum</a></li>
+      </ul>
+    </div>
+    <div class="menu categories">
+      <h3>Categories:</h3>
+      <ul>
+        <li><a href="javascript:;">Coding</a></li>
+        <li><a href="javascript:;">Design</a></li>
+        <li><a href="javascript:;">Mobile</a></li>
+        <li><a href="javascript:;">Graphics</a></li>
+        <li><a href="javascript:;">UX Design</a></li>
+        <li>
+          <a href="javascript:;" class="long">WordPress</a>
+          <a href="javascript:;" class="short">WP</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
 </header>
-<!--<nav>nav</nav>-->
+<nav class="topNav clearfix">
+  <div class="logo">
+    <a href="/"><img src="img/logo.png" alt=""></a>
+  </div>
+  <ul class="nav">
+    <li><a href="javascript:;">Books</a></li>
+    <li><a href="javascript:;">eBooks</a></li>
+    <li><a href="javascript:;">Tickets</a></li>
+    <li><a href="javascript:;">Shop</a></li>
+    <li><a href="javascript:;">Jobs</a></li>
+  </ul>
+  <ul class="socialLink">
+    <li class="rss">
+      <a href="javascript:;">RSS</a>
+    </li>
+    <li class="fb">
+      <a href="javascript:;">Facebook</a>
+    </li>
+    <li class="tw">
+      <a href="javascript:;">Twitter</a>
+    </li>
+    <li class="nl">
+      <a href="javascript:;">Newsletter</a>
+    </li>
+  </ul>
+</nav>
 <main>
+  <form class="searchBox">
+    <div class="text">Search on Smashing Magazine</div>
+    <div class="searchInputBox clearfix">
+      <input type="text" placeholder="e.g.CSS">
+      <button class="searchBtn">Search</button>
+    </div>
+  </form>
   <div class="main clearfix">
     <article>
       <div class="title">
@@ -75,23 +135,20 @@
     <li>
       <a href="javascript:;" class="imgLink"><img alt="Smashing Book 5" width="100" height="106" src="img/footer-sb5.png"></a>
       <div class="r">
-        <a href="javascript:;" class="title">Smashing Book 5 </a>
-        <p>With smart front-end techniques from real-life responsive projects. <a href="javascript:;" class="more">Learn more...</a></p>
+        <a href="javascript:;" class="title">Smashing Book 5 </a>With smart front-end techniques from real-life responsive projects.<a href="javascript:;" class="more">Learn more...</a>
       </div>
 
     </li>
     <li>
       <a href="javascript:;" class="imgLink"><img alt="The Smashing Library" width="100" height="106" src="img/smashing-library-footer-new-opt.png"></a>
       <div class="r">
-        <a href="javascript:;" class="title">The Smashing Library </a>
-        <p>Grab all published and upcoming Smashing eBooks, in one swoop.<a href="javascript:;" class="more">Learn more...</a></p>
+        <a href="javascript:;" class="title">The Smashing Library </a>Grab all published and upcoming Smashing eBooks, in one swoop.<a href="javascript:;" class="more">Learn more...</a>
       </div>
     </li>
     <li>
       <a href="javascript:;" class="imgLink"><img alt="Smashing Workshops" width="100" height="106" src="img/susan-weinschenk.jpg"></a>
       <div class="r">
-        <a href="javascript:;" class="title">Smashing Workshops</a>
-        <p>Join our hands-on full-day workshops, run by experts of the industry. Good stuff.<a href="javascript:;" class="more">Learn more...</a></p>
+        <a href="javascript:;" class="title">Smashing Workshops</a>Join our hands-on full-day workshops, run by experts of the industry. Good stuff.<a href="javascript:;" class="more">Learn more...</a>
       </div>
     </li>
   </ul>
@@ -100,7 +157,7 @@
 </footer>
 
 <!-- build:js js/combined.js -->
-<!--<script type="text/javascript" src="js/main.js"></script>-->
+<script type="text/javascript" src="js/main.js"></script>
 <!-- endbuild -->
 </body>
 </html>

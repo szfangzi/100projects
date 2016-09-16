@@ -106,13 +106,54 @@ a:hover, a:active{
     text-decoration: underline;
 }
 
+/*component*/
+.searchBox{
+  margin-left: 5.5%;
+  padding: 1rem 0 2rem 0;
+  .text{
+    display: inline-block;
+    width: 100%;
+    color: rgba(0,0,0,.3);
+  }
+  .searchInputBox{
+    margin-top: .8rem;
+    input{
+      float: left;
+      width: 55%;
+      border: 1px solid rgba(0,0,0,.1);
+      border-right: 0;
+      border-radius: 1rem;
+      border-top-right-radius:0;
+      border-bottom-right-radius:0;
+      padding: .8rem;
+      color: #777;
+    }
+    input:focus{
+      border-color: rgba(0,0,0,.3);
+      outline: 0;
+    }
+    .searchBtn{
+      float: left;
+      width: 30%;
+      border:1px solid #C73A11;
+      background: linear-gradient(to bottom,#e85c33 0,#e53a2b 100%);
+      padding: .65rem;
+      color: #fff;
+      border-radius: 1rem;
+      border-top-left-radius:0;
+      border-bottom-left-radius:0;
+      font-size: 1.8rem;
+    }
+  }
+}
+
 /*header*/
 header{
   padding: 2rem 0;
   position: relative;
   .logo{
     width: 38%;
-    margin-left: 8%;
+    margin-left: 5.5%;
     a{
       img{max-width: 100%;}
     }
@@ -126,11 +167,15 @@ header{
       border: 1px solid #c73a11;
       border-radius: 0.4rem;
       padding: 0.6rem;
+      width: 4rem;
+      text-align: center;
       background-color: #E95C33;
       display: inline-block;
       color: white;
       box-shadow: 0 .14em .14em rgba(0,0,0,.25);
       float: left;
+      font-family: 'Proxima Nova Bold',"Segoe UI",Roboto,"Droid Sans","Helvetica Neue",Arial,sans-serif;
+      font-weight: bold;
     }
     .searchBtn{
       background: url(../img/search-icon.svg) 50% 50% no-repeat,#e95c33;
@@ -139,14 +184,60 @@ header{
       background-size: 1.875em;
       overflow: hidden;
     }
+    .searchBtn .x{
+      display: none;
+    }
+    .searchBtn.active{
+      background-image: none;
+      text-indent: 0;
+      text-align: center;
+    }
+    .searchBtn.active .txt{
+      display: none;
+    }
+    .searchBtn.active .x{
+      display: inline-block;
+    }
     .menuBtn{
-      font-family: 'Proxima Nova Bold',"Segoe UI",Roboto,"Droid Sans","Helvetica Neue",Arial,sans-serif;
-      font-weight: bold;
       margin-left: 1.2rem;
     }
+    .menuBtn:hover{
+      text-decoration: none;
+    }
+    .menuBtn .x{
+      display: none;
+    }
+    .menuBtn.active .txt{
+      display: none;
+    }
+    .menuBtn.active .x{
+      display: inline-block;
+    }
   }
-  .searchBox{}
-  .menu{}
+
+  nav{
+    padding: 1rem 0 2rem;
+    .menu{
+      padding: 0 5.5%;
+      width: 100%;
+      box-sizing: border-box;
+      display: inline-block;
+      float: left;
+      h2{}
+      ul{
+        li{
+          a{
+            border-bottom: 1px solid rgba(0,0,0,.1);
+            display: inline-block;
+            width: 100%;
+            padding: .5rem 0 .5rem .5rem;
+            color: $blue;
+            box-sizing: border-box;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media only screen and (max-width: $xlg-max) {
@@ -154,7 +245,14 @@ header{
 }
 @media only screen and (min-width: $xlg-min) and (max-width: $xlg-max) {}
 @media only screen and (min-width: $lg-min) and (max-width: $lg-max) {}
-@media only screen and (min-width:$md-min) and (max-width: $md-max) {}
+@media only screen and (min-width:$md-min) and (max-width: $md-max) {
+
+}
+@media only screen and (min-width:$md-min){
+  header{
+    display: none;
+  }
+}
 @media only screen and (min-width: $sm-min) and (max-width: $sm-max) {
   header{
     .logo{
@@ -165,8 +263,99 @@ header{
       .menuBtn{}
     }
     .searchBox{}
-    .menu{}
+    nav{
+      .menu{
+        width: 50%;
+        ul{
+          li{
+            a{
+
+            }
+          }
+        }
+      }
+    }
   }
+}
+@media only screen and (max-width: $xs-max) {}
+
+/*nav*/
+nav.topNav{
+  margin-left: 1rem;
+  display: none;
+  .logo{
+    background-color: #fff;
+    height: 6.5rem;
+    width: 20%;
+    text-align: center;
+    display: flex;
+    flex-flow:row;
+    justify-content: center;
+    align-items:center;
+    float: left;
+    a{
+      width: 80%;
+    }
+  }
+  ul.nav{
+    float: left;
+    width: 50%;
+    li{
+      height: 3.5rem;
+      display: inline-block;
+      padding: 3rem 1rem 0;
+      border-right: 1px solid rgba(0,0,0,.05);
+      a{
+        display: inline-block;
+        color: rgba(0,0,0,.3);
+      }
+    }
+  }
+  ul.socialLink{
+    float: right;
+    margin-top: 3.5rem;
+    li{
+      background-image: url("../img/channels.svg");
+      background-size: 300%;
+      width: 2rem;
+      height: 2rem;
+      overflow: hidden;
+      display: inline-block;
+      a{
+        text-indent: 150%;
+        display: inline-block;
+      }
+    }
+    li.rss{
+      background-position: -76% -89%;
+    }
+    li.fb{
+      background-position: -76% -61%;
+    }
+    li.tw{
+      background-position: -76% -32%;
+    }
+    li.nl{
+      background-position: -76% 8%;
+    }
+  }
+}
+
+@media only screen and (max-width: $xlg-max) {
+
+}
+@media only screen and (min-width: $md-min) and (max-width: $xlg-max) {
+  nav.topNav{
+    display: block;
+  }
+}
+@media only screen and (min-width: $xlg-min) and (max-width: $xlg-max) {}
+@media only screen and (min-width: $lg-min) and (max-width: $lg-max) {}
+@media only screen and (min-width:$md-min) and (max-width: $md-max) {
+
+}
+@media only screen and (min-width: $sm-min) and (max-width: $sm-max) {
+
 }
 @media only screen and (max-width: $xs-max) {}
 
@@ -174,10 +363,13 @@ header{
 /*main*/
 main{
   background-color: #fff;
+  .searchBox{
+    display: none;
+  }
   .main{
     position: relative;
     article{
-      padding: 0 8% 6rem 8%;
+      padding: 0 5.5% 6rem;
       border-bottom: .3rem solid $blue;
       .title{
 
@@ -243,7 +435,7 @@ main{
     }
     .page{
       position: relative;
-      padding: 2.8rem 8% 10em;
+      padding: 2.8rem 5.5% 10em;
       .prev, .next{
         height: 2rem;
         position: absolute;
@@ -255,10 +447,10 @@ main{
         }
       }
       .prev{
-        left: 8%;
+        left: 5.5%;
       }
       .next{
-        right: 8%;
+        right: 5.5%;
       }
       .pgs{
         a{
@@ -288,15 +480,40 @@ main{
       border-bottom: .1em solid rgba(0,0,0,.1);
       position: absolute;
     }
+
   }
 
 }
 
 @media only screen and (max-width: $xlg-max) {}
+@media only screen and (min-width: $md-min) and (max-width: $xlg-max) {
+  main{
+    margin-left: 1rem;
+  }
+}
 @media only screen and (min-width: $xlg-min) and (max-width: $xlg-max) {}
 @media only screen and (min-width: $lg-min) and (max-width: $lg-max) {}
-@media only screen and (min-width:$md-min) and (max-width: $md-max) {}
-@media only screen and (min-width: $sm-min) and (max-width: $sm-max) {}
+@media only screen and (min-width:$md-min) and (max-width: $md-max) {
+  main{
+    .searchBox{
+      display: inline-block;
+      width: 94.5%;
+      .searchInputBox{
+        input{
+          padding: 1.6rem;
+          width: 65%;
+        }
+        .searchBtn{
+          padding: 1.47rem;
+          width: 20%;
+        }
+      }
+    }
+  }
+}
+@media only screen and (min-width: $sm-min) and (max-width: $sm-max) {
+
+}
 
 @media only screen and (min-width: 38.125rem) {
   main{
@@ -325,8 +542,8 @@ footer{
   ul{
     li{
       font-size: 1.2rem;
+      padding: 2rem 0 2rem 5.5%;
       float: left;
-      padding: 2rem 0 2rem 8%;
       .imgLink{
         width: 35%;
         display: inline-block;
@@ -342,17 +559,13 @@ footer{
         .title{
           color: $blue;
           font-weight: bold;
-          float: left;
           margin-top: .3rem;
         }
-        p{
-          display: inline;
-          float: left;
-          margin: 0;
+        .more{
+          color: $blue;
+          margin-left: .3rem;
         }
-        .more{}
       }
-
     }
   }
   .fp{
@@ -360,33 +573,32 @@ footer{
     font-size: 1.2rem;
     color:rgba(0,0,0,.35);
     display: inline-block;
-    padding: 2rem 8%;
+    padding: 2rem 5.5%;
     a{
       color: $blue;
     }
   }
-  .p1{}
-  .p2{}
-  .p3{}
 }
 
 @media only screen and (max-width: $xlg-max) {}
 @media only screen and (min-width: $xlg-min) and (max-width: $xlg-max) {}
 @media only screen and (min-width: $lg-min) and (max-width: $lg-max) {}
-@media only screen and (min-width:$md-min) and (max-width: $md-max) {}
-@media only screen and (min-width: $sm-min) and (max-width: $sm-max) {
+@media only screen and (min-width:$sm-min) and (max-width: $md-max) {
   footer{
     ul{
       li{
-        img{}
-        .title{}
-        .more{}
+        width: 30%;
+        box-sizing: border-box;
+        .r{
+          width: 100%;
+        }
       }
     }
-    .p1{}
-    .p2{}
-    .p3{}
   }
+}
+@media only screen and (min-width:$md-min) and (max-width: $md-max) {}
+@media only screen and (min-width: $sm-min) and (max-width: $sm-max) {
+
 }
 @media only screen and (max-width: $xs-max) {}
 

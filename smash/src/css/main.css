@@ -91,13 +91,48 @@ a:hover, a:active {
   color: #0ae;
   text-decoration: underline; }
 
+/*component*/
+.searchBox {
+  margin-left: 5.5%;
+  padding: 1rem 0 2rem 0; }
+  .searchBox .text {
+    display: inline-block;
+    width: 100%;
+    color: rgba(0, 0, 0, 0.3); }
+  .searchBox .searchInputBox {
+    margin-top: .8rem; }
+    .searchBox .searchInputBox input {
+      float: left;
+      width: 55%;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-right: 0;
+      border-radius: 1rem;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      padding: .8rem;
+      color: #777; }
+    .searchBox .searchInputBox input:focus {
+      border-color: rgba(0, 0, 0, 0.3);
+      outline: 0; }
+    .searchBox .searchInputBox .searchBtn {
+      float: left;
+      width: 30%;
+      border: 1px solid #C73A11;
+      background: linear-gradient(to bottom, #e85c33 0, #e53a2b 100%);
+      padding: .65rem;
+      color: #fff;
+      border-radius: 1rem;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      font-size: 1.8rem; }
+
 /*header*/
 header {
   padding: 2rem 0;
   position: relative; }
   header .logo {
     width: 38%;
-    margin-left: 8%; }
+    margin-left: 5.5%; }
     header .logo a img {
       max-width: 100%; }
   header .btns {
@@ -109,33 +144,129 @@ header {
       border: 1px solid #c73a11;
       border-radius: 0.4rem;
       padding: 0.6rem;
+      width: 4rem;
+      text-align: center;
       background-color: #E95C33;
       display: inline-block;
       color: white;
       box-shadow: 0 0.14em 0.14em rgba(0, 0, 0, 0.25);
-      float: left; }
+      float: left;
+      font-family: 'Proxima Nova Bold',"Segoe UI",Roboto,"Droid Sans","Helvetica Neue",Arial,sans-serif;
+      font-weight: bold; }
     header .btns .searchBtn {
       background: url(../img/search-icon.svg) 50% 50% no-repeat, #e95c33;
       text-indent: 150%;
       width: 2.9rem;
       background-size: 1.875em;
       overflow: hidden; }
+    header .btns .searchBtn .x {
+      display: none; }
+    header .btns .searchBtn.active {
+      background-image: none;
+      text-indent: 0;
+      text-align: center; }
+    header .btns .searchBtn.active .txt {
+      display: none; }
+    header .btns .searchBtn.active .x {
+      display: inline-block; }
     header .btns .menuBtn {
-      font-family: 'Proxima Nova Bold',"Segoe UI",Roboto,"Droid Sans","Helvetica Neue",Arial,sans-serif;
-      font-weight: bold;
       margin-left: 1.2rem; }
+    header .btns .menuBtn:hover {
+      text-decoration: none; }
+    header .btns .menuBtn .x {
+      display: none; }
+    header .btns .menuBtn.active .txt {
+      display: none; }
+    header .btns .menuBtn.active .x {
+      display: inline-block; }
+  header nav {
+    padding: 1rem 0 2rem; }
+    header nav .menu {
+      padding: 0 5.5%;
+      width: 100%;
+      box-sizing: border-box;
+      display: inline-block;
+      float: left; }
+      header nav .menu ul li a {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        display: inline-block;
+        width: 100%;
+        padding: .5rem 0 .5rem .5rem;
+        color: #41B7D8;
+        box-sizing: border-box; }
+
+@media only screen and (min-width: 50em) {
+  header {
+    display: none; } }
 
 @media only screen and (min-width: 31.25em) and (max-width: 50em) {
   header .logo {
-    width: 28.5%; } }
+    width: 28.5%; }
+  header nav .menu {
+    width: 50%; } }
+
+/*nav*/
+nav.topNav {
+  margin-left: 1rem;
+  display: none; }
+  nav.topNav .logo {
+    background-color: #fff;
+    height: 6.5rem;
+    width: 20%;
+    text-align: center;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+    float: left; }
+    nav.topNav .logo a {
+      width: 80%; }
+  nav.topNav ul.nav {
+    float: left;
+    width: 50%; }
+    nav.topNav ul.nav li {
+      height: 3.5rem;
+      display: inline-block;
+      padding: 3rem 1rem 0;
+      border-right: 1px solid rgba(0, 0, 0, 0.05); }
+      nav.topNav ul.nav li a {
+        display: inline-block;
+        color: rgba(0, 0, 0, 0.3); }
+  nav.topNav ul.socialLink {
+    float: right;
+    margin-top: 3.5rem; }
+    nav.topNav ul.socialLink li {
+      background-image: url("../img/channels.svg");
+      background-size: 300%;
+      width: 2rem;
+      height: 2rem;
+      overflow: hidden;
+      display: inline-block; }
+      nav.topNav ul.socialLink li a {
+        text-indent: 150%;
+        display: inline-block; }
+    nav.topNav ul.socialLink li.rss {
+      background-position: -76% -89%; }
+    nav.topNav ul.socialLink li.fb {
+      background-position: -76% -61%; }
+    nav.topNav ul.socialLink li.tw {
+      background-position: -76% -32%; }
+    nav.topNav ul.socialLink li.nl {
+      background-position: -76% 8%; }
+
+@media only screen and (min-width: 50em) and (max-width: 90.625em) {
+  nav.topNav {
+    display: block; } }
 
 /*main*/
 main {
   background-color: #fff; }
+  main .searchBox {
+    display: none; }
   main .main {
     position: relative; }
     main .main article {
-      padding: 0 8% 6rem 8%;
+      padding: 0 5.5% 6rem;
       border-bottom: 0.3rem solid #41B7D8; }
       main .main article .title h2 .author:before {
         content: 'By';
@@ -181,7 +312,7 @@ main {
         color: #fff; }
     main .main .page {
       position: relative;
-      padding: 2.8rem 8% 10em; }
+      padding: 2.8rem 5.5% 10em; }
       main .main .page .prev, main .main .page .next {
         height: 2rem;
         position: absolute;
@@ -191,9 +322,9 @@ main {
           color: #fff;
           padding: .4rem .6rem .6rem; }
       main .main .page .prev {
-        left: 8%; }
+        left: 5.5%; }
       main .main .page .next {
-        right: 8%; }
+        right: 5.5%; }
       main .main .page .pgs a {
         text-align: center;
         width: 16.666%;
@@ -214,6 +345,21 @@ main {
       border-bottom: 0.1em solid rgba(0, 0, 0, 0.1);
       position: absolute; }
 
+@media only screen and (min-width: 50em) and (max-width: 90.625em) {
+  main {
+    margin-left: 1rem; } }
+
+@media only screen and (min-width: 50em) and (max-width: 63.75em) {
+  main .searchBox {
+    display: inline-block;
+    width: 94.5%; }
+    main .searchBox .searchInputBox input {
+      padding: 1.6rem;
+      width: 65%; }
+    main .searchBox .searchInputBox .searchBtn {
+      padding: 1.47rem;
+      width: 20%; } }
+
 @media only screen and (min-width: 38.125rem) {
   main .main .page .prev, main .main .page .next {
     position: static;
@@ -227,8 +373,8 @@ main {
 /*footer*/
 footer ul li {
   font-size: 1.2rem;
-  float: left;
-  padding: 2rem 0 2rem 8%; }
+  padding: 2rem 0 2rem 5.5%;
+  float: left; }
   footer ul li .imgLink {
     width: 35%;
     display: inline-block;
@@ -240,21 +386,26 @@ footer ul li {
     footer ul li .r .title {
       color: #41B7D8;
       font-weight: bold;
-      float: left;
       margin-top: .3rem; }
-    footer ul li .r p {
-      display: inline;
-      float: left;
-      margin: 0; }
+    footer ul li .r .more {
+      color: #41B7D8;
+      margin-left: .3rem; }
 
 footer .fp {
   line-height: 1.375;
   font-size: 1.2rem;
   color: rgba(0, 0, 0, 0.35);
   display: inline-block;
-  padding: 2rem 8%; }
+  padding: 2rem 5.5%; }
   footer .fp a {
     color: #41B7D8; }
+
+@media only screen and (min-width: 31.25em) and (max-width: 63.75em) {
+  footer ul li {
+    width: 30%;
+    box-sizing: border-box; }
+    footer ul li .r {
+      width: 100%; } }
 
 /************
  * 打印样式
