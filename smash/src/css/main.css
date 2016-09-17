@@ -82,7 +82,8 @@ body {
   background-color: #F2F2F2;
   font-family: "Proxima Nova Regular","Segoe UI",Roboto,"Droid Sans","Helvetica Neue",Arial,sans-serif;
   color: #333;
-  background: url("../img/smbg.png") repeat 0 0; }
+  background: url("../img/smbg.png") repeat 0 0;
+  max-width: 2000px; }
 
 a {
   color: #666;
@@ -126,9 +127,22 @@ a:hover, a:active {
       border-bottom-left-radius: 0;
       font-size: 1.8rem; }
 
+.sideBox {
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 0 .625em .625em 0;
+  margin: 2.5em 0 1.5em -1.25em;
+  padding: 0 1.25em 2em;
+  border: 0.08em solid rgba(0, 0, 0, 0.1);
+  border-left: 0; }
+
 @media only screen and (min-width: 50em) {
   body {
     border-left: .625em solid transparent; } }
+
+@media only screen and (min-width: 90.625em) {
+  body {
+    border-left: none;
+    border-top: .8rem solid transparent; } }
 
 /*header*/
 header {
@@ -148,7 +162,7 @@ header {
       border: 1px solid #c73a11;
       border-radius: 0.4rem;
       padding: 0.6rem;
-      width: 4rem;
+      width: 5rem;
       text-align: center;
       background-color: #E95C33;
       display: inline-block;
@@ -225,23 +239,29 @@ nav.topNav {
     z-index: 10;
     position: relative; }
     nav.topNav .logo a {
-      width: 80%; }
+      width: 84%; }
   nav.topNav ul.nav {
     float: left;
     width: 50%; }
     nav.topNav ul.nav li {
-      height: 3.5rem;
-      display: inline-block;
-      padding: 3rem 1rem 0;
-      border-right: 1px solid rgba(0, 0, 0, 0.05); }
+      float: left; }
       nav.topNav ul.nav li a {
+        height: 3.5rem;
         display: inline-block;
-        color: rgba(0, 0, 0, 0.3); }
-    nav.topNav ul.nav li.eBook {
+        padding: 3rem 1rem 0;
+        border-right: 1px solid rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+        color: rgba(0, 0, 0, 0.3);
+        transition: all .3s; }
+        nav.topNav ul.nav li a:hover {
+          background-color: #ff6;
+          color: rgba(0, 0, 0, 0.6);
+          text-decoration: none; }
+    nav.topNav ul.nav li.eBook a {
       background-image: url(../img/cody.svg);
       background-repeat: no-repeat;
       background-size: 50%;
-      background-position: 3.2rem .3rem; }
+      background-position: right .3rem; }
   nav.topNav ul.socialLink {
     float: right;
     margin-top: 3.5rem;
@@ -285,6 +305,32 @@ nav.topNav {
   nav.topNav .logo {
     width: 13%; } }
 
+@media only screen and (min-width: 90.625em) {
+  nav.topNav {
+    float: left;
+    display: block;
+    width: 10%; }
+    nav.topNav .logo {
+      width: 100%; }
+    nav.topNav ul.nav {
+      width: 100%; }
+      nav.topNav ul.nav li {
+        float: none; }
+        nav.topNav ul.nav li.eBook a {
+          background-size: 18%;
+          background-position: right .3rem; }
+        nav.topNav ul.nav li a {
+          box-sizing: border-box;
+          height: 4rem;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          width: 100%;
+          padding: 1rem 1rem 0 2rem; }
+          nav.topNav ul.nav li a:first-child {
+            border-top: 1px solid rgba(0, 0, 0, 0.05); }
+    nav.topNav ul.socialLink {
+      margin-top: 1.5rem;
+      margin-right: 1.6rem; } }
+
 /*main*/
 main .col .searchBox {
   display: none; }
@@ -292,22 +338,66 @@ main .col .searchBox {
 main .col .main {
   background-color: #fff;
   position: relative; }
-  main .col .main article {
+  main .col .main .menu {
+    width: 25%;
+    display: none;
+    margin-top: 1.5rem; }
+    main .col .main .menu li.m {
+      border-left: .8rem solid;
+      font-size: 1.8rem;
+      padding: .5rem 0 4rem 3rem;
+      transition: all .3s; }
+      main .col .main .menu li.m .mainA {
+        font-family: 'Proxima Nova Bold',"Segoe UI",Roboto,"Droid Sans","Helvetica Neue",Arial,sans-serif;
+        letter-spacing: .22rem;
+        color: #333;
+        font-weight: bold; }
+      main .col .main .menu li.m ul {
+        margin-top: .5rem; }
+        main .col .main .menu li.m ul li {
+          padding: .5rem 0 .5rem; }
+          main .col .main .menu li.m ul li .sub {
+            font-family: "Proxima Nova Regular","Segoe UI",Roboto,"Droid Sans","Helvetica Neue",Arial,sans-serif; }
+    main .col .main .menu li.m1 {
+      border-color: rgba(98, 189, 175, 0.4); }
+      main .col .main .menu li.m1:hover {
+        border-color: #62bdaf; }
+    main .col .main .menu li.m2 {
+      border-color: rgba(110, 206, 10, 0.4); }
+      main .col .main .menu li.m2:hover {
+        border-color: #6ece0a; }
+    main .col .main .menu li.m3 {
+      border-color: rgba(235, 210, 3, 0.4); }
+      main .col .main .menu li.m3:hover {
+        border-color: #ebd203; }
+    main .col .main .menu li.m4 {
+      border-color: rgba(166, 117, 162, 0.4); }
+      main .col .main .menu li.m4:hover {
+        border-color: #a675a2; }
+    main .col .main .menu li.m5 {
+      border-color: rgba(240, 113, 124, 0.4); }
+      main .col .main .menu li.m5:hover {
+        border-color: #f0717c; }
+    main .col .main .menu li.m6 {
+      border-color: rgba(62, 141, 210, 0.4); }
+      main .col .main .menu li.m6:hover {
+        border-color: #3e8dd2; }
+  main .col .main .list article {
     padding: 0 5.5% 6rem;
     border-bottom: 0.3rem solid #41B7D8; }
-    main .col .main article .title h2 .author:before {
+    main .col .main .list article .title h2 .author:before {
       content: 'By';
       color: #B7B7B7;
       font-weight: normal;
       margin-right: .6rem; }
-    main .col .main article .title h2 .author {
+    main .col .main .list article .title h2 .author {
       color: #41B7D8;
       font-weight: normal;
       line-height: 1.35;
       font-size: 2.4rem;
       padding: .8rem 0;
       border-bottom: 0.1rem solid rgba(0, 0, 0, 0.1); }
-    main .col .main article .msg li {
+    main .col .main .list article .msg li {
       color: #41B7D8;
       display: inline-block;
       padding: 0 0 0 2rem;
@@ -316,56 +406,56 @@ main .col .main {
       background-position: 0 .2rem;
       margin-bottom: 1.6rem;
       margin-right: 2.8rem; }
-    main .col .main article .msg li:last {
+    main .col .main .list article .msg li:last {
       margin-right: 0; }
-    main .col .main article .msg li:nth-of-type(1) {
+    main .col .main .list article .msg li:nth-of-type(1) {
       color: rgba(0, 0, 0, 0.3);
       background-image: url(../img/icon-meta-time.svg); }
-    main .col .main article .msg li:nth-of-type(2) {
+    main .col .main .list article .msg li:nth-of-type(2) {
       background-image: url(../img/icon-meta-tags.svg); }
-    main .col .main article .msg li:nth-of-type(3) {
+    main .col .main .list article .msg li:nth-of-type(3) {
       background-image: url(../img/icon-meta-comments.svg); }
-    main .col .main article .msg + p {
+    main .col .main .list article .msg + p {
       font-family: "Skolar Regular", "Roboto Slab", "Droid Serif", Cambria, Georgia, "Times New Roman", Times, serif;
       font-size: 2.2rem; }
-    main .col .main article p {
+    main .col .main .list article p {
       padding: .8rem 0;
       font-size: 1.8rem; }
-    main .col .main article .moreBtn {
+    main .col .main .list article .moreBtn {
       background-color: #41B7D8;
       border-radius: .4rem;
       padding: .5rem;
       border: 1px solid #3BA5C3;
       color: #fff; }
-  main .col .main .page {
+  main .col .main .list .page {
     position: relative;
     padding: 2.8rem 5.5% 10em; }
-    main .col .main .page .prev, main .col .main .page .next {
+    main .col .main .list .page .prev, main .col .main .list .page .next {
       height: 2rem;
       position: absolute;
       top: 7.5rem; }
-      main .col .main .page .prev a, main .col .main .page .next a {
+      main .col .main .list .page .prev a, main .col .main .list .page .next a {
         background-color: #E75631;
         color: #fff;
         padding: .4rem .6rem .6rem; }
-    main .col .main .page .prev {
+    main .col .main .list .page .prev {
       left: 5.5%; }
-    main .col .main .page .next {
+    main .col .main .list .page .next {
       right: 5.5%; }
-    main .col .main .page .pgs a {
+    main .col .main .list .page .pgs a {
       text-align: center;
       width: 16.666%;
       display: inline-block;
       float: left; }
-    main .col .main .page a {
+    main .col .main .list .page a {
       color: #41B7D8;
       padding: .4rem 0;
       border-radius: .4rem;
       box-sizing: border-box; }
-    main .col .main .page a:hover, main .col .main .page a.active {
+    main .col .main .list .page a:hover, main .col .main .list .page a.active {
       color: #fff;
       background-color: #41B7D8; }
-  main .col .main .toTopBtn {
+  main .col .main .list .toTopBtn {
     right: 1.5em;
     bottom: 1.17em;
     color: rgba(0, 0, 0, 0.4);
@@ -375,7 +465,9 @@ main .col .main {
 @media only screen and (min-width: 50em) {
   main .col {
     float: left;
-    width: 100%; } }
+    width: 100%; }
+    main .col .main .menu {
+      display: block; } }
 
 @media only screen and (min-width: 50em) and (max-width: 63.75em) {
   main .col .searchBox {
@@ -387,7 +479,12 @@ main .col .main {
       width: 65%; }
     main .col .searchBox .searchInputBox .searchBtn {
       padding: 1.47rem;
-      width: 20%; } }
+      width: 20%; }
+  main .col .list {
+    width: 75%;
+    float: left; }
+  main .col .menu {
+    float: left; } }
 
 @media only screen and (min-width: 63.75em) {
   main .col {
@@ -401,18 +498,60 @@ main .col .main {
     main .col .searchBox {
       display: none; } }
 
+@media only screen and (min-width: 63.75em) and (max-width: 76.25em) {
+  main .col .main .menu {
+    width: 94%;
+    padding-left: 6%;
+    border-bottom: 0.3125em solid rgba(0, 0, 0, 0.06); }
+    main .col .main .menu li.m {
+      border-left: none;
+      border-bottom-width: .4rem;
+      border-bottom-style: solid;
+      float: left;
+      padding: 0 .7rem;
+      margin-bottom: -.4rem; }
+      main .col .main .menu li.m .mainA {
+        font-size: 1rem; }
+        main .col .main .menu li.m .mainA.long {
+          display: none; }
+      main .col .main .menu li.m ul {
+        display: none; }
+    main .col .main .menu li.m + li {
+      border-left: 1px solid rgba(0, 0, 0, 0.1); } }
+
+@media only screen and (min-width: 70rem) and (max-width: 76.25em) {
+  main .col .main .menu li.m .mainA {
+    font-size: 1rem; }
+    main .col .main .menu li.m .mainA.long {
+      display: inline-block; }
+    main .col .main .menu li.m .mainA.short {
+      display: none; } }
+
+@media only screen and (min-width: 76.25em) {
+  main .col .list {
+    width: 75%;
+    float: left; }
+  main .col .menu {
+    float: left; } }
+
+@media only screen and (min-width: 90.625em) {
+  main .col {
+    width: 88%; }
+    main .col .main {
+      padding-top: 5.2rem; } }
+
 @media only screen and (min-width: 38.125rem) {
-  main .col .main .page .prev, main .col .main .page .next {
+  main .col .main .list .page .prev, main .col .main .list .page .next {
     position: static;
     float: left;
     width: 20%; }
-  main .col .main .page .pgs {
+  main .col .main .list .page .pgs {
     width: 60%;
     float: left;
     margin-top: -0.35rem; } }
 
 aside .col {
-  width: 35rem;
+  width: 36rem;
   padding: 0 0 0 1.6666rem;
   display: none;
   float: left;
@@ -423,14 +562,35 @@ aside .col {
       width: 71%; }
     aside .col .searchBox .searchInputBox .searchBtn {
       width: 24%; }
-
-@media only screen and (min-width: 50em) {
-  aside .col {
-    display: block; } }
+  aside .col .ad .title a {
+    float: right;
+    text-decoration: underline;
+    color: #41B7D8; }
+  aside .col .ad ul {
+    margin-top: 1rem; }
+    aside .col .ad ul li {
+      width: 48%;
+      text-align: center;
+      display: inline-block; }
+  aside .col .bookList li {
+    float: left;
+    padding: 1rem 0 1rem .5rem; }
+    aside .col .bookList li img {
+      display: inline-block;
+      float: left;
+      margin-top: 2rem; }
+    aside .col .bookList li p {
+      width: 22rem;
+      display: inline-block;
+      float: left;
+      margin-left: 1.5rem; }
+  aside .col .bookList li + li {
+    border-top: 0.08em solid rgba(0, 0, 0, 0.05); }
 
 @media only screen and (min-width: 63.75em) {
   aside .col {
-    top: -4rem; } }
+    top: -4rem;
+    display: block; } }
 
 @media only screen and (min-width: 90.625em) {
   aside .col {
@@ -469,12 +629,22 @@ footer .fp {
   footer .fp a {
     color: #41B7D8; }
 
-@media only screen and (min-width: 31.25em) and (max-width: 63.75em) {
+@media only screen and (min-width: 31.25em) {
   footer ul li {
     width: 30%;
     box-sizing: border-box; }
     footer ul li .r {
       width: 100%; } }
+
+@media only screen and (min-width: 63.75em) {
+  footer ul {
+    width: calc(100% - 37.5rem);
+    width: -webkit-calc(100% - 37.5rem);
+    width: -moz-calc(100% - 37.5rem); } }
+
+@media only screen and (min-width: 90.625em) {
+  footer {
+    margin: 0 0 0 10%; } }
 
 /************
  * 打印样式
