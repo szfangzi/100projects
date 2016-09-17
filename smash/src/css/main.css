@@ -325,8 +325,8 @@ nav.topNav {
           border-bottom: 1px solid rgba(0, 0, 0, 0.1);
           width: 100%;
           padding: 1rem 1rem 0 2rem; }
-          nav.topNav ul.nav li a:first-child {
-            border-top: 1px solid rgba(0, 0, 0, 0.05); }
+        nav.topNav ul.nav li:first-child a {
+          border-top: 1px solid rgba(0, 0, 0, 0.05); }
     nav.topNav ul.socialLink {
       margin-top: 1.5rem;
       margin-right: 1.6rem; } }
