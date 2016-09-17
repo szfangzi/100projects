@@ -96,6 +96,7 @@ body{
   background-color: #F2F2F2;
   font-family: "Proxima Nova Regular","Segoe UI",Roboto,"Droid Sans","Helvetica Neue",Arial,sans-serif;
   color: #333;
+  background: url("../img/smbg.png") repeat 0 0;
 }
 a{
     color: #666;
@@ -108,8 +109,7 @@ a:hover, a:active{
 
 /*component*/
 .searchBox{
-  margin-left: 5.5%;
-  padding: 1rem 0 2rem 0;
+  padding: 1rem 0 2rem 5.5%;
   .text{
     display: inline-block;
     width: 100%;
@@ -146,6 +146,13 @@ a:hover, a:active{
     }
   }
 }
+
+@media only screen and (min-width:$md-min){
+  body{
+    border-left: .625em solid transparent;
+  }
+}
+
 
 /*header*/
 header{
@@ -281,7 +288,6 @@ header{
 
 /*nav*/
 nav.topNav{
-  margin-left: 1rem;
   display: none;
   .logo{
     background-color: #fff;
@@ -293,6 +299,8 @@ nav.topNav{
     justify-content: center;
     align-items:center;
     float: left;
+    z-index: 10;
+    position: relative;
     a{
       width: 80%;
     }
@@ -310,24 +318,35 @@ nav.topNav{
         color: rgba(0,0,0,.3);
       }
     }
+    li.eBook{
+      background-image: url(../img/cody.svg);
+      background-repeat: no-repeat;
+      background-size: 50%;
+      background-position: 3.2rem .3rem;
+    }
   }
   ul.socialLink{
     float: right;
     margin-top: 3.5rem;
+    margin-right: 1.25rem;
     li{
       background-image: url("../img/channels.svg");
       background-size: 300%;
-      width: 2rem;
-      height: 2rem;
+      width: 2.2rem;
+      height: 2.2rem;
       overflow: hidden;
       display: inline-block;
+      opacity: .3;
       a{
         text-indent: 150%;
         display: inline-block;
       }
     }
+    li:hover{
+      opacity: 1;
+    }
     li.rss{
-      background-position: -76% -89%;
+      background-position: -76% -88%;
     }
     li.fb{
       background-position: -76% -61%;
@@ -349,10 +368,32 @@ nav.topNav{
     display: block;
   }
 }
-@media only screen and (min-width: $xlg-min) and (max-width: $xlg-max) {}
+@media only screen and (min-width: $xlg-min) and (max-width: $xlg-max) {
+  nav.topNav{
+    .socialLink{
+      position: relative;
+      right: 37.5rem;
+    }
+  }
+}
 @media only screen and (min-width: $lg-min) and (max-width: $lg-max) {}
+
 @media only screen and (min-width:$md-min) and (max-width: $md-max) {
 
+}
+@media only screen and (min-width:$lg-min){
+  nav.topNav{
+    .logo{
+      width: 16%;
+    }
+  }
+}
+@media only screen and (min-width:$xlg-min){
+  nav.topNav{
+    .logo{
+      width: 13%;
+    }
+  }
 }
 @media only screen and (min-width: $sm-min) and (max-width: $sm-max) {
 
@@ -361,152 +402,178 @@ nav.topNav{
 
 
 /*main*/
-main{
-  background-color: #fff;
-  .searchBox{
-    display: none;
-  }
-  .main{
-    position: relative;
-    article{
-      padding: 0 5.5% 6rem;
-      border-bottom: .3rem solid $blue;
-      .title{
-
-        h2{
-          .author:before{
-            content: 'By';
-            color: #B7B7B7;
-            font-weight: normal;
-            margin-right: .6rem;
-          }
-          .author{
-            color: $blue;
-            font-weight: normal;
-            line-height: 1.35;
-            font-size: 2.4rem;
-            padding: .8rem 0;
-            border-bottom: .1rem solid rgba(0,0,0,.1);
-          }
-        }
-
-      }
-      .msg{
-        li{
-          color: $blue;
-          display: inline-block;
-          padding: 0 0 0 2rem;
-          background-size: 1.6rem;
-          background-repeat: no-repeat;
-          background-position: 0 .2rem;
-          margin-bottom: 1.6rem;
-          margin-right: 2.8rem;
-        }
-        li:last{
-          margin-right: 0;
-        }
-        li:nth-of-type(1){
-          color: rgba(0,0,0,.3);
-          background-image: url(../img/icon-meta-time.svg);
-        }
-        li:nth-of-type(2){
-          background-image: url(../img/icon-meta-tags.svg);
-        }
-        li:nth-of-type(3){
-          background-image: url(../img/icon-meta-comments.svg);
-        }
-      }
-      .msg+p{
-        font-family: "Skolar Regular","Roboto Slab","Droid Serif",Cambria,Georgia,"Times New Roman",Times,serif;
-        font-size: 2.2rem;
-      }
-      .imgLink{}
-      p{
-        padding: .8rem 0;
-        font-size: 1.8rem;
-      }
-      .moreBtn{
-        background-color: $blue;
-        border-radius: .4rem;
-        padding: .5rem;
-        border: 1px solid #3BA5C3;
-        color: #fff;
-      }
+main {
+  .col {
+    .searchBox {
+      display: none;
     }
-    .page{
+    .main {
+      background-color: #fff;
       position: relative;
-      padding: 2.8rem 5.5% 10em;
-      .prev, .next{
-        height: 2rem;
-        position: absolute;
-        top: 7.5rem;
-        a{
-          background-color: #E75631;
+      article {
+        padding: 0 5.5% 6rem;
+        border-bottom: .3rem solid $blue;
+        .title {
+
+          h2 {
+            .author:before {
+              content: 'By';
+              color: #B7B7B7;
+              font-weight: normal;
+              margin-right: .6rem;
+            }
+            .author {
+              color: $blue;
+              font-weight: normal;
+              line-height: 1.35;
+              font-size: 2.4rem;
+              padding: .8rem 0;
+              border-bottom: .1rem solid rgba(0, 0, 0, .1);
+            }
+          }
+
+        }
+        .msg {
+          li {
+            color: $blue;
+            display: inline-block;
+            padding: 0 0 0 2rem;
+            background-size: 1.6rem;
+            background-repeat: no-repeat;
+            background-position: 0 .2rem;
+            margin-bottom: 1.6rem;
+            margin-right: 2.8rem;
+          }
+          li:last {
+            margin-right: 0;
+          }
+          li:nth-of-type(1) {
+            color: rgba(0, 0, 0, .3);
+            background-image: url(../img/icon-meta-time.svg);
+          }
+          li:nth-of-type(2) {
+            background-image: url(../img/icon-meta-tags.svg);
+          }
+          li:nth-of-type(3) {
+            background-image: url(../img/icon-meta-comments.svg);
+          }
+        }
+        .msg + p {
+          font-family: "Skolar Regular", "Roboto Slab", "Droid Serif", Cambria, Georgia, "Times New Roman", Times, serif;
+          font-size: 2.2rem;
+        }
+        .imgLink {
+        }
+        p {
+          padding: .8rem 0;
+          font-size: 1.8rem;
+        }
+        .moreBtn {
+          background-color: $blue;
+          border-radius: .4rem;
+          padding: .5rem;
+          border: 1px solid #3BA5C3;
           color: #fff;
-          padding: .4rem .6rem .6rem;
         }
       }
-      .prev{
-        left: 5.5%;
-      }
-      .next{
-        right: 5.5%;
-      }
-      .pgs{
-        a{
-          text-align: center;
-          width: 16.666%;
-          display: inline-block;
-          float: left;
+      .page {
+        position: relative;
+        padding: 2.8rem 5.5% 10em;
+        .prev, .next {
+          height: 2rem;
+          position: absolute;
+          top: 7.5rem;
+          a {
+            background-color: #E75631;
+            color: #fff;
+            padding: .4rem .6rem .6rem;
+          }
+        }
+        .prev {
+          left: 5.5%;
+        }
+        .next {
+          right: 5.5%;
+        }
+        .pgs {
+          a {
+            text-align: center;
+            width: 16.666%;
+            display: inline-block;
+            float: left;
+          }
+        }
+        a {
+          color: $blue;
+          padding: .4rem 0;
+          border-radius: .4rem;
+          box-sizing: border-box;
+        }
+        a:hover, a.active {
+          color: #fff;
+          background-color: $blue;
+
         }
       }
-      a{
-        color: $blue;
-        padding: .4rem 0;
-        border-radius: .4rem;
-        box-sizing: border-box;
+      .toTopBtn {
+        right: 1.5em;
+        bottom: 1.17em;
+        color: rgba(0, 0, 0, .4);
+        border-bottom: .1em solid rgba(0, 0, 0, .1);
+        position: absolute;
       }
-      a:hover, a.active{
-        color: #fff;
-        background-color: $blue;
 
-
-      }
-    }
-    .toTopBtn{
-      right: 1.5em;
-      bottom: 1.17em;
-      color: rgba(0,0,0,.4);
-      border-bottom: .1em solid rgba(0,0,0,.1);
-      position: absolute;
     }
 
   }
-
 }
 
 @media only screen and (max-width: $xlg-max) {}
-@media only screen and (min-width: $md-min) and (max-width: $xlg-max) {
-  main{
-    margin-left: 1rem;
-  }
-}
 @media only screen and (min-width: $xlg-min) and (max-width: $xlg-max) {}
 @media only screen and (min-width: $lg-min) and (max-width: $lg-max) {}
+@media only screen and (min-width: $md-min){
+  main {
+    .col {
+      float: left;
+      width: 100%;
+    }
+
+  }
+}
 @media only screen and (min-width:$md-min) and (max-width: $md-max) {
-  main{
-    .searchBox{
-      display: inline-block;
-      width: 94.5%;
-      .searchInputBox{
-        input{
-          padding: 1.6rem;
-          width: 65%;
+  main {
+    .col {
+      .searchBox {
+        display: inline-block;
+        width: 94.5%;
+        background-color: #fff;
+        .searchInputBox {
+          input {
+            padding: 1.6rem;
+            width: 65%;
+          }
+          .searchBtn {
+            padding: 1.47rem;
+            width: 20%;
+          }
         }
-        .searchBtn{
-          padding: 1.47rem;
-          width: 20%;
-        }
+      }
+    }
+  }
+}
+@media only screen and (min-width: $lg-min){
+  main {
+    .col {
+      margin-right: -37.5rem;
+      width: 99%;
+      .main{
+        margin-right: 37.5rem;
+        border-bottom-right-radius: 1rem;
+        border-top-right-radius: 1rem;
+        box-shadow: 0 0 .625em .08em rgba(0,0,0,.05);
+      }
+      .searchBox {
+        display: none;
       }
     }
   }
@@ -516,18 +583,20 @@ main{
 }
 
 @media only screen and (min-width: 38.125rem) {
-  main{
-    .main{
-      .page {
-        .prev, .next{
-          position: static;
-          float: left;
-          width: 20%;
-        }
-        .pgs{
-          width: 60%;
-          float: left;
-          margin-top: -0.35rem;
+  main {
+    .col {
+      .main {
+        .page {
+          .prev, .next {
+            position: static;
+            float: left;
+            width: 20%;
+          }
+          .pgs {
+            width: 60%;
+            float: left;
+            margin-top: -0.35rem;
+          }
         }
       }
     }
@@ -536,10 +605,65 @@ main{
 @media only screen and (max-width: $xs-max) {}
 
 
+aside{
+  .col{
+    width: 35rem;
+    padding: 0 0 0 1.6666rem;
+    display: none;
+    float: left;
+    position: relative;
+    .searchBox{
+      padding-left: 0;
+      .searchInputBox{
+        input{
+          width: 71%;
+        }
+        .searchBtn{
+          width: 24%;
+        }
+      }
+    }
+  }
+
+}
+
+@media only screen and (max-width: $xlg-max) {}
+@media only screen and (min-width: $md-min){
+  aside{
+    .col{
+      display: block;
+    }
+  }
+}
+@media only screen and (min-width: $lg-min){
+  aside{
+    .col{
+      top: -4rem;
+    }
+  }
+}
+@media only screen and (min-width: $xlg-max){
+  aside{
+    .col{
+      top: 0rem;
+    }
+  }
+}
+@media only screen and (min-width: $xlg-min) and (max-width: $xlg-max) {}
+@media only screen and (min-width: $lg-min) and (max-width: $lg-max) {}
+@media only screen and (min-width:$md-min) and (max-width: $md-max) {
+
+}
+@media only screen and (min-width: $sm-min) and (max-width: $sm-max) {
+
+}
+
+@media only screen and (max-width: $xs-max) {}
 
 /*footer*/
 footer{
   ul{
+    float: left;
     li{
       font-size: 1.2rem;
       padding: 2rem 0 2rem 5.5%;
@@ -574,6 +698,7 @@ footer{
     color:rgba(0,0,0,.35);
     display: inline-block;
     padding: 2rem 5.5%;
+    float: left;
     a{
       color: $blue;
     }
@@ -596,6 +721,7 @@ footer{
     }
   }
 }
+
 @media only screen and (min-width:$md-min) and (max-width: $md-max) {}
 @media only screen and (min-width: $sm-min) and (max-width: $sm-max) {
 
@@ -660,3 +786,5 @@ footer{
 
 
 }
+
+/*# sourceMappingURL=main.css.map */
