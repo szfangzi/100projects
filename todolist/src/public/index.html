@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <!--ie=edge 强制使用IE最新版本渲染(IE11已被弃用)-->
+    <title>Responsive</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <!-- build:css css/combined.css -->
+    <link rel="stylesheet" href="css/resets.css">
+    <link rel="stylesheet" href="css/main.css">
+    <!-- endbuild -->
+</head>
+<body>
+
+<div class="container">
+    <div class="todolist">
+        <div class="main">
+            <div class="top clearfix">
+                <h1>杂货购物</h1>
+
+                <div class="r"></div>
+            </div>
+            <div class="listBox">
+                <div class="addTask">
+                    <i class="addIcon">+</i>
+                    <input type="text" placeholder="添加任务">
+                </div>
+                <section class="list">
+                    <div class="item">
+                        <div class="l">
+                            <input type="checkbox" class="isFinished">
+                            <h6>买药1</h6>
+                        </div>
+                        <div class="r">
+                            <div class="date">2016.2.2</div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="l">
+                            <input type="checkbox" class="isFinished">
+                            <h6>买药1</h6>
+                        </div>
+                        <div class="r">
+                            <div class="date">2016.2.2</div>
+                        </div>
+                    </div>
+                </section>
+                <section class="list">
+                    <a href="javascript:;" class="finishedBtn">显示已完成任务</a>
+                </section>
+                <section class="list isFinishedBox">
+                    <div class="item">
+                        <div class="l">
+                            <input type="checkbox" class="isFinished">
+
+                            <div class="title">
+                                <h6>买药1</h6>
+                                <span class="ago">2天以前</span>
+                            </div>
+
+                        </div>
+                        <div class="r">
+                            <div class="date">2016.2.2</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="detailBox">
+        <div class="taskName">
+            <input type="checkbox" class="isFinished">
+
+            <h2>买药</h2>
+        </div>
+        <ul class="taskInfos">
+            <li><label for="taskDate">日期:</label><input type="date" name="taskDate" id="taskDate" class="date"></li>
+            <li><label for="remark">备注:</label><input type="text" name="remark" id="remark" class="txt"></li>
+        </ul>
+        <div class="bottom">
+            <a href="javascript:;" class="backBtn">返回</a>
+            <a href="javascript:;" class="delBtn">删除</a>
+        </div>
+    </div>
+</div>
+
+<!-- build:js js/combined.js -->
+<!--<script type="text/javascript" src="js/main.js"></script>-->
+<!-- endbuild -->
+</body>
+</html>

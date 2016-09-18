@@ -1,0 +1,18 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "项目简介、使用方式、相关链接",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-sass": "^2.3.2"
+  }
+}
