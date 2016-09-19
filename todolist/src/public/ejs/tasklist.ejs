@@ -1,0 +1,35 @@
+<script type="text/template" id="todolistTmpl">
+  <section class="list">
+    <% for(var k in unfList){ %>
+    <div class="item" taskId="<%=unfList[k].id%>">
+      <div class="l">
+        <input type="checkbox" class="isFinished">
+        <h6><%=unfList[k].taskname%></h6>
+      </div>
+      <div class="r">
+        <div class="date"><%=unfList[k].fDateFormat%></div>
+      </div>
+    </div>
+    <% } %>
+
+  </section>
+  <section class="list">
+    <a href="javascript:;" class="finishedBtn">显示已完成任务</a>
+  </section>
+  <section class="list isFinishedBox">
+    <% for(var k in fList){ %>
+    <div class="item" taskId="<%=fList[k].id%>">
+      <div class="l">
+        <input type="checkbox" class="isFinished" checked >
+        <div class="title">
+          <h6><%=fList[k].taskname%></h6>
+          <!--<span class="ago"><%=fList[k].ago%></span>-->
+        </div>
+      </div>
+      <div class="r">
+        <div class="date"><%=fList[k].fDateFormat%></div>
+      </div>
+    </div>
+    <% } %>
+  </section>
+</script>

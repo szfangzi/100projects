@@ -88,12 +88,25 @@ a:hover, a:active {
   color: #0ae;
   text-decoration: underline; }
 
+.route {
+  position: fixed;
+  top: 0;
+  left: 40%; }
+  .route button {
+    width: 4rem;
+    height: 2rem;
+    font-size: 1rem; }
+
 .todolist {
   float: left;
   width: 100%;
-  margin-right: -23.125rem; }
+  margin-right: 0; }
+  .todolist.detailOn {
+    margin-right: -23.125rem; }
+    .todolist.detailOn .main {
+      margin-right: 23.125rem; }
   .todolist .main {
-    margin-right: 23.125rem;
+    margin-right: 0;
     height: 100vh;
     overflow: hidden;
     display: flex;
@@ -156,7 +169,7 @@ a:hover, a:active {
           border-radius: .3rem;
           height: 3rem;
           padding: 0 3rem;
-          margin-bottom: .05rem;
+          margin-bottom: .06rem;
           position: relative; }
           .todolist .main .listBox .list .item.on {
             background-color: #E1F2FE; }
@@ -182,10 +195,7 @@ a:hover, a:active {
         .todolist .main .listBox .list.isFinishedBox .item {
           opacity: .5; }
           .todolist .main .listBox .list.isFinishedBox .item .l h6 {
-            margin-top: .4rem;
-            text-decoration: line-through;
-            min-height: 1rem;
-            line-height: 1rem; }
+            text-decoration: line-through; }
 
 @media only screen and (max-width: 62.5em) {
   .todolist {
@@ -198,51 +208,57 @@ a:hover, a:active {
   width: 23.125rem;
   height: 100vh;
   background-color: #fff;
-  display: flex;
+  display: none;
   flex-direction: column; }
-  .detailBox .taskName {
-    border-bottom: 1px solid #EBEBEB;
-    height: auto;
-    position: relative; }
-    .detailBox .taskName .isFinished {
-      position: absolute;
-      left: 1rem;
-      top: 1rem;
-      width: 1.2rem;
-      height: 1.2rem; }
-    .detailBox .taskName h2 {
-      font-weight: bold;
-      min-height: 1.5rem;
-      overflow: hidden;
-      padding: 1rem 3rem .9rem;
-      line-height: 1.5rem; }
-  .detailBox .taskInfos {
-    background-color: #fafafa;
-    flex: 1;
-    padding-top: .5rem; }
-    .detailBox .taskInfos li {
-      padding: .5rem; }
-      .detailBox .taskInfos li label {
-        margin-right: .5rem;
-        color: #999;
-        position: relative;
-        top: 1px; }
-      .detailBox .taskInfos li .date, .detailBox .taskInfos li .txt {
-        height: 1.5rem;
-        padding: .1rem 0;
-        width: 80%;
-        border: none;
-        background-color: #fafafa;
-        color: #999; }
-        .detailBox .taskInfos li .date:focus, .detailBox .taskInfos li .txt:focus {
-          outline: none; }
-  .detailBox .bottom {
-    padding: 1rem;
-    border-top: 1px solid #EBEBEB; }
-    .detailBox .bottom .backBtn {
-      float: left; }
-    .detailBox .bottom .delBtn {
-      float: right; }
+  .detailBox.on {
+    display: flex; }
+  .detailBox #taskInfoBox {
+    display: flex;
+    height: 100vh;
+    flex-direction: column; }
+    .detailBox #taskInfoBox .taskName {
+      border-bottom: 1px solid #EBEBEB;
+      height: auto;
+      position: relative; }
+      .detailBox #taskInfoBox .taskName .isFinished {
+        position: absolute;
+        left: 1rem;
+        top: 1rem;
+        width: 1.2rem;
+        height: 1.2rem; }
+      .detailBox #taskInfoBox .taskName h2 {
+        font-weight: bold;
+        min-height: 1.5rem;
+        overflow: hidden;
+        padding: 1rem 3rem .9rem;
+        line-height: 1.5rem; }
+    .detailBox #taskInfoBox .taskInfos {
+      background-color: #fafafa;
+      flex: 1;
+      padding-top: .5rem; }
+      .detailBox #taskInfoBox .taskInfos li {
+        padding: .5rem; }
+        .detailBox #taskInfoBox .taskInfos li label {
+          margin-right: .5rem;
+          color: #999;
+          position: relative;
+          top: 1px; }
+        .detailBox #taskInfoBox .taskInfos li .date, .detailBox #taskInfoBox .taskInfos li .txt {
+          height: 1.5rem;
+          padding: .1rem 0;
+          width: 80%;
+          border: none;
+          background-color: #fafafa;
+          color: #999; }
+          .detailBox #taskInfoBox .taskInfos li .date:focus, .detailBox #taskInfoBox .taskInfos li .txt:focus {
+            outline: none; }
+    .detailBox #taskInfoBox .bottom {
+      padding: 1rem;
+      border-top: 1px solid #EBEBEB; }
+      .detailBox #taskInfoBox .bottom .backBtn {
+        float: left; }
+      .detailBox #taskInfoBox .bottom .delBtn {
+        float: right; }
 
 @media only screen and (max-width: 62.5em) and (min-width: 34.375em) {
   .detailBox {
