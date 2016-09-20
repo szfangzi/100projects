@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <!--ie=edge 强制使用IE最新版本渲染(IE11已被弃用)-->
-  <title>Responsive</title>
+  <title>jquery-todolist</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
   <!-- build:css css/combined.css -->
   <link rel="stylesheet" href="../public/css/resets.css">

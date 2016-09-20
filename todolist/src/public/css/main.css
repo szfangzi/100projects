@@ -2,10 +2,21 @@
 /*基本变量*/
 /************
  * 基本默认值
- //************/
+ ************/
 html {
   font-size: 100%;
-  font-family: "Microsoft Yahei","微软雅黑","STXihei","Meiryo UI","Meiryo","メイリオ","ＭＳ Ｐゴシック","MS PGothic","Hiragino Kaku Gothic Pro","Arial Unicode MS","Helvetica Neue","Helvetica","Arial",sans-serif; }
+  font-family: "Microsoft Yahei","微软雅黑","STXihei","Meiryo UI","Meiryo","メイリオ","ＭＳ Ｐゴシック","MS PGothic","Hiragino Kaku Gothic Pro","Arial Unicode MS","Helvetica Neue","Helvetica","Arial",sans-serif;
+  -webkit-touch-callout: none;
+  /*系统默认菜单被禁用*/
+  -webkit-user-select: none;
+  /*webkit浏览器*/
+  -khtml-user-select: none;
+  /*早期浏览器*/
+  -moz-user-select: none;
+  /*火狐*/
+  -ms-user-select: none;
+  /*IE10*/
+  user-select: none; }
 
 ::selection {
   text-shadow: none; }
@@ -82,7 +93,8 @@ body {
 
 a {
   color: #666;
-  text-decoration: none; }
+  text-decoration: none;
+  user-select: none; }
 
 a:hover, a:active {
   color: #0ae;
@@ -274,6 +286,25 @@ a:hover, a:active {
     right: 0;
     top: 0;
     width: 100%; } }
+
+#testPage {
+  display: none; }
+
+/*angular*/
+@keyframes pageEnter {
+  0% {
+    margin-top: -20rem;
+    margin-left: -20rem; }
+  100% {
+    margin-top: 0rem;
+    margin-left: 0rem; } }
+
+.pageEnter {
+  animation: pageEnter 1s 1; }
+
+#forecastPage {
+  height: 100vh;
+  color: #000; }
 
 /************
  * 打印样式

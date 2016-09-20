@@ -1,0 +1,27 @@
+<div id="tasklist">
+<section class="list">
+  <div class="item" taskId="{{item.id}}" ng-repeat="item in unfList" >
+    <div class="l">
+      <input type="checkbox" class="isFinished" ng-click="toFinished($event)">
+      <h6>{{item.taskname}}</h6>
+    </div>
+    <div class="r">
+      <div class="date">{{item.fDateFormat}}</div>
+    </div>
+  </div>
+</section>
+<section class="list">
+  <a href="javascript:;" class="finishedBtn">显示已完成任务</a>
+</section>
+<section class="list isFinishedBox">
+  <div class="item" taskId="{{item.id}}" ng-repeat="item in fList">
+    <div class="l">
+      <input type="checkbox" class="isFinished" checked ng-click="unFinished($event)">
+      <h6>{{item.taskname}}</h6>
+    </div>
+    <div class="r">
+      <div class="date">{{item.fDateFormat}}</div>
+    </div>
+  </div>
+</section>
+</div>

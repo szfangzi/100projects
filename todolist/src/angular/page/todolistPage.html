@@ -1,0 +1,23 @@
+<div id="todolistPage" class="pageEnter" ng-controller="TodolistPageController">
+  <div class="todolist">
+    <div class="main">
+      <div class="top clearfix">
+        <h1>任务列表</h1>
+        <div class="r"></div>
+      </div>
+      <div class="listBox">
+        <div class="addTask" ng-controller="AddTaskController">
+          <i class="addIcon">+</i>
+          <input type="text" placeholder="添加任务" ng-model="newTaskName" ng-keydown="addTask($event)">
+        </div>
+        <tasklist></tasklist>
+      </div>
+    </div>
+  </div>
+  <div class="detailBox">
+    <div id="taskInfoBox">
+
+    </div>
+  </div>
+</div>
+

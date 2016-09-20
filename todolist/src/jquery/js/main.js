@@ -1,5 +1,6 @@
 (function($){
 
+  var taskTouchTimer = null;
   $(window).on('hashchange', function (e) {
     $('.container').hide();
     if(location.hash == '#index'){
@@ -9,6 +10,7 @@
     }
 
   });
+
   $('.route').on('click','#routeIndex', function (e) {
     location.hash = '#index';
   }).on('click','#routeTest', function (e) {
@@ -52,14 +54,16 @@
 
   }).on('dblclick', '#tasklist .item', function (e) {
     e.stopPropagation();
-    var $this = $(this);
-    var taskId = $this.attr('taskId');
-    var task = getItem(window.tasklist, taskId);
-    task.fdateFormat = task.fDate?new Date(task.fDate).Format('YYYY-MM-DD'):'';
-    taskInfoInit(task);
-    $('.todolist').addClass('detailOn');
-    $('.detailBox').addClass('on');
+    popTaskInfo($(this));
 
+  }).on('touchstart', '#tasklist .item', function (e) {
+    var $taskItem = $(this);
+    taskTouchTimer = setTimeout(function (e) {
+      popTaskInfo($taskItem);
+    },600);
+
+  }).on('touchend', '#tasklist .item', function (e) {
+    clearTimeout(taskTouchTimer);
   }).on('click', '#tasklist .item', function (e) {
     e.stopPropagation();
     var $this = $(this);
@@ -90,6 +94,7 @@
       $('.detailBox .backBtn').click();
     }
   }).on('click', '.backBtn', function (e) {
+    e.preventDefault();
     var $this = $(this);
     var tasklist = window.tasklist;
     var taskId = $('#taskInfoBox .taskName').attr('taskId');
@@ -106,6 +111,16 @@
     $('.detailBox').removeClass('on');
 
   });
+
+  function popTaskInfo($taskItem){
+    var $this = $taskItem;
+    var taskId = $this.attr('taskId');
+    var task = getItem(window.tasklist, taskId);
+    task.fdateFormat = task.fDate?new Date(task.fDate).Format('YYYY-MM-DD'):'';
+    taskInfoInit(task);
+    $('.todolist').addClass('detailOn');
+    $('.detailBox').addClass('on');
+  }
 
   function taskInfoInit(task) {
     var tmpl = $('#taskInfoTmpl').html();
