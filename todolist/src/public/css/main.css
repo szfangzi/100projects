@@ -287,9 +287,6 @@ a:hover, a:active {
     top: 0;
     width: 100%; } }
 
-#testPage {
-  display: none; }
-
 /*angular*/
 @keyframes pageEnter {
   0% {

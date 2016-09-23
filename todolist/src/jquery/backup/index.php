@@ -10,20 +10,13 @@
   <link rel="stylesheet" href="../public/css/resets.css">
   <link rel="stylesheet" href="../public/css/main.css">
   <!-- endbuild -->
-
-  <!-- build:js js/combined.js -->
-  <script type="text/javascript" src="../public/js/jquery.min.js"></script>
-  <script type="text/javascript" src="../public/js/ejs.min.js"></script>
-  <script type="text/javascript" src="../public/js/director.js"></script>
-  <script type="text/javascript" src="js/main.js"></script>
-  <!-- endbuild -->
 </head>
 <body>
 <div class="route">
-  <a href="#/all" id="routeAll">所有任务</a>
-  <a href="#/today" id="routeToday">今天任务</a>
+  <button id="routeIndex">所有任务</button>
+  <button id="routeTest">今天任务</button>
 </div>
-<div class="container" id="container">
+<div class="container" id="todolistPage">
   <div class="todolist">
     <div class="main">
       <div class="top clearfix">
@@ -33,7 +26,7 @@
       <div class="listBox">
         <div class="addTask">
           <i class="addIcon">+</i>
-          <input type="text" placeholder="添加任务" id="addTaskInput">
+          <input type="text" placeholder="添加任务">
         </div>
         <div id="tasklist"></div>
       </div>
@@ -46,11 +39,19 @@
   </div>
 </div>
 
+<div class="container" id="testPage" style="background-color: beige;width: 100%;height: 100vh;">
+  第二页
+</div>
 
 <?php
 include('../public/ejs/taskinfo.ejs');
 include('../public/ejs/tasklist.ejs');
 ?>
-
+<!-- build:js js/combined.js -->
+<script type="text/javascript" src="../public/js/jquery.min.js"></script>
+<script type="text/javascript" src="../public/js/ejs.min.js"></script>
+<script type="text/javascript" src="../public/js/lib.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<!-- endbuild -->
 </body>
 </html>
