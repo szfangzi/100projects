@@ -1,10 +1,11 @@
 <script type="text/template" id="taskInfoTmpl">
+    <input type="hidden" value="<%=task.id%>" name="id">
     <div class="taskName" taskId="<%=task.id%>">
-        <input type="checkbox" class="isFinished" <%if(task.isFinished){%>checked <%}%> >
+        <input type="checkbox" class="isFinished" name="isFinished" <%if(task.isFinished){%>checked <%}%> >
         <h2><input type="text" name="taskname" id="taskname" class="txt" value="<%=task.taskname%>" placeholder="填写备注"></h2>
     </div>
     <ul class="taskInfos">
-        <li><label for="taskDate">到期日期:</label><input type="date" name="taskDate" id="taskDate" class="date" value="<%= Util.dateFormat(new Date(task.fDate), 'YYYY-MM-DD') %>"></li>
+        <li><label for="taskDate">到期日期:</label><input type="date" name="fDate" id="taskDate" class="date" value="<%= Util.dateFormat(new Date(task.fDate), 'YYYY-MM-DD') %>"></li>
         <li><label for="remark">备注:</label><input type="text" name="remark" id="remark" class="txt" value="<%=task.remark%>" placeholder="填写备注"></li>
     </ul>
     <div class="bottom">

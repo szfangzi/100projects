@@ -68,6 +68,9 @@ $(function(){
 
       self.$container = $('#container');
       self.$addTaskInput = $('#addTaskInput');
+      self.$todolist = $('#todolist');
+      self.$detailBox = $('#detailBox');
+      self.$tasklist = $('#tasklist');
       self.$fList = $('#fList');
       self.$fListTmpl = $('#fListTmpl');
       self.$unfList = $('#unfList');
@@ -116,12 +119,60 @@ $(function(){
         self.$fList.toggleClass('on');
       }).on('click', '#tasklist .isFinished', function (e) {
         var $this = $(this);
-        var taskId = $this.parents('.item').attr('taskId');
-
+        var taskId = '0';
+        if($this.parents('taskName').length){
+          taskId = $this.parents('.taskName').attr('taskId');
+        }else{
+          taskId = $this.parents('.item').attr('taskId');
+        }
         self.updateTasklist({id:taskId, isFinished:$this.prop('checked')}, function () {
           self.renderTasklist();
         });
+
+      }).on('dblclick', '#tasklist .item', function (e) {
+        var $this = $(this);
+        var taskId = $this.attr('taskId')||"0";
+        var task = self.getTaskById(taskId);
+        self.renderTaskInfo(task);
+        self.$detailBox.addClass('on');
+        self.$todolist.addClass('detailOn');
+
+      }).on('click', '#tasklist .item', function (e) {
+        var $this = $(this);
+        self.$tasklist.find('.item').removeClass('on');
+        $this.addClass('on');
+
+      }).on('click', '#taskInfoBox .isFinished', function (e) {
+        var $this = $(this);
+        var taskId = $this.parents('.taskName').attr('taskId');
+        self.updateTasklist({id:taskId, isFinished:$this.prop('checked')}, function () {
+          self.renderTasklist();
+        });
+
+      }).on('click', '#taskInfoBox .backBtn, #todolist .main', function (e) {
+        e.stopPropagation();
+        if(self.$todolist.hasClass('detailOn')){
+          var task = self.$taskInfoBox.serializeArray();
+          console.log(task);
+          //self.updateTasklist({}, function () {
+          //  self.$detailBox.removeClass('on');
+          //  self.$todolist.removeClass('detailOn');
+          //  self.renderTasklist();
+          //});
+        }
+
+
+      }).on('click', '#taskInfoBox .delBtn', function (e) {
+        var $this = $(this);
+        var taskId = self.$taskInfoBox.find('.taskName').attr('taskId');
+        self.delTask(taskId, function () {
+          self.$detailBox.removeClass('on');
+          self.$todolist.removeClass('detailOn');
+          self.renderTasklist();
+        });
       })
+
+
     },
     render: function ($target, $tmpl, dataObj) {
       var tmpl = $tmpl.html();
@@ -134,10 +185,20 @@ $(function(){
       self.render(self.$fList, self.$fListTmpl, {fList:fList});
       self.render(self.$unfList, self.$unfListTmpl, {unfList:unfList});
     },
-    renderTaskInfo: function () {
+    renderTaskInfo: function (task) {
       var self = this;
-      var fList = self.getFlist()||[], unfList = self.getUnflist()||[];
-      self.render(self.$fList, self.$fListTmpl, {fList:fList});
+      self.render(self.$taskInfoBox, self.$taskInfoTmpl, {task:task});
+    },
+    delTask: function (id, callback) {
+      var self = this;
+      var tasklist = self.getTasklist();
+      for (var i = 0; i < tasklist.length; i++) {
+        if(tasklist[i].id === id){
+          tasklist.splice(i,1);
+          self.setTasklist(tasklist);
+        }
+      }
+      callback();
     },
     updateTasklist: function (task, callback) {
       var self = this;
@@ -201,6 +262,16 @@ $(function(){
         return a['fDate']>=b['fDate']?-1:1;
       });
       return unfList;
+    },
+    getTaskById: function (id) {
+      var self = this;
+      var tasklist = self.getTasklist();
+      for (var k in tasklist) {
+        if(tasklist[k].id === id){
+          return tasklist[k];
+        }
+      }
+      return false;
     }
 
 

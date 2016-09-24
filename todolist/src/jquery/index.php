@@ -24,7 +24,7 @@
   <a href="#/today" id="routeToday">今天任务</a>
 </div>
 <div class="container" id="container">
-  <div class="todolist">
+  <div class="todolist" id="todolist">
     <div class="main">
       <div class="top clearfix">
         <h1>任务列表</h1>
@@ -46,10 +46,10 @@
       </div>
     </div>
   </div>
-  <div class="detailBox">
-    <div id="taskInfoBox">
+  <div class="detailBox" id="detailBox">
+    <form id="taskInfoBox">
 
-    </div>
+    </form>
   </div>
 </div>
 

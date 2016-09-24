@@ -10,6 +10,7 @@ html{
   font-family: "Microsoft Yahei","微软雅黑","STXihei","Meiryo UI","Meiryo","メイリオ","ＭＳ Ｐゴシック","MS PGothic","Hiragino Kaku Gothic Pro","Arial Unicode MS","Helvetica Neue","Helvetica","Arial",sans-serif;
   -webkit-touch-callout:none; /*系统默认菜单被禁用*/ -webkit-user-select:none; /*webkit浏览器*/ -khtml-user-select:none; /*早期浏览器*/ -moz-user-select:none;/*火狐*/ -ms-user-select:none; /*IE10*/ user-select:none;
 }
+*::-webkit-scrollbar{width:6px !important} *::-webkit-scrollbar-button:start:decrement, *::-webkit-scrollbar-button:end:increment{height:0;background-color:transparent} *::-webkit-scrollbar-corner{background-color:transparent} *::-webkit-scrollbar-thumb:vertical{-webkit-border-radius:6px;border-radius:6px;background-color:rgba(0,0,0,0.2)}
 *{ }
 ::selection{
   text-shadow: none;
@@ -150,15 +151,15 @@ a:hover, a:active{
       .addIcon{
         position: absolute;
         font-size: 1.6rem;
-        left: 3.6%;
+        left: 2.6%;
         top: 1.1rem;
         color: #fff;
       }
       input {
         border: none;
         color: #fff;
-        width: 96%;
-        margin-left: 2%;
+        width: 98%;
+        margin-left: 1%;
         border-radius: .3rem;
         background-color: #719072;
         height: 3rem;
@@ -174,6 +175,9 @@ a:hover, a:active{
       height: 100vh;
       overflow: auto;
       padding-bottom: 4.5rem;
+      margin-right: .5rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
       .list {
         padding: 0 0 1rem 0;
         position: relative;
@@ -204,8 +208,8 @@ a:hover, a:active{
         }
         .item {
           background-color: #fff;
-          width: 96%;
-          margin-left: 2%;
+          width: 98%;
+          margin-left: 1%;
           color: #333;
           box-sizing: border-box;
           border-radius: .3rem;
