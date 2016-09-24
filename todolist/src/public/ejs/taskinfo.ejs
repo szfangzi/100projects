@@ -4,7 +4,7 @@
         <h2><input type="text" name="taskname" id="taskname" class="txt" value="<%=task.taskname%>" placeholder="填写备注"></h2>
     </div>
     <ul class="taskInfos">
-        <li><label for="taskDate">到期日期:</label><input type="date" name="taskDate" id="taskDate" class="date" value="<%=task.fDateFormat%>"></li>
+        <li><label for="taskDate">到期日期:</label><input type="date" name="taskDate" id="taskDate" class="date" value="<%= Util.dateFormat(new Date(task.fDate), 'YYYY-MM-DD') %>"></li>
         <li><label for="remark">备注:</label><input type="text" name="remark" id="remark" class="txt" value="<%=task.remark%>" placeholder="填写备注"></li>
     </ul>
     <div class="bottom">

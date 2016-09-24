@@ -35,7 +35,14 @@
           <i class="addIcon">+</i>
           <input type="text" placeholder="添加任务" id="addTaskInput">
         </div>
-        <div id="tasklist"></div>
+        <div id="tasklist">
+          <section class="list" id="unfList">
+          </section>
+          <section class="list">
+            <a href="javascript:;" class="finishedBtn"><span class="showText">显示已完成任务</span><span class="hideText">隐藏已完成任务</span></a>
+          </section>
+          <section class="list isFinishedBox" id="fList"></section>
+        </div>
       </div>
     </div>
   </div>

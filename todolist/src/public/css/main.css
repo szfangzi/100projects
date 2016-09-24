@@ -172,6 +172,14 @@ a:hover, a:active {
           margin-left: 2%; }
           .todolist .main .listBox .list .finishedBtn:hover {
             text-decoration: none; }
+          .todolist .main .listBox .list .finishedBtn.on .showText {
+            display: none; }
+          .todolist .main .listBox .list .finishedBtn.on .hideText {
+            display: inline; }
+          .todolist .main .listBox .list .finishedBtn .showText {
+            display: inline; }
+          .todolist .main .listBox .list .finishedBtn .hideText {
+            display: none; }
         .todolist .main .listBox .list .item {
           background-color: #fff;
           width: 96%;
@@ -204,10 +212,14 @@ a:hover, a:active {
             .todolist .main .listBox .list .item .r .date {
               margin-top: .8rem;
               font-size: .875rem; }
-        .todolist .main .listBox .list.isFinishedBox .item {
-          opacity: .5; }
-          .todolist .main .listBox .list.isFinishedBox .item .l h6 {
-            text-decoration: line-through; }
+        .todolist .main .listBox .list.isFinishedBox {
+          display: none; }
+          .todolist .main .listBox .list.isFinishedBox .item {
+            opacity: .5; }
+            .todolist .main .listBox .list.isFinishedBox .item .l h6 {
+              text-decoration: line-through; }
+          .todolist .main .listBox .list.isFinishedBox.on {
+            display: block; }
 
 @media only screen and (max-width: 62.5em) {
   .todolist {

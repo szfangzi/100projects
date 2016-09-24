@@ -1,5 +1,4 @@
-<script type="text/template" id="todolistTmpl">
-  <section class="list">
+<script type="text/template" id="unfListTmpl">
     <% for(var k in unfList){ %>
     <div class="item" taskId="<%=unfList[k].id%>">
       <div class="l">
@@ -7,16 +6,12 @@
         <h6><%=unfList[k].taskname%></h6>
       </div>
       <div class="r">
-        <div class="date"><%=unfList[k].fDateFormat%></div>
+        <div class="date"><%= Util.dateFormat(new Date(unfList[k].fDate), 'YYYY-MM-DD') %></div>
       </div>
     </div>
     <% } %>
-
-  </section>
-  <section class="list">
-    <a href="javascript:;" class="finishedBtn">显示已完成任务</a>
-  </section>
-  <section class="list isFinishedBox">
+</script>
+<script type="text/template" id="fListTmpl">
     <% for(var k in fList){ %>
     <div class="item" taskId="<%=fList[k].id%>">
       <div class="l">
@@ -27,9 +22,8 @@
         </div>
       </div>
       <div class="r">
-        <div class="date"><%=fList[k].fDateFormat%></div>
+        <div class="date"><%= Util.dateFormat(new Date(fList[k].fDate), 'YYYY-MM-DD') %></div>
       </div>
     </div>
     <% } %>
-  </section>
 </script>
