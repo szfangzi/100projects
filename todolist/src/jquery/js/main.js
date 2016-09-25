@@ -102,6 +102,15 @@ $(function(){
     },
     bindEvent: function () {
       var self = this;
+
+      $(window).on('keydown', function (e) {
+        e.stopPropagation();
+        if(e.keyCode === self.options.keyCode.esc){
+          self.$detailBox.removeClass('on');
+          self.$todolist.removeClass('detailOn');
+        }
+      });
+
       self.$container.on('keydown', '#addTaskInput', function (e) {
         var $this = $(this);
         if(e.keyCode == self.options.keyCode.enter){
@@ -151,16 +160,8 @@ $(function(){
 
       }).on('click', '#taskInfoBox .backBtn, #todolist .main', function (e) {
         e.stopPropagation();
-        if(self.$todolist.hasClass('detailOn')){
-          var task = self.$taskInfoBox.serializeArray();
-          console.log(task);
-          //self.updateTasklist({}, function () {
-          //  self.$detailBox.removeClass('on');
-          //  self.$todolist.removeClass('detailOn');
-          //  self.renderTasklist();
-          //});
-        }
-
+        self.$detailBox.removeClass('on');
+        self.$todolist.removeClass('detailOn');
 
       }).on('click', '#taskInfoBox .delBtn', function (e) {
         var $this = $(this);
@@ -170,6 +171,28 @@ $(function(){
           self.$todolist.removeClass('detailOn');
           self.renderTasklist();
         });
+      }).on('blur', '#taskInfoBox input[name="fDate"]', function(e){
+        var $this = $(this);
+        var taskId = self.$taskInfoBox.find('input[name="id"]').val();
+        var fDate = $this.val();
+        self.updateTasklist({id:taskId, fDate:new Date(fDate).getTime()}, function () {
+          self.renderTasklist();
+        });
+
+      }).on('blur', '#taskInfoBox input[name="remark"]', function(e){
+        var $this = $(this);
+        var taskId = self.$taskInfoBox.find('input[name="id"]').val();
+        var remark = $this.val();
+        self.updateTasklist({id:taskId, remark:remark}, function () {
+          self.renderTasklist();
+        });
+
+      }).on('keydown', '#taskInfoBox input[name="remark"]', function(e){
+        if(e.keyCode === self.options.keyCode.enter){
+          var $this = $(this);
+          $this.blur();
+        }
+
       })
 
 
@@ -224,7 +247,6 @@ $(function(){
         tasklist.push(task);
       }
       self.setTasklist(tasklist);
-      self.tasklist = tasklist;
       callback();
     },
     setTasklist: function (tasklist) {
