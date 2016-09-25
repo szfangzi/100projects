@@ -39,6 +39,20 @@ $(function(){
       for (var k in o)
         if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
       return fmt;
+    },
+    isToday:function(date){
+      var now = new Date();
+      if(date.getFullYear() === now.getFullYear() && date.getMonth() === now.getMonth() && date.getDate() === now.getDate()){
+        return true;
+      }
+      return false;
+    },
+    isPassedDate:function(timestamp){
+      var now = new Date();
+      if(now.getTime() > timestamp){
+        return true;
+      }
+      return false;
     }
   };
 
@@ -61,7 +75,8 @@ $(function(){
           enter:13,
           esc:27
         },
-        tasklistName:'tasklist'
+        tasklistName:'tasklist',
+        baseUrl:'/100projects/todolist/src/jquery'
       };
       self.options = {};
       $.fn.extend(self.options, self.defaults, options);
@@ -84,23 +99,44 @@ $(function(){
       if(tasklist.length <= 0){
         self.testData();
       }
-
-      self.initRoute();
       self.bindEvent();
+      self.initRoute();
 
       return self;
     },
     initRoute: function () {
       var self = this;
-      var route = new Router({
-        '/all': function () {
-          self.renderTasklist();
-        },
-        'today':function(){
-
+      new Router({
+        '/': {
+          once:function(){
+            self.route = this;
+          },
+          '/all': {
+            on: function () {
+              self.renderTasklist();
+            },
+            '/task/:taskId': routeTask
+          },
+          '/today': {
+            on: function () {
+              self.renderTasklist();
+            },
+            '/task/:taskId': routeTask
+          }
         }
-      }).init('/all');
 
+      }).configure({recurse:'forward'}).init('/all');
+
+      function routeTask(taskId){
+        var task = self.getTaskById(taskId);
+        self.renderTaskInfo(task);
+        self.showTaskInfo();
+        if(task.isFinished){
+          $('.finishedBtn').addClass('on');
+          self.$fList.addClass('on');
+        }
+        $('#tasklist .item[taskId="'+taskId+'"]').click();
+      }
     },
     bindEvent: function () {
       var self = this;
@@ -124,19 +160,25 @@ $(function(){
         }
 
       }).on('click', '.finishedBtn', function (e) {
+        e.stopPropagation();
         var $this = $(this);
         $this.toggleClass('on');
         self.$fList.toggleClass('on');
-      }).on('click', '#tasklist .isFinished', function (e) {
+      }).on('click', '#tasklist .isFinished, #taskInfoBox .isFinished', function (e) {
+        e.stopPropagation();
         var $this = $(this);
         var taskId = '0';
-        if($this.parents('taskName').length){
-          taskId = $this.parents('.taskName').attr('taskId');
-        }else{
+        if($this.parents('.item').length){
           taskId = $this.parents('.item').attr('taskId');
+        }else{
+          taskId = $this.parents('.taskName').attr('taskId');
         }
         self.updateTasklist({id:taskId, isFinished:$this.prop('checked')}, function () {
           self.renderTasklist();
+          if($this.parents('.item').length){
+            var task = self.getTaskById(taskId);
+            self.renderTaskInfo(task);
+          }
           if($this.prop('checked')){
             self.audioComplete.load();
             self.audioComplete.play();
@@ -144,31 +186,23 @@ $(function(){
         });
 
       }).on('dblclick', '#tasklist .item', function (e) {
+        e.stopPropagation();
         var $this = $(this);
         var taskId = $this.attr('taskId')||"0";
-        var task = self.getTaskById(taskId);
-        self.renderTaskInfo(task);
-        self.showTaskInfo();
+        self.route.setRoute(self.route.getRoute(0)+'/task/'+taskId);
 
       }).on('click', '#tasklist .item', function (e) {
+        e.stopPropagation();
         var $this = $(this);
         self.$tasklist.find('.item').removeClass('on');
         $this.addClass('on');
 
-      }).on('click', '#taskInfoBox .isFinished', function (e) {
-        var $this = $(this);
-        var taskId = $this.parents('.taskName').attr('taskId');
-        self.updateTasklist({id:taskId, isFinished:$this.prop('checked')}, function () {
-          self.renderTasklist();
-          if($this.prop('checked')){
-            self.audioComplete.load();
-            self.audioComplete.play();
-          }
-        });
-
       }).on('click', '#taskInfoBox .backBtn, #todolist .main', function (e) {
         e.stopPropagation();
-        self.hideTaskInfo();
+        if($.inArray('task', self.route.getRoute()) !== -1){
+          self.hideTaskInfo();
+          self.route.setRoute(self.route.getRoute(0));
+        }
 
       }).on('click', '#taskInfoBox .delBtn', function (e) {
         var $this = $(this);
@@ -181,7 +215,13 @@ $(function(){
         var $this = $(this);
         var taskId = self.$taskInfoBox.find('input[name="id"]').val();
         var fDate = $this.val();
-        self.updateTasklist({id:taskId, fDate:new Date(fDate).getTime()}, function () {
+        var fDateTimestamp = new Date(fDate).getTime();
+        self.updateTasklist({id:taskId, fDate:fDateTimestamp}, function () {
+          if(Util.isPassedDate(fDateTimestamp)){
+            $this.parents('li').addClass('passed');
+          }else{
+            $this.parents('li').removeClass('passed');
+          }
           self.renderTasklist();
         });
 
@@ -219,6 +259,23 @@ $(function(){
     renderTasklist: function () {
       var self = this;
       var fList = self.getFlist()||[], unfList = self.getUnflist()||[];
+      var fListTemp = [], unfListTemp = [];
+      if('today' === self.route.getRoute(0)){
+        for (var k in fList) {
+          var fDate = new Date(fList[k].fDate);
+          if(Util.isToday(fDate)){
+            fListTemp.push(fList[k]);
+          }
+        }
+        fList = fListTemp;
+        for (var k in unfList) {
+          var fDate = new Date(unfList[k].fDate);
+          if(Util.isToday(fDate)){
+            unfListTemp.push(unfList[k]);
+          }
+        }
+        unfList = unfListTemp;
+      }
       self.render(self.$fList, self.$fListTmpl, {fList:fList});
       self.render(self.$unfList, self.$unfListTmpl, {unfList:unfList});
     },

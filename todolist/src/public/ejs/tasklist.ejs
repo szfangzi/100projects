@@ -1,6 +1,6 @@
 <script type="text/template" id="unfListTmpl">
     <% for(var k in unfList){ %>
-    <div class="item" taskId="<%=unfList[k].id%>">
+    <div class="item <% if(Util.isPassedDate(unfList[k].fDate)){ %>passed<% } %>" taskId="<%=unfList[k].id%>">
       <div class="l">
         <input type="checkbox" class="isFinished">
         <h6><%=unfList[k].taskname%></h6>

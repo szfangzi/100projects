@@ -220,6 +220,13 @@ a:hover, a:active{
           &.on {
             background-color: #E1F2FE;
           }
+          &.passed{
+            .r{
+              .date{
+                color: darkred;
+              }
+            }
+          }
           .l {
             float: left;
             .isFinished {
@@ -320,6 +327,11 @@ a:hover, a:active{
       padding-top: .5rem;
       li {
         padding: .5rem;
+        &.passed{
+          label, .date{
+            color: darkred;
+          }
+        }
         label {
           margin-right: .5rem;
           color: #999;
