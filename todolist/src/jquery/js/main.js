@@ -200,14 +200,14 @@ $(function(){
         }
 
       })
-
-
     },
     showTaskInfo:function () {
+      var self = this;
       self.$detailBox.addClass('on');
       self.$todolist.addClass('detailOn');
     },
     hideTaskInfo:function () {
+      var self = this;
       self.$detailBox.removeClass('on');
       self.$todolist.removeClass('detailOn');
     },
