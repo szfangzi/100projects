@@ -106,7 +106,7 @@ $(function(){
     },
     initRoute: function () {
       var self = this;
-      new Router({
+      var route = new Router({
         '/': {
           once:function(){
             self.route = this;
@@ -125,7 +125,12 @@ $(function(){
           }
         }
 
-      }).configure({recurse:'forward'}).init('/all');
+      }).configure({
+            recurse:'forward',
+            notfound:function(){
+              window.location.hash = '/all';
+            }
+          }).init('/all');
 
       function routeTask(taskId){
         var task = self.getTaskById(taskId);
