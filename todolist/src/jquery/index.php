@@ -58,6 +58,13 @@
 include('../public/ejs/taskinfo.ejs');
 include('../public/ejs/tasklist.ejs');
 ?>
-
+<div id="audio-player">
+  <audio id="audio-notification" class="hide">
+    <source class="ogg" src="../public/media/notification.ogg" type="audio/ogg">
+  </audio>
+  <audio id="audio-complete" class="hide">
+    <source class="ogg" src="../public/media/complete.ogg" type="audio/ogg">
+  </audio>
+</div>
 </body>
 </html>

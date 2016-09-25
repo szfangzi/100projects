@@ -77,6 +77,8 @@ $(function(){
       self.$unfListTmpl = $('#unfListTmpl');
       self.$taskInfoBox = $('#taskInfoBox');
       self.$taskInfoTmpl = $('#taskInfoTmpl');
+      self.audioNotification = document.querySelector('#audio-notification');
+      self.audioComplete = document.querySelector('#audio-complete');
 
       var tasklist = self.getTasklist();
       if(tasklist.length <= 0){
@@ -106,8 +108,7 @@ $(function(){
       $(window).on('keydown', function (e) {
         e.stopPropagation();
         if(e.keyCode === self.options.keyCode.esc){
-          self.$detailBox.removeClass('on');
-          self.$todolist.removeClass('detailOn');
+          self.hideTaskInfo();
         }
       });
 
@@ -136,6 +137,10 @@ $(function(){
         }
         self.updateTasklist({id:taskId, isFinished:$this.prop('checked')}, function () {
           self.renderTasklist();
+          if($this.prop('checked')){
+            self.audioComplete.load();
+            self.audioComplete.play();
+          }
         });
 
       }).on('dblclick', '#tasklist .item', function (e) {
@@ -143,8 +148,7 @@ $(function(){
         var taskId = $this.attr('taskId')||"0";
         var task = self.getTaskById(taskId);
         self.renderTaskInfo(task);
-        self.$detailBox.addClass('on');
-        self.$todolist.addClass('detailOn');
+        self.showTaskInfo();
 
       }).on('click', '#tasklist .item', function (e) {
         var $this = $(this);
@@ -156,19 +160,21 @@ $(function(){
         var taskId = $this.parents('.taskName').attr('taskId');
         self.updateTasklist({id:taskId, isFinished:$this.prop('checked')}, function () {
           self.renderTasklist();
+          if($this.prop('checked')){
+            self.audioComplete.load();
+            self.audioComplete.play();
+          }
         });
 
       }).on('click', '#taskInfoBox .backBtn, #todolist .main', function (e) {
         e.stopPropagation();
-        self.$detailBox.removeClass('on');
-        self.$todolist.removeClass('detailOn');
+        self.hideTaskInfo();
 
       }).on('click', '#taskInfoBox .delBtn', function (e) {
         var $this = $(this);
         var taskId = self.$taskInfoBox.find('.taskName').attr('taskId');
         self.delTask(taskId, function () {
-          self.$detailBox.removeClass('on');
-          self.$todolist.removeClass('detailOn');
+          self.hideTaskInfo();
           self.renderTasklist();
         });
       }).on('blur', '#taskInfoBox input[name="fDate"]', function(e){
@@ -196,6 +202,14 @@ $(function(){
       })
 
 
+    },
+    showTaskInfo:function () {
+      self.$detailBox.addClass('on');
+      self.$todolist.addClass('detailOn');
+    },
+    hideTaskInfo:function () {
+      self.$detailBox.removeClass('on');
+      self.$todolist.removeClass('detailOn');
     },
     render: function ($target, $tmpl, dataObj) {
       var tmpl = $tmpl.html();
