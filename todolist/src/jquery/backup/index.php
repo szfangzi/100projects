@@ -10,14 +10,72 @@
   <link rel="stylesheet" href="../public/css/resets.css">
   <link rel="stylesheet" href="../public/css/main.css">
   <!-- endbuild -->
+
+  <!-- build:js js/combined.js -->
+  <script type="text/javascript" src="../public/js/jquery.min.js"></script>
+  <script type="text/javascript" src="../public/js/ejs.min.js"></script>
+  <script type="text/javascript" src="../public/js/director.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+  <!-- endbuild -->
 </head>
 <body>
-<div class="route">
-  <button id="routeIndex">所有任务</button>
-  <button id="routeTest">今天任务</button>
-</div>
-<div class="container" id="todolistPage">
-  <div class="todolist">
+<div class="container" id="container">
+  <nav>
+    <div class="nav-box">
+      <div class="nav-top">
+        <a class="toggle-sidebar" tabindex="0"><svg class="list-toggle" width="20px" height="20px"> <g> <path d="M0.5,3.5l19,0" style="fill:none;stroke-width:1px;stroke:white;"></path> <path d="M0.5,9.53l19,0" style="fill:none;stroke-width:1px;stroke:white;"></path> <path d="M0.5,15.5l19,0" style="fill:none;stroke-width:1px;stroke:white;"></path> </g> </svg></a>
+      </div>
+      <div class="user">
+        <a class="user-box">
+          <span class="user-avatar">
+            <img src="../public/img/avatar.png">
+          </span>
+          <span class="user-name">房子</span>
+        </a>
+      </div>
+      <div class="menu">
+        <ul class="menu-filter">
+          <li class="menu-filter-all">
+            <a href="#/all" class="route clearfix on">
+              <span class="icon">
+                <?php
+                  include('../public/img/all.svg');
+                ?>
+              </span>
+              <span class="title">收件箱</span>
+              <span class="r">
+                <span class="count passed">2</span>
+                <span class="count">4</span>
+              </span>
+            </a>
+          </li>
+          <li class="menu-filter-today">
+            <a href="#/today" class="route clearfix">
+              <span class="icon">
+                <?php
+                  include('../public/img/today.svg');
+                ?>
+                <span class="today-num">26</span>
+              </span>
+              <span class="title">今天</span>
+              <span class="r">
+                <span class="count passed">2</span>
+                <span class="count">4</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="createList">
+        <a href="javascript:;">
+          <?php include('../public/img/add.svg'); ?>
+          <span>创建清单</span>
+        </a>
+      </div>
+    </div>
+
+  </nav>
+  <div class="todolist" id="todolist">
     <div class="main">
       <div class="top clearfix">
         <h1>任务列表</h1>
@@ -26,32 +84,38 @@
       <div class="listBox">
         <div class="addTask">
           <i class="addIcon">+</i>
-          <input type="text" placeholder="添加任务">
+          <input type="text" placeholder="添加任务" id="addTaskInput">
         </div>
-        <div id="tasklist"></div>
+        <div id="tasklist">
+          <section class="list" id="unfList">
+          </section>
+          <section class="list">
+            <a href="javascript:;" class="finishedBtn"><span class="showText">显示已完成任务</span><span class="hideText">隐藏已完成任务</span></a>
+          </section>
+          <section class="list isFinishedBox" id="fList"></section>
+        </div>
       </div>
     </div>
   </div>
-  <div class="detailBox">
-    <div id="taskInfoBox">
+  <div class="detailBox" id="detailBox">
+    <form id="taskInfoBox">
 
-    </div>
+    </form>
   </div>
 </div>
 
-<div class="container" id="testPage" style="background-color: beige;width: 100%;height: 100vh;">
-  第二页
-</div>
 
 <?php
 include('../public/ejs/taskinfo.ejs');
 include('../public/ejs/tasklist.ejs');
 ?>
-<!-- build:js js/combined.js -->
-<script type="text/javascript" src="../public/js/jquery.min.js"></script>
-<script type="text/javascript" src="../public/js/ejs.min.js"></script>
-<script type="text/javascript" src="../public/js/lib.js"></script>
-<script type="text/javascript" src="js/main.js"></script>
-<!-- endbuild -->
+<div id="audio-player">
+  <audio id="audio-notification" class="hide">
+    <source class="ogg" src="../public/media/notification.ogg" type="audio/ogg">
+  </audio>
+  <audio id="audio-complete" class="hide">
+    <source class="ogg" src="../public/media/complete.ogg" type="audio/ogg">
+  </audio>
+</div>
 </body>
 </html>

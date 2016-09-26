@@ -96,28 +96,153 @@ a{
 }
 
 a:hover, a:active{
-    color: #0ae;
-    text-decoration: underline;
-}
-
-.route{
-  position: fixed;
-  top: 0;
-  left: 40%;
-  button{
-    width: 4rem;
-    height: 2rem;
-    font-size: 1rem;
-  }
+    text-decoration: none;
 }
 
 .container{
 
 }
-//todolist
+
+/*nav*/
+nav{
+  float: left;
+  width: 17.5rem;
+  .nav-box{
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    flex-direction: column;
+    background-color: #F7F7F7;
+    .nav-top{
+      background-color: #5b7a59;
+      height: 2.875rem;
+      display: flex;
+      align-items: center;
+      .toggle-sidebar{
+        float: left;
+        padding: .625rem .625rem .3125rem .625rem;
+      }
+    }
+    .user{
+      height: 2rem;
+      padding: .5rem 0;
+      .user-box{
+        display: flex;
+        align-items: center;
+        .user-avatar{
+          width: 32px;
+          height: 32px;
+          border-radius:50%;
+          overflow: hidden;
+          margin: 0 .5rem 0 .2rem;
+        }
+      }
+    }
+    .menu{
+      height: calc(100vh - 8.875rem);
+      overflow: auto;
+      .menu-filter{
+        a.route{
+          box-sizing: border-box;
+          padding: .5rem .6rem .3rem;
+          display: block;
+          .icon{
+            float: left;
+            margin-right: .5rem;
+            margin-top: .1rem;
+          }
+          .title{
+            float: left;
+            color: #333;
+            font-size: .95rem;
+          }
+          .r{
+            float: right;
+            .count{
+              color: #bdbcbb;
+              font-size: .75rem;
+              &.passed{
+                color: #d74e48;
+                background: rgba(215,78,72,0.1);
+                font-weight: bold;
+                border-radius: 12px;
+                padding: .0625rem .375rem .0625rem;
+                margin-right: .2rem;
+              }
+            }
+          }
+          &.on{
+            background: #e0eefa;
+            .r{
+              .count{
+                color: rgba(38,38,38,0.75);
+                &.passed{
+                  color: #f7f7f7;
+                  background: rgba(215,78,72,0.8);
+                }
+              }
+            }
+          }
+        }
+        .menu-filter-all{
+          a.route{
+            .icon{
+              svg{
+                fill: #2b8dec;
+              }
+            }
+          }
+        }
+        .menu-filter-today{
+          a.route{
+            .icon{
+              position: relative;
+              svg{
+                fill: #5fa004;
+              }
+              .today-num{
+                position: absolute;
+                top: .16rem;
+                left: .2rem;
+                font-size: .0625rem;
+              }
+            }
+          }
+        }
+      }
+      //padding-bottom: 4.5rem;
+      //margin-right: .5rem;
+      //margin-top: 1rem;
+      //margin-bottom: 1rem;
+    }
+    .createList{
+      height: 2rem;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      fill: #328ad6;
+      a{
+        color:#328ad6;
+        display: flex;
+        align-items: center;
+        height: 3rem;
+        font-size: .95rem;
+        svg{
+          padding: 0 .625rem;
+        }
+      }
+    }
+  }
+}
+@media only screen and (max-width: $md-max) {
+  nav{
+    width: 2.5rem;
+  }
+}
+
+
+/*todolist*/
 .todolist{
   float: left;
-  width: 100%;
+  width: calc(100% - 17.5rem);
   margin-right: 0;
   &.detailOn{
     margin-right: -23.125rem;
@@ -135,11 +260,12 @@ a:hover, a:active{
       background-color: #668964;
       height: 2.875rem;
       h1 {
-        line-height: 2.7rem;
+        line-height: 2.63rem;
         padding-left: 1rem;
         font-size: 1.2rem;
         float: left;
         color: #fff;
+        line-height: 2.875rem;
       }
       div.r {
         float: right;
@@ -278,9 +404,19 @@ a:hover, a:active{
 }
 @media only screen and (max-width: $md-max) {
   .todolist{
+    width: calc(100% - 2.5rem);
+  }
+}
+@media only screen and (max-width: $md-max) {
+  .todolist{
     margin-right: 0;
     .main{
       margin-right: 0;
+    }
+    &.detailOn{
+      .main{
+        margin-right: 0;
+      }
     }
   }
 }

@@ -67,10 +67,18 @@ $(function(){
           self.setTasklist(rs);
         }
       });
+      $.ajax({
+        url:'../public/json/navlist.json',
+        method:'GET',
+        async:false,
+        success: function (rs) {
+          self.setNavlist(rs);
+        }
+      });
     },
     init: function (options) {
       var self = this;
-      self.defaults = {
+      var defaults = {
         keyCode:{
           enter:13,
           esc:27
@@ -79,7 +87,7 @@ $(function(){
         baseUrl:'/100projects/todolist/src/jquery'
       };
       self.options = {};
-      $.fn.extend(self.options, self.defaults, options);
+      $.fn.extend(self.options, defaults, options);
 
       self.$container = $('#container');
       self.$addTaskInput = $('#addTaskInput');
@@ -246,20 +254,14 @@ $(function(){
 
       })
     },
-    showTaskInfo:function () {
-      var self = this;
-      self.$detailBox.addClass('on');
-      self.$todolist.addClass('detailOn');
-    },
-    hideTaskInfo:function () {
-      var self = this;
-      self.$detailBox.removeClass('on');
-      self.$todolist.removeClass('detailOn');
-    },
     render: function ($target, $tmpl, dataObj) {
       var tmpl = $tmpl.html();
       var html = ejs.render(tmpl, dataObj);
       $target.html(html);
+    },
+    setNavlist: function (navlist) {
+      var self = this;
+      Util.store(self.options.navlistName, navlist);
     },
     renderTasklist: function () {
       var self = this;
@@ -287,6 +289,16 @@ $(function(){
     renderTaskInfo: function (task) {
       var self = this;
       self.render(self.$taskInfoBox, self.$taskInfoTmpl, {task:task});
+    },
+    showTaskInfo:function () {
+      var self = this;
+      self.$detailBox.addClass('on');
+      self.$todolist.addClass('detailOn');
+    },
+    hideTaskInfo:function () {
+      var self = this;
+      self.$detailBox.removeClass('on');
+      self.$todolist.removeClass('detailOn');
     },
     delTask: function (id, callback) {
       var self = this;

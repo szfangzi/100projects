@@ -15,15 +15,74 @@
   <script type="text/javascript" src="../public/js/jquery.min.js"></script>
   <script type="text/javascript" src="../public/js/ejs.min.js"></script>
   <script type="text/javascript" src="../public/js/director.js"></script>
-  <script type="text/javascript" src="js/main.js"></script>
+  <script type="text/javascript" src="js/util.js"></script>
+  <script type="text/javascript" src="js/app.js"></script>
+  <script type="text/javascript" src="js/app.model.js"></script>
+  <script type="text/javascript" src="js/app.controller.js"></script>
+  <script>
+    $(function () {
+      App.init({});
+    })
+  </script>
   <!-- endbuild -->
 </head>
 <body>
-<div class="route">
-  <a href="#/all" id="routeAll">所有任务</a>
-  <a href="#/today" id="routeToday">今天任务</a>
-</div>
 <div class="container" id="container">
+  <nav>
+    <div class="nav-box">
+      <div class="nav-top">
+        <a class="toggle-sidebar" tabindex="0"><svg class="list-toggle" width="20px" height="20px"> <g> <path d="M0.5,3.5l19,0" style="fill:none;stroke-width:1px;stroke:white;"></path> <path d="M0.5,9.53l19,0" style="fill:none;stroke-width:1px;stroke:white;"></path> <path d="M0.5,15.5l19,0" style="fill:none;stroke-width:1px;stroke:white;"></path> </g> </svg></a>
+      </div>
+      <div class="user">
+        <a class="user-box">
+          <span class="user-avatar">
+            <img src="../public/img/avatar.png">
+          </span>
+          <span class="user-name">房子</span>
+        </a>
+      </div>
+      <div class="menu">
+        <ul class="menu-filter">
+          <li class="menu-filter-all">
+            <a href="#/all" class="route clearfix on">
+              <span class="icon">
+                <?php
+                  include('../public/img/all.svg');
+                ?>
+              </span>
+              <span class="title">收件箱</span>
+              <span class="r">
+                <span class="count passed">2</span>
+                <span class="count">4</span>
+              </span>
+            </a>
+          </li>
+          <li class="menu-filter-today">
+            <a href="#/today" class="route clearfix">
+              <span class="icon">
+                <?php
+                  include('../public/img/today.svg');
+                ?>
+                <span class="today-num">26</span>
+              </span>
+              <span class="title">今天</span>
+              <span class="r">
+                <span class="count passed">2</span>
+                <span class="count">4</span>
+              </span>
+            </a>
+          </li>
+        </ul>
+      </div>
+      <div class="createList">
+        <a href="javascript:;">
+          <?php include('../public/img/add.svg'); ?>
+          <span>创建清单</span>
+        </a>
+      </div>
+    </div>
+
+  </nav>
   <div class="todolist" id="todolist">
     <div class="main">
       <div class="top clearfix">
