@@ -15,6 +15,18 @@ var Util = (function () {
 
             return uuid;
         },
+        deepCopy:function(p, c){
+       　　var c = c || {};
+       　　for (var i in p) {
+       　　　　if (typeof p[i] === 'object') {
+       　　　　　　c[i] = (p[i].constructor === Array) ? [] : {};
+       　　　　　　deepCopy(p[i], c[i]);
+       　　　　} else {
+       　　　　　　　c[i] = p[i];
+       　　　　}
+       　　}
+       　　return c;
+        },
         store: function (name, data) {
             var data = data || [];
             if(arguments.length > 1){

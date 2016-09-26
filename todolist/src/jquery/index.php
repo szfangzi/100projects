@@ -42,7 +42,7 @@
         </a>
       </div>
       <div class="menu">
-        <ul class="menu-filter">
+        <ul class="menu-filter" id="menu-filter">
           <li class="menu-filter-all">
             <a href="#/all" class="route clearfix on">
               <span class="icon">
@@ -72,6 +72,9 @@
               </span>
             </a>
           </li>
+        </ul>
+        <ul class="menu-your" id="menu-your">
+
         </ul>
       </div>
       <div class="createList">
@@ -116,6 +119,7 @@
 <?php
 include('../public/ejs/taskinfo.ejs');
 include('../public/ejs/tasklist.ejs');
+include('../public/ejs/menu-your-tmpl.ejs');
 ?>
 <div id="audio-player">
   <audio id="audio-notification" class="hide">

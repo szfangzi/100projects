@@ -1,0 +1,24 @@
+<script type="text/template" id="menu-your-tmpl">
+  <% for(var k in list){ %>
+  <li class="item-<%= list[k].type %>" item-id="<%= list[k].id %>" >
+    <a href="javascript:;">
+      <span><%= list[k].name %></span>
+    </a>
+    <%
+    var childs = list[k].childs || [];
+    if(childs.length){
+    %>
+    <ul class="menu-your-sub">
+      <% for(var i in childs){ %>
+      <li class="item-<%= childs[i].type %>" item-id="<%= childs[i].id %>" >
+        <a href="javascript:;">
+          <span><%= childs[i].name %></span>
+        </a>
+      </li>
+      <% } %>
+    </ul>
+    <% } %>
+  </li>
+  <% } %>
+</script>
+

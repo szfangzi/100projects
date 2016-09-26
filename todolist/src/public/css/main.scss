@@ -163,7 +163,7 @@ nav{
               font-size: .75rem;
               &.passed{
                 color: #d74e48;
-                background: rgba(215,78,72,0.1);
+                background-color: rgba(215,78,72,0.1);
                 font-weight: bold;
                 border-radius: 12px;
                 padding: .0625rem .375rem .0625rem;
@@ -172,13 +172,13 @@ nav{
             }
           }
           &.on{
-            background: #e0eefa;
+            background-color: #e0eefa;
             .r{
               .count{
                 color: rgba(38,38,38,0.75);
                 &.passed{
                   color: #f7f7f7;
-                  background: rgba(215,78,72,0.8);
+                  background-color: rgba(215,78,72,0.8);
                 }
               }
             }
@@ -210,10 +210,41 @@ nav{
           }
         }
       }
-      //padding-bottom: 4.5rem;
-      //margin-right: .5rem;
-      //margin-top: 1rem;
-      //margin-bottom: 1rem;
+      .menu-your{
+        .item-list, .item-directory{
+          a{
+            box-sizing: border-box;
+            padding: .6rem .6rem .4rem;
+            display: block;
+            span{
+              font-size: .95rem;
+              color: #333;
+            }
+          }
+        }
+        .item-list{
+          &.on{
+            background-color: #e0eefa;
+          }
+        }
+        .item-directory{
+          .menu-your-sub{
+            display: none;
+            .item-list{
+              a{
+                padding-left: 1.6rem;
+              }
+            }
+          }
+          &.on{
+            background-color: #F2F2F2;
+            .menu-your-sub{
+              display: block;
+            }
+          }
+        }
+      }
+
     }
     .createList{
       height: 2rem;
