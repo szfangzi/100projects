@@ -37,12 +37,12 @@ App.controller = (function () {
                 }).init('/all');
 
             function routeTask(taskId){
-                var task = self.getTaskById(taskId);
+                var task = model.getTaskById(taskId);
                 self.renderTaskInfo(task);
                 self.showTaskInfo();
                 if(task.isFinished){
                     $('.finishedBtn').addClass('on');
-                    self.$fList.addClass('on');
+                    App.$fList.addClass('on');
                 }
                 $('#tasklist .item[taskId="'+taskId+'"]').click();
             }
@@ -52,7 +52,7 @@ App.controller = (function () {
 
             $(window).on('keydown', function (e) {
                 e.stopPropagation();
-                if(e.keyCode === self.options.keyCode.esc){
+                if(e.keyCode === App.options.keyCode.esc){
                     self.hideTaskInfo();
                 }
             });
@@ -103,7 +103,7 @@ App.controller = (function () {
             }).on('click', '#tasklist .item', function (e) {
                 e.stopPropagation();
                 var $this = $(this);
-                self.$tasklist.find('.item').removeClass('on');
+                App.$tasklist.find('.item').removeClass('on');
                 $this.addClass('on');
 
             }).on('click', '#taskInfoBox .backBtn, #todolist .main', function (e) {
@@ -115,7 +115,7 @@ App.controller = (function () {
 
             }).on('click', '#taskInfoBox .delBtn', function (e) {
                 var $this = $(this);
-                var taskId = self.$taskInfoBox.find('.taskName').attr('taskId');
+                var taskId = App.$taskInfoBox.find('.taskName').attr('taskId');
                 model.delTask(taskId, function () {
                     self.hideTaskInfo();
                     self.renderTasklist();
@@ -175,12 +175,12 @@ App.controller = (function () {
                 }
                 unfList = unfListTemp;
             }
-            self.render(self.$fList, self.$fListTmpl, {fList:fList});
-            self.render(self.$unfList, self.$unfListTmpl, {unfList:unfList});
+            self.render(App.$fList, App.$fListTmpl, {fList:fList});
+            self.render(App.$unfList, App.$unfListTmpl, {unfList:unfList});
         },
         renderTaskInfo: function (task) {
             var self = this;
-            self.render(self.$taskInfoBox, self.$taskInfoTmpl, {task:task});
+            self.render(App.$taskInfoBox, App.$taskInfoTmpl, {task:task});
         },
         showTaskInfo:function () {
             var self = this;

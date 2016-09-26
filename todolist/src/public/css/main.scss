@@ -349,7 +349,7 @@ nav{
           &.passed{
             .r{
               .date{
-                color: darkred;
+                color: red;
               }
             }
           }
@@ -465,7 +465,7 @@ nav{
         padding: .5rem;
         &.passed{
           label, .date{
-            color: darkred;
+            color: red;
           }
         }
         label {
