@@ -241,6 +241,12 @@ App.controller = (function () {
       }else if(routeFilter === "list"){
         $('.item-list[item-id='+currentListId+']').click();
       }
+
+      if(routeFilter === "today"){
+        App.$addTaskInput.prop('placeholder', '添加一个今天的任务');
+      }else{
+        App.$addTaskInput.prop('placeholder', '添加一个任务');
+      }
       self.renderTasklist(currentListId);
     }
   }
