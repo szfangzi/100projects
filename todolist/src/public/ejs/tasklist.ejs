@@ -1,19 +1,33 @@
 <script type="text/template" id="unfListTmpl">
     <% for(var k in unfList){ %>
-    <div class="item <% if(Util.isPassedDate(unfList[k].fDate)){ %>passed<% } %>" taskId="<%=unfList[k].id%>">
+    <%
+      if(unfList[k].fDate === "") {
+        var fDate = "";
+      }else{
+        var fDate = Util.dateFormat(new Date(unfList[k].fDate), 'YYYY-MM-DD');
+      }
+    %>
+    <div class="item <% if(Util.isPassedDate(unfList[k].fDate)){ %>passed<% } %>" taskId="<%=unfList[k].id%>" list-id="<%=unfList[k].listId%>" >
       <div class="l">
         <input type="checkbox" class="isFinished">
         <h6><%=unfList[k].taskname%></h6>
       </div>
       <div class="r">
-        <div class="date"><%= Util.dateFormat(new Date(unfList[k].fDate), 'YYYY-MM-DD') %></div>
+        <div class="date"><%= fDate %></div>
       </div>
     </div>
     <% } %>
 </script>
 <script type="text/template" id="fListTmpl">
     <% for(var k in fList){ %>
-    <div class="item" taskId="<%=fList[k].id%>">
+    <%
+      if(fList[k].fDate === "") {
+        var fDate = "";
+      }else{
+        var fDate = Util.dateFormat(new Date(fList[k].fDate), 'YYYY-MM-DD');
+      }
+    %>
+    <div class="item" taskId="<%=fList[k].id%>" list-id="<%=fList[k].listId%>" >
       <div class="l">
         <input type="checkbox" class="isFinished" checked >
         <div class="title">
@@ -22,7 +36,7 @@
         </div>
       </div>
       <div class="r">
-        <div class="date"><%= Util.dateFormat(new Date(fList[k].fDate), 'YYYY-MM-DD') %></div>
+        <div class="date"><%= fDate %></div>
       </div>
     </div>
     <% } %>

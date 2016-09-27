@@ -44,7 +44,7 @@
       <div class="menu">
         <ul class="menu-filter" id="menu-filter">
           <li class="menu-filter-all">
-            <a href="#/all" class="route clearfix on">
+            <a href="#/all" class="item-list clearfix">
               <span class="icon">
                 <?php
                   include('../public/img/all.svg');
@@ -58,7 +58,7 @@
             </a>
           </li>
           <li class="menu-filter-today">
-            <a href="#/today" class="route clearfix">
+            <a href="#/today" class="item-list clearfix">
               <span class="icon">
                 <?php
                   include('../public/img/today.svg');

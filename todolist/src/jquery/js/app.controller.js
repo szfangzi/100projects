@@ -1,6 +1,8 @@
 App.controller = (function () {
 
   var model = App.model;
+  var routeFilter = 'all';
+  var currentListId = "0";
 
   return {
     init: function () {
@@ -18,15 +20,27 @@ App.controller = (function () {
           },
           '/all': {
             on: function () {
-              self.renderTasklist();
+              self.routeChangeHandler('all', "0");
             },
-            '/task/:taskId': routeTask
+            '/task/:taskId': function (taskId) {
+              routeTask(taskId);
+            }
           },
           '/today': {
             on: function () {
-              self.renderTasklist();
+              self.routeChangeHandler('today', "0");
             },
-            '/task/:taskId': routeTask
+            '/task/:taskId': function (taskId) {
+              routeTask(taskId);
+            }
+          },
+          '/list-:listId':{
+            on: function (listId) {
+              self.routeChangeHandler('list', listId);
+            },
+            '/task/:taskId': function (listId, taskId) {
+              routeTask(taskId);
+            }
           }
         }
 
@@ -71,8 +85,16 @@ App.controller = (function () {
       }).on('keydown', '#addTaskInput', function (e) {
         var $this = $(this);
         if (e.keyCode == App.options.keyCode.enter) {
+          var newTask = {};
           var taskname = $.trim($this.val());
-          model.updateTasklist({taskname: taskname}, function () {
+          newTask = {
+            taskname:taskname,
+            listId:currentListId
+          };
+          if (routeFilter === "today") {
+            newTask.fDate = new Date().getTime();
+          }
+          model.updateTasklist(newTask, function () {
             self.renderTasklist();
             $this.val('');
           });
@@ -94,7 +116,7 @@ App.controller = (function () {
           taskId = $this.parents('.taskName').attr('taskId');
         }
         model.updateTasklist({id: taskId, isFinished: $this.prop('checked')}, function () {
-          self.renderTasklist();
+          self.renderTasklist(currentListId);
           if ($this.parents('.item').length) {
             var task = model.getTaskById(taskId);
             self.renderTaskInfo(task);
@@ -173,9 +195,9 @@ App.controller = (function () {
     },
     renderTasklist: function () {
       var self = this;
-      var fList = model.getFlist() || [], unfList = model.getUnflist() || [];
+      var fList = model.getFlist(currentListId) || [], unfList = model.getUnflist(currentListId) || [];
       var fListTemp = [], unfListTemp = [];
-      if ('today' === self.route.getRoute(0)) {
+      if (routeFilter ==='today') {
         for (var k in fList) {
           var fDate = new Date(fList[k].fDate);
           if (Util.isToday(fDate)) {
@@ -207,6 +229,19 @@ App.controller = (function () {
       var self = this;
       App.$detailBox.removeClass('on');
       App.$todolist.removeClass('detailOn');
+    },
+    routeChangeHandler: function (filter, listId) {
+      routeFilter = filter;
+      currentListId = listId;
+      var self = this;
+      if(routeFilter === "all"){
+        $('.menu-filter-all .item-list').click();
+      }else if(routeFilter === "today"){
+        $('.menu-filter-today .item-list').click();
+      }else if(routeFilter === "list"){
+        $('.item-list[item-id='+currentListId+']').click();
+      }
+      self.renderTasklist(currentListId);
     }
   }
 }());

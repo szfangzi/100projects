@@ -1,11 +1,18 @@
 <script type="text/template" id="taskInfoTmpl">
+  <%
+  if(task.fDate === "") {
+    var fDate = "";
+  }else{
+    var fDate = Util.dateFormat(new Date(task.fDate), 'YYYY-MM-DD');
+  }
+  %>
     <input type="hidden" value="<%=task.id%>" name="id">
-    <div class="taskName" taskId="<%=task.id%>">
+    <div class="taskName" taskId="<%=task.id%>" list-id="<%=task.listId%>" >
         <input type="checkbox" class="isFinished" name="isFinished" <%if(task.isFinished){%>checked <%}%> >
         <h2><input type="text" name="taskname" id="taskname" class="txt" value="<%=task.taskname%>" placeholder="填写备注"></h2>
     </div>
     <ul class="taskInfos">
-        <li class="<% if(Util.isPassedDate(task.fDate)){ %>passed<% } %>" ><label for="taskDate">到期日期:</label><input type="date" name="fDate" id="taskDate" class="date" value="<%= Util.dateFormat(new Date(task.fDate), 'YYYY-MM-DD') %>"></li>
+        <li class="<% if(Util.isPassedDate(task.fDate)){ %>passed<% } %>" ><label for="taskDate">到期日期:</label><input type="date" name="fDate" id="taskDate" class="date" value="<%= fDate %>"></li>
         <li><label for="remark">备注:</label><input type="text" name="remark" id="remark" class="txt" value="<%=task.remark%>" placeholder="填写备注"></li>
     </ul>
     <div class="bottom">

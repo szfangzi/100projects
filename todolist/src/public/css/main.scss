@@ -142,7 +142,7 @@ nav{
       height: calc(100vh - 8.875rem);
       overflow: auto;
       .menu-filter{
-        a.route{
+        a.item-list{
           box-sizing: border-box;
           padding: .5rem .6rem .3rem;
           display: block;
@@ -185,7 +185,7 @@ nav{
           }
         }
         .menu-filter-all{
-          a.route{
+          a.item-list{
             .icon{
               svg{
                 fill: #2b8dec;
@@ -194,7 +194,7 @@ nav{
           }
         }
         .menu-filter-today{
-          a.route{
+          a.item-list{
             .icon{
               position: relative;
               svg{
@@ -219,6 +219,10 @@ nav{
             span{
               font-size: .95rem;
               color: #333;
+            }
+            svg{
+              float: left;
+              margin-right: .5rem;
             }
           }
         }

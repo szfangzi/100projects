@@ -86,7 +86,7 @@ App.model = (function () {
         task = $.fn.extend({
           "id": Util.uuid(),
           "taskname": "",
-          "fDate": new Date().getTime(),
+          "fDate": "",
           "remark": "",
           "isFinished": false
         }, task);
@@ -103,12 +103,12 @@ App.model = (function () {
       var self = this;
       return Util.store(tasklistName);
     },
-    getFlist: function () {
+    getFlist: function (listId) {
       var self = this;
       var tasklist = self.getTasklist();
       var fList = [];
       for (var k in tasklist) {
-        if (tasklist[k].isFinished) {
+        if (tasklist[k].isFinished && (listId === "0" || tasklist[k].listId === listId)) {
           fList.push(tasklist[k]);
         }
       }
@@ -117,12 +117,12 @@ App.model = (function () {
       });
       return fList;
     },
-    getUnflist: function () {
+    getUnflist: function (listId) {
       var self = this;
       var tasklist = self.getTasklist();
       var unfList = [];
       for (var k in tasklist) {
-        if (!tasklist[k].isFinished) {
+        if (!tasklist[k].isFinished && (listId === "0" || tasklist[k].listId === listId)) {
           unfList.push(tasklist[k]);
         }
       }
