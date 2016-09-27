@@ -23,7 +23,7 @@ App.controller = (function () {
               self.routeChangeHandler('all', "0");
             },
             '/task/:taskId': function (taskId) {
-              routeTask(taskId);
+              self.routeTask(taskId);
             }
           },
           '/today': {
@@ -31,7 +31,7 @@ App.controller = (function () {
               self.routeChangeHandler('today', "0");
             },
             '/task/:taskId': function (taskId) {
-              routeTask(taskId);
+              self.routeTask(taskId);
             }
           },
           '/list-:listId':{
@@ -39,7 +39,7 @@ App.controller = (function () {
               self.routeChangeHandler('list', listId);
             },
             '/task/:taskId': function (listId, taskId) {
-              routeTask(taskId);
+              self.routeTask(taskId);
             }
           }
         }
@@ -51,16 +51,6 @@ App.controller = (function () {
           }
         }).init('/all');
 
-      function routeTask(taskId) {
-        var task = model.getTaskById(taskId);
-        self.renderTaskInfo(task);
-        self.showTaskInfo();
-        if (task.isFinished) {
-          $('.finishedBtn').addClass('on');
-          App.$fList.addClass('on');
-        }
-        $('#tasklist .item[taskId="' + taskId + '"]').click();
-      }
     },
     bindEvent: function () {
       var self = this;
@@ -94,8 +84,8 @@ App.controller = (function () {
           if (routeFilter === "today") {
             newTask.fDate = new Date().getTime();
           }
-          model.updateTasklist(newTask, function () {
-            self.renderTasklist();
+          model.updateTaskList(newTask, function () {
+            self.renderTaskList();
             $this.val('');
           });
 
@@ -115,10 +105,10 @@ App.controller = (function () {
         } else {
           taskId = $this.parents('.taskName').attr('taskId');
         }
-        model.updateTasklist({id: taskId, isFinished: $this.prop('checked')}, function () {
-          self.renderTasklist(currentListId);
+        model.updateTaskList({id: taskId, isFinished: $this.prop('checked')}, function () {
+          self.renderTaskList(currentListId);
           if ($this.parents('.item').length) {
-            var task = model.getTaskById(taskId);
+            var task = model.getTask(taskId);
             self.renderTaskInfo(task);
           }
           if ($this.prop('checked')) {
@@ -151,28 +141,28 @@ App.controller = (function () {
         var taskId = App.$taskInfoBox.find('.taskName').attr('taskId');
         model.delTask(taskId, function () {
           self.hideTaskInfo();
-          self.renderTasklist();
+          self.renderTaskList();
         });
       }).on('blur', '#taskInfoBox input[name="fDate"]', function (e) {
         var $this = $(this);
         var taskId = App.$taskInfoBox.find('input[name="id"]').val();
         var fDate = $this.val();
         var fDateTimestamp = new Date(fDate).getTime();
-        model.updateTasklist({id: taskId, fDate: fDateTimestamp}, function () {
+        model.updateTaskList({id: taskId, fDate: fDateTimestamp}, function () {
           if (Util.isPassedDate(fDateTimestamp)) {
             $this.parents('li').addClass('passed');
           } else {
             $this.parents('li').removeClass('passed');
           }
-          self.renderTasklist();
+          self.renderTaskList();
         });
 
       }).on('blur', '#taskInfoBox input[name="remark"]', function (e) {
         var $this = $(this);
         var taskId = App.$taskInfoBox.find('input[name="id"]').val();
         var remark = $this.val();
-        model.updateTasklist({id: taskId, remark: remark}, function () {
-          self.renderTasklist();
+        model.updateTaskList({id: taskId, remark: remark}, function () {
+          self.renderTaskList();
         });
 
       }).on('keydown', '#taskInfoBox input[name="remark"]', function (e) {
@@ -193,9 +183,9 @@ App.controller = (function () {
       var navlist = model.getNavlistRecursion();
       self.render(App.$menuYour, App.$menuYourTmpl, {list:navlist});
     },
-    renderTasklist: function () {
+    renderTaskList: function () {
       var self = this;
-      var fList = model.getFlist(currentListId) || [], unfList = model.getUnflist(currentListId) || [];
+      var fList = model.getTaskList(currentListId, true) || [], unfList = model.getTaskList(currentListId, false) || [];
       var fListTemp = [], unfListTemp = [];
       if (routeFilter ==='today') {
         for (var k in fList) {
@@ -247,7 +237,20 @@ App.controller = (function () {
       }else{
         App.$addTaskInput.prop('placeholder', '添加一个任务');
       }
-      self.renderTasklist(currentListId);
+      self.hideTaskInfo();
+      self.renderTaskList(currentListId);
+    },
+    routeTask:function(taskId) {
+      var self = this;
+      var task = model.getTask(taskId);
+      self.renderTaskInfo(task);
+      self.showTaskInfo();
+      if (task.isFinished) {
+        $('.finishedBtn').addClass('on');
+        App.$fList.addClass('on');
+      }
+      $('#tasklist .item[taskId="' + taskId + '"]').click();
     }
+
   }
 }());

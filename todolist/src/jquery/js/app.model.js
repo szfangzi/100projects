@@ -6,13 +6,13 @@ App.model = (function () {
   return {
     init: function () {
       var self = this;
-      if(self.getTasklist().length <= 0){
+      if(Util.store(tasklistName).length <= 0){
         $.ajax({
           url: '../public/json/todolist.json',
           method: 'GET',
           async: false,
           success: function (rs) {
-            self.setTasklist(rs);
+            self.setTaskList(rs);
           }
         });
       }
@@ -60,18 +60,18 @@ App.model = (function () {
     },
     delTask: function (id, callback) {
       var self = this;
-      var tasklist = self.getTasklist();
+      var tasklist = Util.store(tasklistName);
       for (var i = 0; i < tasklist.length; i++) {
         if (tasklist[i].id === id) {
           tasklist.splice(i, 1);
-          self.setTasklist(tasklist);
+          self.setTaskList(tasklist);
         }
       }
       callback();
     },
-    updateTasklist: function (task, callback) {
+    updateTaskList: function (task, callback) {
       var self = this;
-      var tasklist = self.getTasklist();
+      var tasklist = Util.store(tasklistName);
       var type = 'add';
       for (var k in tasklist) {
         if (task.id === tasklist[k].id) {
@@ -92,48 +92,29 @@ App.model = (function () {
         }, task);
         tasklist.push(task);
       }
-      self.setTasklist(tasklist);
+      self.setTaskList(tasklist);
       callback();
     },
-    setTasklist: function (tasklist) {
-      var self = this;
+    setTaskList: function (tasklist) {
       Util.store(tasklistName, tasklist);
     },
-    getTasklist: function () {
+    getTaskList: function (listId, isFinished) {
       var self = this;
-      return Util.store(tasklistName);
-    },
-    getFlist: function (listId) {
-      var self = this;
-      var tasklist = self.getTasklist();
-      var fList = [];
+      var tasklist = Util.store(tasklistName);
+      var tmpList = [];
       for (var k in tasklist) {
-        if (tasklist[k].isFinished && (listId === "0" || tasklist[k].listId === listId)) {
-          fList.push(tasklist[k]);
+        if (tasklist[k].isFinished === isFinished && (listId === "0" || tasklist[k].listId === listId)) {
+          tmpList.push(tasklist[k]);
         }
       }
-      fList.sort(function (a, b) {
+      tmpList.sort(function (a, b) {
         return a['fDate'] >= b['fDate'] ? -1 : 1;
       });
-      return fList;
+      return tmpList;
     },
-    getUnflist: function (listId) {
+    getTask: function (id) {
       var self = this;
-      var tasklist = self.getTasklist();
-      var unfList = [];
-      for (var k in tasklist) {
-        if (!tasklist[k].isFinished && (listId === "0" || tasklist[k].listId === listId)) {
-          unfList.push(tasklist[k]);
-        }
-      }
-      unfList.sort(function (a, b) {
-        return a['fDate'] >= b['fDate'] ? -1 : 1;
-      });
-      return unfList;
-    },
-    getTaskById: function (id) {
-      var self = this;
-      var tasklist = self.getTasklist();
+      var tasklist = Util.store(tasklistName);
       for (var k in tasklist) {
         if (tasklist[k].id === id) {
           return tasklist[k];
