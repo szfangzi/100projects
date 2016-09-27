@@ -16,51 +16,36 @@ App.model = (function () {
           }
         });
       }
-      if(self.getNavlist().length <= 0){
+      if(self.getNavList().length <= 0){
         $.ajax({
           url: '../public/json/navlist.json',
           method: 'GET',
           async: false,
           success: function (rs) {
-            self.setNavlist(rs);
+            self.setNavList(rs);
           }
         });
       }
 
       return self;
     },
-    setNavlist: function (navlist) {
+    setNavList: function (navlist) {
       var self = this;
       Util.store(navlistName, navlist);
     },
-    getNavlist: function () {
+    getNavList: function () {
       var self = this;
       return Util.store(navlistName);
     },
-    getNavlistRecursion: function () {
+    getNavListRecursion: function () {
       var self = this;
-      var navlist = self.getNavlist();
+      var navlist = self.getNavList();
 
-      return nodeRecursion(navlist, "0");
-
-      function nodeRecursion(nodes, pid) {
-        var result = [], tmp;
-        for(var i in nodes){
-          if(nodes[i].pid === pid){
-            var obj = Util.deepCopy(nodes[i], {});
-            tmp = arguments.callee.apply({}, [nodes, nodes[i].id]);
-            if(tmp.length > 0){
-              obj.childs = tmp;
-            }
-            result.push(obj);
-          }
-        }
-        return result;
-      }
+      return Util.nodeRecursion(navlist, "0");
     },
     delTask: function (id, callback) {
       var self = this;
-      var tasklist = Util.store(tasklistName);
+      var tasklist = self.getAllTaskList();
       for (var i = 0; i < tasklist.length; i++) {
         if (tasklist[i].id === id) {
           tasklist.splice(i, 1);
@@ -71,7 +56,7 @@ App.model = (function () {
     },
     updateTaskList: function (task, callback) {
       var self = this;
-      var tasklist = Util.store(tasklistName);
+      var tasklist = self.getAllTaskList();
       var type = 'add';
       for (var k in tasklist) {
         if (task.id === tasklist[k].id) {
@@ -98,9 +83,12 @@ App.model = (function () {
     setTaskList: function (tasklist) {
       Util.store(tasklistName, tasklist);
     },
+    getAllTaskList: function () {
+      return Util.store(tasklistName);
+    },
     getTaskList: function (listId, isFinished) {
       var self = this;
-      var tasklist = Util.store(tasklistName);
+      var tasklist = self.getAllTaskList();
       var tmpList = [];
       for (var k in tasklist) {
         if (tasklist[k].isFinished === isFinished && (listId === "0" || tasklist[k].listId === listId)) {
@@ -114,7 +102,7 @@ App.model = (function () {
     },
     getTask: function (id) {
       var self = this;
-      var tasklist = Util.store(tasklistName);
+      var tasklist = self.getAllTaskList()
       for (var k in tasklist) {
         if (tasklist[k].id === id) {
           return tasklist[k];

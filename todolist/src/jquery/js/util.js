@@ -27,6 +27,20 @@ var Util = (function () {
        　　}
        　　return c;
         },
+        nodeRecursion:function(nodes, pid) {
+          var result = [], tmp;
+          for(var i in nodes){
+            if(nodes[i].pid === pid){
+              var obj = Util.deepCopy(nodes[i], {});
+              tmp = arguments.callee.apply({}, [nodes, nodes[i].id]);
+              if(tmp.length > 0){
+                obj.childs = tmp;
+              }
+              result.push(obj);
+            }
+          }
+          return result;
+        },
         store: function (name, data) {
             var data = data || [];
             if(arguments.length > 1){

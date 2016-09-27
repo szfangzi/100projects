@@ -180,7 +180,7 @@ App.controller = (function () {
     },
     renderYourNav: function () {
       var self = this;
-      var navlist = model.getNavlistRecursion();
+      var navlist = model.getNavListRecursion();
       self.render(App.$menuYour, App.$menuYourTmpl, {list:navlist});
     },
     renderTaskList: function () {
