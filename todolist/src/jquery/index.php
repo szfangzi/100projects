@@ -41,41 +41,8 @@
           <span class="user-name">房子</span>
         </a>
       </div>
-      <div class="menu">
-        <ul class="menu-filter" id="menu-filter">
-          <li class="menu-filter-all">
-            <a href="#/all" class="item-list clearfix">
-              <span class="icon">
-                <?php
-                  include('../public/img/all.svg');
-                ?>
-              </span>
-              <span class="title">收件箱</span>
-              <span class="r">
-                <span class="count passed">2</span>
-                <span class="count">4</span>
-              </span>
-            </a>
-          </li>
-          <li class="menu-filter-today">
-            <a href="#/today" class="item-list clearfix">
-              <span class="icon">
-                <?php
-                  include('../public/img/today.svg');
-                ?>
-                <span class="today-num">26</span>
-              </span>
-              <span class="title">今天</span>
-              <span class="r">
-                <span class="count passed">2</span>
-                <span class="count">4</span>
-              </span>
-            </a>
-          </li>
-        </ul>
-        <ul class="menu-your" id="menu-your">
+      <div class="menu" id="nav-box">
 
-        </ul>
       </div>
       <div class="createList">
         <a href="javascript:;">
@@ -119,7 +86,7 @@
 <?php
 include('../public/ejs/taskinfo.ejs');
 include('../public/ejs/tasklist.ejs');
-include('../public/ejs/menu-your-tmpl.ejs');
+include('../public/ejs/nav-tmpl.ejs');
 ?>
 <div id="audio-player">
   <audio id="audio-notification" class="hide">

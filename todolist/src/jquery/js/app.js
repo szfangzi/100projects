@@ -11,9 +11,10 @@ var App = (function () {
   function jQueryDomInit() {
     this.$container = $('#container');
 
+    this.$navBox= $('#nav-box');
+    this.$navTmpl= $('#nav-tmpl');
     this.$menuFilter = $('#menu-filter');
     this.$menuYour = $('#menu-your');
-    this.$menuYourTmpl= $('#menu-your-tmpl');
 
     this.$addTaskInput = $('#addTaskInput');
     this.$todolist = $('#todolist');

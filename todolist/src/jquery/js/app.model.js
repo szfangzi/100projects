@@ -37,11 +37,27 @@ App.model = (function () {
       var self = this;
       return Util.store(navlistName);
     },
-    getNavListRecursion: function () {
+    getNavListRecursion: function(){
       var self = this;
       var navlist = self.getNavList();
+      var allTasklist = self.getTaskList('all');
+      var todaylist = self.getTaskList("today");
+      var allCount = self.getTaskListCount(allTasklist) || 0;
+      var todayCount = self.getTaskListCount(todaylist) || 0;
 
-      return Util.nodeRecursion(navlist, "0");
+      for (var k in navlist) {
+        if(navlist[k].listId !== "0" && navlist[k].type === 'list'){
+          var list = self.getTaskList('list', navlist[k].listId);
+          var countObj = self.getTaskListCount(list) || {};
+          navlist[k].countObj = countObj;
+        }
+      }
+
+      return {
+        'all':{count:allCount},
+        'today':{count:todayCount},
+        'list':{navlist:Util.nodeRecursion(navlist, "0")}
+      };
     },
     delTask: function (id, callback) {
       var self = this;
@@ -86,29 +102,83 @@ App.model = (function () {
     getAllTaskList: function () {
       return Util.store(tasklistName);
     },
-    getTaskList: function (listId, isFinished) {
+    getTaskList: function (filter, listId) {
       var self = this;
       var tasklist = self.getAllTaskList();
-      var tmpList = [];
-      for (var k in tasklist) {
-        if (tasklist[k].isFinished === isFinished && (listId === "0" || tasklist[k].listId === listId)) {
+      var tmpList = [], fTmpList = [], unfTmpList = [];
+
+      if (filter === "all") {
+        for (var k in tasklist) {
           tmpList.push(tasklist[k]);
+          if (tasklist[k].isFinished === true) {
+            fTmpList.push(tasklist[k]);
+          } else if (tasklist[k].isFinished === false) {
+            unfTmpList.push(tasklist[k]);
+          }
+        }
+      }else if (filter === "today"){
+        for (var k in tasklist) {
+          var fDate = new Date(tasklist[k].fDate);
+          if (Util.isToday(fDate)) {
+            tmpList.push(tasklist[k]);
+            if (tasklist[k].isFinished === true) {
+              fTmpList.push(tasklist[k]);
+            } else if (tasklist[k].isFinished === false) {
+              unfTmpList.push(tasklist[k]);
+            }
+          }
+        }
+      }else if (filter === "list"){
+        for (var k in tasklist) {
+          if (tasklist[k].listId === listId) {
+            tmpList.push(tasklist[k]);
+            if (tasklist[k].isFinished === true) {
+              fTmpList.push(tasklist[k]);
+            } else if (tasklist[k].isFinished === false) {
+              unfTmpList.push(tasklist[k]);
+            }
+          }
         }
       }
-      tmpList.sort(function (a, b) {
+
+      tmpList.sort(descSortRule);
+      fTmpList.sort(descSortRule);
+      unfTmpList.sort(descSortRule);
+
+      function descSortRule(a, b) {
         return a['fDate'] >= b['fDate'] ? -1 : 1;
-      });
-      return tmpList;
+      }
+
+      return {
+        tmpList:tmpList,
+        fTmpList:fTmpList,
+        unfTmpList:unfTmpList
+      };
     },
     getTask: function (id) {
       var self = this;
-      var tasklist = self.getAllTaskList()
+      var tasklist = self.getAllTaskList();
       for (var k in tasklist) {
         if (tasklist[k].id === id) {
           return tasklist[k];
         }
       }
       return false;
+    },
+    getTaskListCount: function (tasklist) {
+      var count = tasklist.length || 0;
+      var passedCount = 0;
+      var now = new Date();
+      for (var k in tasklist) {
+        if(tasklist[k].fDate < now.getTime()){
+          passedCount++;
+        }
+      }
+      return {
+        count:count,
+        passedCount:passedCount
+      }
     }
+
   }
 }());

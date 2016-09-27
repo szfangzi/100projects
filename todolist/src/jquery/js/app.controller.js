@@ -16,7 +16,7 @@ App.controller = (function () {
         '/': {
           once: function () {
             self.route = this;
-            self.renderYourNav();
+            self.renderNavList();
           },
           '/all': {
             on: function () {
@@ -178,31 +178,17 @@ App.controller = (function () {
       var html = ejs.render(tmpl, dataObj);
       $target.html(html);
     },
-    renderYourNav: function () {
+    renderNavList: function () {
       var self = this;
-      var navlist = model.getNavListRecursion();
-      self.render(App.$menuYour, App.$menuYourTmpl, {list:navlist});
+      var navObj = model.getNavListRecursion();
+
+      self.render(App.$navBox, App.$navTmpl, {navObj:navObj});
     },
     renderTaskList: function () {
       var self = this;
-      var fList = model.getTaskList(currentListId, true) || [], unfList = model.getTaskList(currentListId, false) || [];
-      var fListTemp = [], unfListTemp = [];
-      if (routeFilter ==='today') {
-        for (var k in fList) {
-          var fDate = new Date(fList[k].fDate);
-          if (Util.isToday(fDate)) {
-            fListTemp.push(fList[k]);
-          }
-        }
-        fList = fListTemp;
-        for (var k in unfList) {
-          var fDate = new Date(unfList[k].fDate);
-          if (Util.isToday(fDate)) {
-            unfListTemp.push(unfList[k]);
-          }
-        }
-        unfList = unfListTemp;
-      }
+      var tasklistObj = model.getTaskList(routeFilter, currentListId) || {};
+      var fList = tasklistObj.fTmpList || [], unfList = tasklistObj.unfTmpList || [];
+
       self.render(App.$fList, App.$fListTmpl, {fList: fList});
       self.render(App.$unfList, App.$unfListTmpl, {unfList: unfList});
     },
