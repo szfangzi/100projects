@@ -63,7 +63,7 @@ App.controller = (function () {
       });
 
       App.$container.on('click', '.item-directory, .item-list', function (e) {
-        e.stopPropagation();
+
         var $this = $(this);
         if ($this.hasClass('item-list')) {
           $('nav .item-list').removeClass('on');
@@ -93,12 +93,12 @@ App.controller = (function () {
         }
 
       }).on('click', '.finishedBtn', function (e) {
-        e.stopPropagation();
+
         var $this = $(this);
         $this.toggleClass('on');
         App.$fList.toggleClass('on');
       }).on('click', '#tasklist .isFinished, #taskInfoBox .isFinished', function (e) {
-        e.stopPropagation();
+
         var $this = $(this);
         var taskId = '0';
         if ($this.parents('.item').length) {
@@ -126,13 +126,13 @@ App.controller = (function () {
         self.route.setRoute(self.route.getRoute(0) + '/task/' + taskId);
 
       }).on('click', '#tasklist .item', function (e) {
-        e.stopPropagation();
+
         var $this = $(this);
         App.$tasklist.find('.item').removeClass('on');
         $this.addClass('on');
 
       }).on('click', '#taskInfoBox .backBtn, #todolist .main', function (e) {
-        e.stopPropagation();
+
         if ($.inArray('task', self.route.getRoute()) !== -1) {
           self.hideTaskInfo();
           self.route.setRoute(self.route.getRoute(0));
@@ -175,7 +175,22 @@ App.controller = (function () {
           $this.blur();
         }
 
+      }).on('contextmenu', function (e) {
+        //e.preventDefault();
+        //$('#myMenu').css({top: e.clientY, left: e.clientX}).show();
+
+      }).on('click', function (e) {
+        //e.preventDefault();
+        //$('#myMenu').hide();
+
+      }).on('dragstart', '#tasklist .item', function (e) {
+        console.log('start!');
+
+      }).on('dragend', '#tasklist .item', function (e) {
+        console.log('end!');
+
       })
+
     },
     render: function ($target, $tmpl, dataObj) {
       var tmpl = $tmpl.html();

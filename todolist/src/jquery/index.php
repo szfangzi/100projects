@@ -96,5 +96,14 @@ include('../public/ejs/nav-tmpl.ejs');
     <source class="ogg" src="../public/media/complete.ogg" type="audio/ogg">
   </audio>
 </div>
+<ul id="myMenu" style="position: fixed;left: 0;top: 0;display: none;background-color: #2b8dec;border: 1px solid #ccc;">
+  <li>1111</li>
+  <li>2222</li>
+  <li>3333</li>
+</ul>
+<script>
+
+
+</script>
 </body>
 </html>
