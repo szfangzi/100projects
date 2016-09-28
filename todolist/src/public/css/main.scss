@@ -216,13 +216,40 @@ nav{
             box-sizing: border-box;
             padding: .6rem .6rem .4rem;
             display: block;
-            span{
+            .title{
               font-size: .95rem;
               color: #333;
             }
             svg{
               float: left;
               margin-right: .5rem;
+            }
+            .r{
+              float: right;
+              .count{
+                color: #bdbcbb;
+                font-size: .75rem;
+                &.passed{
+                  color: #d74e48;
+                  background-color: rgba(215,78,72,0.1);
+                  font-weight: bold;
+                  border-radius: 12px;
+                  padding: .0625rem .375rem .0625rem;
+                  margin-right: .2rem;
+                }
+              }
+            }
+            &.on{
+              background-color: #e0eefa;
+              .r{
+                .count{
+                  color: rgba(38,38,38,0.75);
+                  &.passed{
+                    color: #f7f7f7;
+                    background-color: rgba(215,78,72,0.8);
+                  }
+                }
+              }
             }
           }
         }
