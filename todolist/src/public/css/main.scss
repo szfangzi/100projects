@@ -5,11 +5,20 @@ $md-max: 62.5em;
 /************
  * 基本默认值
  ************/
+
 html{
   font-size: 100%;
   font-family: "Microsoft Yahei","微软雅黑","STXihei","Meiryo UI","Meiryo","メイリオ","ＭＳ Ｐゴシック","MS PGothic","Hiragino Kaku Gothic Pro","Arial Unicode MS","Helvetica Neue","Helvetica","Arial",sans-serif;
-  -webkit-touch-callout:none; /*系统默认菜单被禁用*/ -webkit-user-select:none; /*webkit浏览器*/ -khtml-user-select:none; /*早期浏览器*/ -moz-user-select:none;/*火狐*/ -ms-user-select:none; /*IE10*/ user-select:none;
+  -webkit-touch-callout:none; /*系统默认菜单被禁用*/
+
+  /* 会取消drag事件 */
+  /*-webkit-user-select:none; webkit浏览器*/
+  /*-khtml-user-select:none; 早期浏览器*/
+  /*-moz-user-select:none;火狐*/
+  /*-ms-user-select:none; IE10*/
+  /*user-select:none;*/
 }
+
 *::-webkit-scrollbar{width:6px !important} *::-webkit-scrollbar-button:start:decrement, *::-webkit-scrollbar-button:end:increment{height:0;background-color:transparent} *::-webkit-scrollbar-corner{background-color:transparent} *::-webkit-scrollbar-thumb:vertical{-webkit-border-radius:6px;border-radius:6px;background-color:rgba(0,0,0,0.2)}
 *{ }
 ::selection{
@@ -212,6 +221,9 @@ nav{
       }
       .menu-your{
         .item-list, .item-directory{
+          &.dragover{
+            border:2px solid orange;
+          }
           a{
             box-sizing: border-box;
             padding: .6rem .6rem .4rem;

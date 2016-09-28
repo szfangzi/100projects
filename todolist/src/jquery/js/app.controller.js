@@ -184,12 +184,32 @@ App.controller = (function () {
         //$('#myMenu').hide();
 
       }).on('dragstart', '#tasklist .item', function (e) {
+        var $this = $(this);
+        e.originalEvent.dataTransfer.setData('taskId',$this.attr('taskId'));
         console.log('start!');
 
       }).on('dragend', '#tasklist .item', function (e) {
         console.log('end!');
 
+      }).on('drop', 'nav .item-list', function (e) {
+        var $this = $(this);
+        var taskId = e.originalEvent.dataTransfer.getData('taskId');
+        var listId = $this.attr('item-id');
+        var task = model.getTask(taskId);
+        task.listId = listId;
+        model.updateTaskList(task, function () {
+          //$('nav [item-id='+task.listId+']').click();
+          self.renderTaskList();
+          self.renderNavList();
+        });
+
+      }).on('dragover', 'nav .item-list', function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        $('nav .item-list').removeClass('dragover');
+        $this.addClass('dragover');
       })
+
 
     },
     render: function ($target, $tmpl, dataObj) {

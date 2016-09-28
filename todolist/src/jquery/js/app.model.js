@@ -170,7 +170,7 @@ App.model = (function () {
       var passedCount = 0;
       var now = new Date();
       for (var k in tasklist) {
-        if(tasklist[k].fDate < now.getTime()){
+        if(tasklist[k].fDate !== "" && tasklist[k].fDate < now.getTime()){
           passedCount++;
         }
       }
