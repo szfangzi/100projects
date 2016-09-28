@@ -176,12 +176,12 @@ App.controller = (function () {
         }
 
       }).on('contextmenu', function (e) {
-        e.preventDefault();
-        $('#myMenu').css({top: e.clientY, left: e.clientX}).show();
+        //e.preventDefault();
+        //$('#myMenu').css({top: e.clientY, left: e.clientX}).show();
 
       }).on('click', function (e) {
-        e.preventDefault();
-        $('#myMenu').hide();
+        //e.preventDefault();
+        //$('#myMenu').hide();
 
       }).on('dragstart', '#tasklist .item', function (e) {
         var $this = $(this);
@@ -217,8 +217,7 @@ App.controller = (function () {
         $('nav .item-list').removeClass('dragover');
         $this.addClass('dragover');
       })
-
-
+      
     },
     render: function ($target, $tmpl, dataObj) {
       var tmpl = $tmpl.html();
@@ -282,7 +281,7 @@ App.controller = (function () {
         $('.finishedBtn').addClass('on');
         App.$fList.addClass('on');
       }
-      $('#tasklist .item[taskId="' + taskId + '"]').click();
+      $('#tasklist .item[taskId="' + taskId + '"]').addClass('on');
     }
 
   }

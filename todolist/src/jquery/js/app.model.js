@@ -59,9 +59,46 @@ App.model = (function () {
         'list':{navlist:Util.nodeRecursion(navlist, "0")}
       };
     },
+    delItemList: function (id, callback) {
+      var self = this;
+      var navlist = self.getNavList();
+      for (var k in navlist){
+        if (navlist[k].type === "list" && navlist[k].id === id) {
+          navlist.splice(k, 1);
+          self.setNavList(navlist);
+        }
+      }
+      callback && callback();
+    },
+    delItemDirectory: function (id, callback) {
+      var self = this;
+      var navlist = self.getNavList();
+      for (var k in navlist){
+        if (navlist[k].type === "directory" && navlist[k].id === id) {
+          var ids = self.getNavIdsbyPid(navlist[k].id);
+          for (var i in ids) {
+            self.updateNavList({id:ids[i], pid:"0"});
+          }
+          navlist.splice(k, 1);
+        }
+      }
+      callback && callback();
+    },
+    getNavIdsbyPid: function (pid) {
+      var self = this;
+      var navlist = self.getNavList();
+      var ids = [];
+      for (var k in navlist) {
+        if (navlist[k].pid === pid) {
+          ids.push(navlist[k].id);
+        }
+      }
+      return ids;
+    },
     delNav: function (id, callback) {
       var self = this;
       var navlist = self.getNavList();
+      var tasklist = self.getAllTaskList();
       for (var i = 0; i < navlist.length; i++) {
         if (navlist[i].id === id) {
           if(navlist[i].type === "directory"){
@@ -73,6 +110,11 @@ App.model = (function () {
           }else{
             navlist.splice(i, 1);
             self.setNavList(navlist);
+          }
+          for (var k in tasklist) {
+            //if(tasklist[k].listId == navlist[i].id){
+            //  self.delTask(tasklist[k].id);
+            //}
           }
 
         }
@@ -101,7 +143,7 @@ App.model = (function () {
         }, nav);
         navlist.push(nav);
       }
-      self.setNavList(tasklist);
+      self.setNavList(navlist);
       callback && callback();
     },
     delTask: function (id, callback) {
