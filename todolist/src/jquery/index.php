@@ -101,6 +101,9 @@ include('../public/ejs/nav-tmpl.ejs');
   <li>2222</li>
   <li>3333</li>
 </ul>
+
+<!--拖拽样式修复-空白图片-->
+<img src="../public/img/blank.gif" alt="" style="position: fixed;top:0;left: 0;z-index: 0" id="dragMouseImg">
 <script>
 
 </script>

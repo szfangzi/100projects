@@ -417,6 +417,8 @@ nav{
           padding: 0 3rem;
           margin-bottom: .06rem;
           position: relative;
+          cursor: pointer;
+          display: inline-block;
           &.on {
             background-color: #E1F2FE;
           }
@@ -591,21 +593,44 @@ nav{
   }
 }
 
-
-/*angular*/
-@keyframes pageEnter{
-  0%{margin-top: -20rem;margin-left: -20rem}
-  100%{margin-top: 0rem;margin-left: 0rem}
+#drag-task{
+  border:1px solid green;
+  box-shadow: .1rem .1rem rgba(0,0,0,.2);
+  width: 16rem;
+  box-sizing: border-box;
+  border-radius: .3rem;
+  height: 3rem;
+  padding: 0 3rem;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  .l {
+    float: left;
+    .isFinished {
+      position: absolute;
+      left: 1rem;
+      top: .75rem;
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+    h6 {
+      min-height: 1.6rem;
+      overflow: hidden;
+      margin-top: .7rem;
+      line-height: 1.6rem;
+      font-size: .875rem;
+      color: #333;
+    }
+  }
+  .r {
+    float: right;
+    .date {
+      margin-top: .8rem;
+      font-size: .875rem;
+    }
+  }
 }
-.pageEnter{
-  animation:pageEnter 1s 1;
-}
-#forecastPage{
-  height: 100vh;
-  color: #000;
-}
-
-
 
 /************
  * 打印样式

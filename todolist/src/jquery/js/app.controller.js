@@ -185,12 +185,18 @@ App.controller = (function () {
 
       }).on('dragstart', '#tasklist .item', function (e) {
         var $this = $(this);
+        $(this.outerHTML).attr({id:'drag-task'}).appendTo('body');
         e.originalEvent.dataTransfer.setData('taskId',$this.attr('taskId'));
-        console.log('start!');
+        e.originalEvent.dataTransfer.setDragImage(document.querySelector('#dragMouseImg'),0,0);
+
+      }).on('drag', '#tasklist .item', function (e) {
+        var $this = $(this);
+
+        $('#drag-task').attr({'style':'position: fixed;top:'+ (e.clientY)+'px;left:'+ (e.clientX)+"px"});
 
       }).on('dragend', '#tasklist .item', function (e) {
-        console.log('end!');
-
+        $('#drag-task').remove();
+        $('nav .item-list').removeClass('dragover');
       }).on('drop', 'nav .item-list', function (e) {
         var $this = $(this);
         var taskId = e.originalEvent.dataTransfer.getData('taskId');
@@ -198,10 +204,10 @@ App.controller = (function () {
         var task = model.getTask(taskId);
         task.listId = listId;
         model.updateTaskList(task, function () {
-          //$('nav [item-id='+task.listId+']').click();
           self.renderTaskList();
           self.renderNavList();
         });
+        $('#drag-task').remove();
 
       }).on('dragover', 'nav .item-list', function (e) {
         e.preventDefault();
