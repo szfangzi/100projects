@@ -176,12 +176,12 @@ App.controller = (function () {
         }
 
       }).on('contextmenu', function (e) {
-        //e.preventDefault();
-        //$('#myMenu').css({top: e.clientY, left: e.clientX}).show();
+        e.preventDefault();
+        $('#myMenu').css({top: e.clientY, left: e.clientX}).show();
 
       }).on('click', function (e) {
-        //e.preventDefault();
-        //$('#myMenu').hide();
+        e.preventDefault();
+        $('#myMenu').hide();
 
       }).on('dragstart', '#tasklist .item', function (e) {
         var $this = $(this);
@@ -195,8 +195,10 @@ App.controller = (function () {
         $('#drag-task').attr({'style':'position: fixed;top:'+ (e.clientY)+'px;left:'+ (e.clientX)+"px"});
 
       }).on('dragend', '#tasklist .item', function (e) {
+
         $('#drag-task').remove();
         $('nav .item-list').removeClass('dragover');
+
       }).on('drop', 'nav .item-list', function (e) {
         var $this = $(this);
         var taskId = e.originalEvent.dataTransfer.getData('taskId');
