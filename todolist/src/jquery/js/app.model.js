@@ -40,14 +40,14 @@ App.model = (function () {
     getNavListRecursion: function(){
       var self = this;
       var navlist = self.getNavList();
-      var allTasklist = self.getTaskList('all');
-      var todaylist = self.getTaskList("today");
+      var allTasklist = self.getTaskList('all').unfTmpList;
+      var todaylist = self.getTaskList("today").unfTmpList;
       var allCount = self.getTaskListCount(allTasklist) || 0;
       var todayCount = self.getTaskListCount(todaylist) || 0;
 
       for (var k in navlist) {
         if(navlist[k].listId !== "0" && navlist[k].type === 'list'){
-          var list = self.getTaskList('list', navlist[k].listId);
+          var list = self.getTaskList('list', navlist[k].listId).unfTmpList;
           var countObj = self.getTaskListCount(list) || {};
           navlist[k].countObj = countObj;
         }

@@ -23,7 +23,7 @@ App.controller = (function () {
               self.routeChangeHandler('all', "0");
             },
             '/task/:taskId': function (taskId) {
-              self.routeTask(taskId);
+              self.routeTaskHandler(taskId);
             }
           },
           '/today': {
@@ -31,7 +31,7 @@ App.controller = (function () {
               self.routeChangeHandler('today', "0");
             },
             '/task/:taskId': function (taskId) {
-              self.routeTask(taskId);
+              self.routeTaskHandler(taskId);
             }
           },
           '/list-:listId':{
@@ -39,7 +39,7 @@ App.controller = (function () {
               self.routeChangeHandler('list', listId);
             },
             '/task/:taskId': function (listId, taskId) {
-              self.routeTask(taskId);
+              self.routeTaskHandler(taskId);
             }
           }
         }
@@ -86,6 +86,7 @@ App.controller = (function () {
           }
           model.updateTaskList(newTask, function () {
             self.renderTaskList();
+            self.renderNavList();
             $this.val('');
           });
 
@@ -115,6 +116,7 @@ App.controller = (function () {
             App.audioComplete.load();
             App.audioComplete.play();
           }
+          self.renderNavList();
         });
 
       }).on('dblclick', '#tasklist .item', function (e) {
@@ -142,6 +144,7 @@ App.controller = (function () {
         model.delTask(taskId, function () {
           self.hideTaskInfo();
           self.renderTaskList();
+          self.renderNavList();
         });
       }).on('blur', '#taskInfoBox input[name="fDate"]', function (e) {
         var $this = $(this);
@@ -155,6 +158,7 @@ App.controller = (function () {
             $this.parents('li').removeClass('passed');
           }
           self.renderTaskList();
+          self.renderNavList();
         });
 
       }).on('blur', '#taskInfoBox input[name="remark"]', function (e) {
@@ -226,7 +230,7 @@ App.controller = (function () {
       self.hideTaskInfo();
       self.renderTaskList(currentListId);
     },
-    routeTask:function(taskId) {
+    routeTaskHandler:function(taskId) {
       var self = this;
       var task = model.getTask(taskId);
       self.renderTaskInfo(task);
