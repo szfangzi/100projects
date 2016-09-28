@@ -217,7 +217,7 @@ App.controller = (function () {
         $('nav .item-list').removeClass('dragover');
         $this.addClass('dragover');
       })
-      
+
     },
     render: function ($target, $tmpl, dataObj) {
       var tmpl = $tmpl.html();
