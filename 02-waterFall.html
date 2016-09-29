@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /*为了不影响我们的布局，先把 所有 padding margin 全清0*/
+        /*这里我偷懒了 没去判断，实际开发中不推荐使用 * ，因为这样 效率有点低下*/
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #wrap{
+            position: relative;
+        }
+
+        #wrap>li{
+            width: 300px;
+            position: absolute;
+            float: left;
+            list-style: none;
+        }
+        
+        #wrap>li>.boxContent{
+            background-color: pink;
+            margin: 15px;
+            border: 1px solid #c0c0c0;
+            border-radius: 10px;
+
+        }
+
+    </style>
+</head>
+<body>
+
+<!--作为瀑布块的元素标签有很多，随便自己选，今天用ul 套 li, 用li作瀑布块-->
+<ul id="wrap">
+
+</ul>
+
+<script>
+    //创建 li
+    //li 下加了一个 子div 用于承载内容
+    var htmls = '';
+    for (var i = 0;i<50;i++){
+        //拼接出  <li style=''></li><li></li>
+        var height = Math.random() * 200 + 200;
+        htmls += '<li><div class="boxContent" style="height:'+height +'px;"></div></li>';
+    }
+    document.getElementById('wrap').innerHTML = htmls;
+
+
+    window.onload = window.onresize = function () {
+        //自定义 除了第一行以外的每一个瀑布块的 坐标
+        sort(document.getElementById('wrap'));
+    }
+
+    //封装函数 sort()  来整理 瀑布块
+    //默认 需要传入 参数 #wrap 元素
+    function sort(element) {
+        //计算前准备 需要li的宽度
+        var lists = element.getElementsByTagName('li');
+        //获取第一个li的宽度，因为所有li宽度其实是一样的。
+        var listWidth = lists[0].offsetWidth;
+        //获取第一个li的高度
+        var height = lists[0].offsetHeight;
+        //准备一个数组 用来存储 每一列的高度
+        var colHeight = [];
+        //获取一行最多排下的列数
+        //console.log(document.documentElement.clientWidth);
+        var num_cols = parseInt(document.documentElement.clientWidth/listWidth);
+
+        for (var i = 0;i<lists.length;i++){
+            //遍历 li 的个数
+            //目的为了 第一排的 li 保持float不变，不用设置 绝对定位,并且以第一排的 li 为参照。
+            if (i < num_cols){
+                //说明这里的li 是显示在第一排
+                //这里做的操作2个。
+                // 01 不需要设置 position
+                // 02 记录下 每一个li所在列的高度，因为是第一排 其实就是它们本身的高度。
+                lists[i].style.position = 'static';
+                colHeight[i] = lists[i].offsetHeight;
+            }else {
+                //寻找 每一列中 列高最小的 一列，并且向该列中插入新的li
+                console.log(colHeight);
+                //ath.min() 用于查找几个数字中的最小值。 apply() 可以查找数组中的最小值
+                var minHeight = Math.min.apply({},colHeight);
+                console.log(minHeight);
+                //找到 最小高度列 后 还需要知道该列对应的索引值。
+                var index = searchIndex(colHeight,minHeight);
+                console.log(index);
+                //这时候可以 对 lists[i]进行相关设置
+                //01 设置position
+                lists[i].style.position = 'absolute';
+                //02 设置 top left
+                lists[i].style.top = minHeight + 'px';
+                lists[i].style.left = index * listWidth + 'px';
+
+                //设置完位置以后，被设置的这一列高度 此时发生改变
+                //改变后的该列高度 = 之前该列的高度 + 新增瀑布块的高度
+                colHeight[index] += lists[i].offsetHeight;
+            }
+
+        }
+    }
+
+    //封装函数 searchIndex()  目的是为了找值value所对应的index值
+    function searchIndex(array,value) {
+        for(var index in array){
+            if (array[index] == value){
+                return index;
+            }
+        }
+    }
+    
+</script>
+
+
+</body>
+</html>
