@@ -15,6 +15,9 @@ var App = (function () {
     this.$navTmpl= $('#nav-tmpl');
     this.$menuFilter = $('#menu-filter');
     this.$menuYour = $('#menu-your');
+    this.$ctmNavItemList = $('#ctm-nav-item-list');
+    this.$ctmNavItemDirectoryList = $('#ctm-nav-item-directory-list');
+    this.$ctmNavItemDirectory = $('#ctm-nav-item-directory');
 
     this.$addTaskInput = $('#addTaskInput');
     this.$todolist = $('#todolist');

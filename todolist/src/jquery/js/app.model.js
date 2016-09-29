@@ -59,27 +59,24 @@ App.model = (function () {
         'list':{navlist:Util.nodeRecursion(navlist, "0")}
       };
     },
-    delItemList: function (id, callback) {
+    delNavItem: function (id, callback) {
       var self = this;
       var navlist = self.getNavList();
       for (var k in navlist){
         if (navlist[k].type === "list" && navlist[k].id === id) {
           navlist.splice(k, 1);
           self.setNavList(navlist);
-        }
-      }
-      callback && callback();
-    },
-    delItemDirectory: function (id, callback) {
-      var self = this;
-      var navlist = self.getNavList();
-      for (var k in navlist){
-        if (navlist[k].type === "directory" && navlist[k].id === id) {
+          self.delTaskByListId(id);
+          break;
+        }else if (navlist[k].type === "directory" && navlist[k].id === id) {
           var ids = self.getNavIdsbyPid(navlist[k].id);
+          navlist.splice(k, 1);
+          self.setNavList(navlist);
           for (var i in ids) {
             self.updateNavList({id:ids[i], pid:"0"});
           }
-          navlist.splice(k, 1);
+
+          break;
         }
       }
       callback && callback();
@@ -94,32 +91,6 @@ App.model = (function () {
         }
       }
       return ids;
-    },
-    delNav: function (id, callback) {
-      var self = this;
-      var navlist = self.getNavList();
-      var tasklist = self.getAllTaskList();
-      for (var i = 0; i < navlist.length; i++) {
-        if (navlist[i].id === id) {
-          if(navlist[i].type === "directory"){
-            for (var j = 0; j < navlist.length; i++) {
-              if (navlist[i].id === navlist[j].pid) {
-                self.updateNavList({id:navlist[j].id, pid:"0"});
-              }
-            }
-          }else{
-            navlist.splice(i, 1);
-            self.setNavList(navlist);
-          }
-          for (var k in tasklist) {
-            //if(tasklist[k].listId == navlist[i].id){
-            //  self.delTask(tasklist[k].id);
-            //}
-          }
-
-        }
-      }
-      callback && callback();
     },
     updateNavList: function (nav, callback) {
       var self = this;
@@ -155,6 +126,18 @@ App.model = (function () {
           self.setTaskList(tasklist);
         }
       }
+      callback && callback();
+    },
+    delTaskByListId: function (listId, callback) {
+      var self = this;
+      var tasklist = self.getAllTaskList();
+      var tmpList = [];
+      for (var i = 0; i < tasklist.length; i++) {
+        if (tasklist[i].listId !== listId) {
+          tmpList.push(tasklist[i]);
+        }
+      }
+      self.setTaskList(tmpList);
       callback && callback();
     },
     updateTaskList: function (task, callback) {

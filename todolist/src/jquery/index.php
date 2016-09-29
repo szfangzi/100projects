@@ -86,8 +86,8 @@
 <?php
 include('../public/ejs/taskinfo.ejs');
 include('../public/ejs/tasklist.ejs');
-include('../public/ejs/nav-tmpl.ejs');
-include('../public/ejs/context-menu-tmpl.ejs');
+include('../public/ejs/nav.ejs');
+include('../public/ejs/context-menu.ejs');
 ?>
 <div id="audio-player">
   <audio id="audio-notification" class="hide">
@@ -97,11 +97,6 @@ include('../public/ejs/context-menu-tmpl.ejs');
     <source class="ogg" src="../public/media/complete.ogg" type="audio/ogg">
   </audio>
 </div>
-<ul id="myMenu" style="position: fixed;display: none;width: 100px;height: 100px;left: 0;top: 0;background-color: #2b8dec;border: 1px solid #ccc;">
-  <li>1111</li>
-  <li>2222</li>
-  <li>3333</li>
-</ul>
 
 <!--拖拽样式修复-空白图片-->
 <img src="../public/img/blank.gif" alt="" style="position: fixed;top:0;left: 0;z-index: 0" id="dragMouseImg">

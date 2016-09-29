@@ -62,14 +62,95 @@ App.controller = (function () {
         }
       });
 
-      App.$container.on('click', '.item-directory, .item-list', function (e) {
+      //右键操作
+      $('.ctm-box').on('click', '.ctm-directory-del, .ctm-list-del', function (e) {
+        var $this = $(this);
+        var itemId = $this.parents('.ctm-box').attr('item-id');
+        model.delNavItem(itemId, function () {
+          $('.ctm-box').hide();
+          self.renderNavList();
+          self.renderTaskList();
+        });
+
+      }).on('click', '.ctm-directory-create', function (e) {
+        var $this = $(this);
+        var itemId = $this.parents('.ctm-box').attr('item-id');
+        var itemDirectory = {
+          id:Util.uuid(),
+          name:'新清单夹',
+          pid:'0',
+          type:"directory"
+        };
+        var itemList = {
+          id:itemId,
+          pid:itemDirectory.id
+        };
+        model.updateNavList(itemDirectory, function () {
+          model.updateNavList(itemList, function () {
+            self.renderNavList();
+          });
+        });
+
+      }).on('click', '.ctm-directory-rename', function (e) {
+        var $this = $(this);
+        var itemId = $this.parents('.ctm-box').attr('item-id');
+        $('.ctm-box').hide();
+        $('nav .item-directory[item-id='+itemId+']').addClass('update on').find('.titleInput').focus();
+
+      }).on('click', '.ctm-list-rename', function (e) {
+        var $this = $(this);
+        var itemId = $this.parents('.ctm-box').attr('item-id');
+
+      });
+
+      //导航
+      App.$navBox.on('contextmenu', '#menu-your .item-list', function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        $('.ctm-box').hide();
+        var top = 0, left = e.clientX+10, windowHeight = $(window).height(), topFixed = 0;
+
+        if($this.parents('.item-directory').length){
+          topFixed = windowHeight - App.$ctmNavItemDirectoryList.height() - 30;
+          if(e.clientY > topFixed){
+            top = topFixed;
+          }else{
+            top = e.clientY;
+          }
+          App.$ctmNavItemDirectoryList.css({'top': top, 'left': left}).attr({'item-id':$this.attr('item-id')}).show();
+        }else{
+          topFixed = windowHeight - App.$ctmNavItemList.height() - 30;
+          if(e.clientY > topFixed){
+            top = topFixed;
+          }else{
+            top = e.clientY;
+          }
+          App.$ctmNavItemList.css({'top': top, 'left': left}).attr({'item-id':$this.attr('item-id')}).show();
+        }
+
+      }).on('contextmenu', '#menu-your .item-directory > a', function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        $('.ctm-box').hide();
+        var top = 0, left = e.clientX+10, windowHeight = $(window).height();
+        var topFixed = windowHeight - App.$ctmNavItemDirectory.height() - 30;
+        if(e.clientY > topFixed){
+          top = topFixed;
+        }else{
+          top = e.clientY;
+        }
+        App.$ctmNavItemDirectory.css({'top': top, 'left': left}).attr({'item-id':$this.attr('item-id')}).show();
+
+      });
+
+      App.$container.on('click', '.item-directory > a, .item-list', function (e) {
 
         var $this = $(this);
         if ($this.hasClass('item-list')) {
           $('nav .item-list').removeClass('on');
           $this.addClass('on');
         }else{
-          $this.toggleClass('on');
+          $this.parents('.item-directory').toggleClass('on');
         }
 
       }).on('keydown', '#addTaskInput', function (e) {
@@ -175,15 +256,14 @@ App.controller = (function () {
           $this.blur();
         }
 
-      }).on('contextmenu', function (e) {
-        //e.preventDefault();
-        //$('#myMenu').css({top: e.clientY, left: e.clientX}).show();
-
       }).on('click', function (e) {
-        //e.preventDefault();
-        //$('#myMenu').hide();
 
-      }).on('dragstart', '#tasklist .item', function (e) {
+        $('.ctm-box').hide();
+
+      });
+
+      //任务元素拖拽
+      App.$container.on('dragstart', '#tasklist .item', function (e) {
         var $this = $(this);
         $(this.outerHTML).attr({id:'drag-task'}).appendTo('body');
         e.originalEvent.dataTransfer.setData('taskId',$this.attr('taskId'));
@@ -216,7 +296,8 @@ App.controller = (function () {
         var $this = $(this);
         $('nav .item-list').removeClass('dragover');
         $this.addClass('dragover');
-      })
+      });
+
 
     },
     render: function ($target, $tmpl, dataObj) {
