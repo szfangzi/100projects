@@ -141,6 +141,11 @@ App.controller = (function () {
         }
         App.$ctmNavItemDirectory.css({'top': top, 'left': left}).attr({'item-id':$this.attr('item-id')}).show();
 
+      }).on('blur', '.item-directory .titleInput', function (e) {
+        var $this = $(this);
+        var newName = $this.val();
+        $this.parent().find('.title').html(newName);
+
       });
 
       App.$container.on('click', '.item-directory > a, .item-list', function (e) {
