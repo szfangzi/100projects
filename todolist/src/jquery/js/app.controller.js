@@ -255,7 +255,15 @@ App.controller = (function () {
           self.renderTaskList();
         });
 
-      }).on('keydown', '#taskInfoBox input[name="remark"]', function (e) {
+      }).on('blur', '#taskInfoBox input[name="taskname"]', function (e) {
+        var $this = $(this);
+        var taskId = App.$taskInfoBox.find('input[name="id"]').val();
+        var taskname = $this.val();
+        model.updateTaskList({id: taskId, taskname: taskname}, function () {
+          self.renderTaskList();
+        });
+
+      }).on('keydown', '#taskInfoBox input[name="fDate"], #taskInfoBox input[name="remark"], #taskInfoBox input[name="taskname"]', function (e) {
         if (e.keyCode === App.options.keyCode.enter) {
           var $this = $(this);
           $this.blur();
