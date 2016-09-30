@@ -53,6 +53,10 @@ App.model = (function () {
         }
       }
 
+      navlist.sort(function (a,b) {
+        return a['sort']<=b['sort']?-1:1;
+      });
+
       return {
         'all':{count:allCount},
         'today':{count:todayCount},
@@ -110,7 +114,9 @@ App.model = (function () {
           "id": Util.uuid(),
           "name": "",
           "pid": "",
-          "type": ""
+          "type": "",
+          "expand":false,
+          "sort":self.getNavMaxSort()+1
         }, nav);
         navlist.push(nav);
       }
@@ -248,6 +254,16 @@ App.model = (function () {
         count:count,
         passedCount:passedCount
       }
+    },
+    getNavMaxSort: function () {
+      var self = this;
+      var navlist = self.getNavList();
+      var sortList = [];
+
+      for (var k in navlist) {
+        sortList.push(navlist[k].sort);
+      }
+      return maxSort = Math.max.apply({}, sortList);
     }
 
   }

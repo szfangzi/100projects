@@ -3,42 +3,56 @@
     "id":"1",
     "pid":"0",
     "type":"list",
-    "name":"清单1"
+    "name":"清单1",
+    "expand":false,
+    "sort":1
   },
   {
     "id":"2",
     "pid":"0",
     "type":"list",
-    "name":"清单2"
+    "name":"清单2",
+    "expand":false,
+    "sort":2
   },
   {
     "id":"3",
     "pid":"0",
     "type":"directory",
-    "name":"清单夹1"
+    "name":"清单夹1",
+    "expand":false,
+    "sort":3
   },
   {
     "id":"4",
     "pid":"3",
     "type":"list",
-    "name":"清单1"
+    "name":"清单1",
+    "expand":false,
+    "sort":4
   },
   {
     "id":"5",
     "pid":"3",
     "type":"list",
-    "name":"清单2"
+    "name":"清单2",
+    "expand":false,
+    "sort":5
   },
   {
     "id":"6",
     "pid":"0",
     "type":"directory",
-    "name":"清单夹2"
+    "name":"清单夹2",
+    "expand":true,
+    "sort":6
   },
   {
     "id":"7",
     "pid":"6",
     "type":"list",
-    "name":"清单1"
+    "name":"清单1",
+    "expand":false,
+    "sort":7
   }
 ]

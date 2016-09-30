@@ -73,13 +73,17 @@ App.controller = (function () {
         });
 
       }).on('click', '.ctm-directory-create', function (e) {
+        $('.ctm-box').hide();
         var $this = $(this);
         var itemId = $this.parents('.ctm-box').attr('item-id');
+        var sort = $this.parents('.ctm-box').attr('sort');
         var itemDirectory = {
           id:Util.uuid(),
           name:'新清单夹',
           pid:'0',
-          type:"directory"
+          type:"directory",
+          expand:true,
+          sort:sort
         };
         var itemList = {
           id:itemId,
@@ -88,6 +92,8 @@ App.controller = (function () {
         model.updateNavList(itemDirectory, function () {
           model.updateNavList(itemList, function () {
             self.renderNavList();
+            $('nav .item-directory[item-id='+itemDirectory.id+']').addClass('update on').find('.titleInput').focus();
+            $('nav .item-directory[item-id='+itemDirectory.id+']')[0].select()
           });
         });
 
@@ -125,7 +131,7 @@ App.controller = (function () {
           }else{
             top = e.clientY;
           }
-          App.$ctmNavItemList.css({'top': top, 'left': left}).attr({'item-id':$this.attr('item-id')}).show();
+          App.$ctmNavItemList.css({'top': top, 'left': left}).attr({'item-id':$this.attr('item-id'),'sort':$this.attr('sort')}).show();
         }
 
       }).on('contextmenu', '#menu-your .item-directory > a', function (e) {
@@ -145,20 +151,36 @@ App.controller = (function () {
         var $this = $(this);
         var newName = $this.val();
         $this.parent().find('.title').html(newName);
+        var itemId = $this.parents('.item-directory').removeClass('update').attr('item-id');
+        model.updateNavList({id:itemId, name:newName}, function () {
+          self.renderNavList();
+        });
 
-      });
+      }).on('click', '.item-directory .titleInput', function (e) {
+        e.stopPropagation();
 
-      App.$container.on('click', '.item-directory > a, .item-list', function (e) {
+
+      }).on('click', '.item-directory > a, .item-list', function (e) {
 
         var $this = $(this);
+        var itemId = $this.attr('item-id');
         if ($this.hasClass('item-list')) {
           $('nav .item-list').removeClass('on');
           $this.addClass('on');
         }else{
           $this.parents('.item-directory').toggleClass('on');
+          if($this.parents('.item-directory').hasClass('on')){
+            model.updateNavList({id:itemId, expand:true});
+          }else{
+            model.updateNavList({id:itemId, expand:false});
+          }
+
         }
 
-      }).on('keydown', '#addTaskInput', function (e) {
+      })
+
+
+      App.$container.on('keydown', '#addTaskInput', function (e) {
         var $this = $(this);
         if (e.keyCode == App.options.keyCode.enter) {
           var newTask = {};
@@ -276,9 +298,9 @@ App.controller = (function () {
       });
 
       //任务元素拖拽
-      App.$container.on('dragstart', '#tasklist .item', function (e) {
-        var $this = $(this);
-        $(this.outerHTML).attr({id:'drag-task'}).appendTo('body');
+      App.$container.on('dragstart', '#tasklist .item .name', function (e) {
+        var $this = $(this).parents('.item');
+        $($this[0].outerHTML).attr({id:'drag-task'}).appendTo('body');
         e.originalEvent.dataTransfer.setData('taskId',$this.attr('taskId'));
         e.originalEvent.dataTransfer.setDragImage(document.querySelector('#dragMouseImg'),0,0);
 
@@ -292,7 +314,7 @@ App.controller = (function () {
         $('#drag-task').remove();
         $('nav .item-list').removeClass('dragover');
 
-      }).on('drop', 'nav .item-list', function (e) {
+      }).on('drop', 'nav .item-list:not(.all-item-list)', function (e) {
         var $this = $(this);
         var taskId = e.originalEvent.dataTransfer.getData('taskId');
         var listId = $this.attr('item-id');

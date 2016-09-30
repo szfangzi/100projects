@@ -10,7 +10,7 @@
     <div class="item <% if(Util.isPassedDate(unfList[k].fDate)){ %>passed<% } %>" taskId="<%=unfList[k].id%>" list-id="<%=unfList[k].listId%>" >
       <div class="l">
         <input type="checkbox" class="isFinished">
-        <h6><%=unfList[k].taskname%></h6>
+        <a href="javascript:;" class="name"><%=unfList[k].taskname%></a>
       </div>
       <div class="r">
         <div class="date"><%= fDate %></div>
@@ -31,7 +31,7 @@
       <div class="l">
         <input type="checkbox" class="isFinished" checked >
         <div class="title">
-          <h6><%=fList[k].taskname%></h6>
+            <a href="javascript:;" class="name"><%=fList[k].taskname%></a>
           <!--<span class="ago"><%=fList[k].ago%></span>-->
         </div>
       </div>

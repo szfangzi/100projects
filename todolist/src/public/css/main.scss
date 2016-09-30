@@ -20,10 +20,10 @@ html{
 }
 
 *::-webkit-scrollbar{width:6px !important} *::-webkit-scrollbar-button:start:decrement, *::-webkit-scrollbar-button:end:increment{height:0;background-color:transparent} *::-webkit-scrollbar-corner{background-color:transparent} *::-webkit-scrollbar-thumb:vertical{-webkit-border-radius:6px;border-radius:6px;background-color:rgba(0,0,0,0.2)}
-*{ }
-::selection{
+
+/*::selection{
   text-shadow: none;
-}
+}*/
 ul{
     margin: 0;
     padding: 0;
@@ -469,6 +469,7 @@ nav{
           }
           .l {
             float: left;
+            width: calc(100% - 5rem);
             .isFinished {
               position: absolute;
               left: 1rem;
@@ -476,12 +477,14 @@ nav{
               width: 1.2rem;
               height: 1.2rem;
             }
-            h6 {
+            .name {
               min-height: 1.6rem;
               overflow: hidden;
-              margin-top: .7rem;
+              padding: .7rem;
               line-height: 1.6rem;
               font-size: .875rem;
+              display: block;
+              width: 100%;
             }
           }
           .r {
@@ -638,7 +641,7 @@ nav{
   box-sizing: border-box;
   border-radius: .3rem;
   height: 3rem;
-  padding: 0 3rem;
+  padding: 0 1rem;
   background-color: white;
   position: fixed;
   top: 0;
@@ -651,18 +654,22 @@ nav{
       top: .75rem;
       width: 1.2rem;
       height: 1.2rem;
+      display: none;
     }
-    h6 {
-      min-height: 1.6rem;
+    .name {
       overflow: hidden;
-      margin-top: .7rem;
+      padding: .7rem;
       line-height: 1.6rem;
       font-size: .875rem;
       color: #333;
+      display: block;
+      width: 12rem;
+      height: 1.2rem;
     }
   }
   .r {
     float: right;
+    display: none;
     .date {
       margin-top: .8rem;
       font-size: .875rem;
