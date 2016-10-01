@@ -1,0 +1,10 @@
+<script type="text/template" id="ctmSubDirectoryTmpl">
+    <% if(dirs.length){ %>
+    <% for (var i in dirs) { %>
+<li class="context-menu-item menuItem" item-id="<%=dirs[i].name%>">
+    <span class="context-menu-icon">   </span>
+    <span class="label"><%=dirs[i].name%></span>
+</li>
+    <% } %>
+    <% } %>
+</script>

@@ -3,6 +3,11 @@ App.controller = (function () {
   var model = App.model;
   var routeFilter = 'all';
   var currentListId = "0";
+  var hasDragData = {
+    'list':false,
+    'directory':false,
+    'task':false
+  };
 
   return {
     init: function () {
@@ -17,6 +22,7 @@ App.controller = (function () {
           once: function () {
             self.route = this;
             self.renderNavList();
+            self.renderCtmMenu();
           },
           '/all': {
             on: function () {
@@ -106,7 +112,17 @@ App.controller = (function () {
       }).on('click', '.ctm-list-rename', function (e) {
         var $this = $(this);
         var itemId = $this.parents('.ctm-box').attr('item-id');
+        $('.ctm-box').hide();
+        $('nav .item-list[item-id='+itemId+']').addClass('update on').find('.listTitleInput').focus();
 
+      }).on('click', '.ctm-remove-from-directory', function (e) {
+        $('.ctm-box').hide();
+        var $this = $(this);
+        var itemId = $this.parents('.ctm-box').attr('item-id');
+        var sort = $('nav [item-id='+itemId+']').parents('.item-directory').attr('sort');
+        model.updateNavList({id:itemId, pid:"0",sort:parseInt(sort)}, function(){
+          self.renderNavList();
+        });
       });
 
       //导航
@@ -152,6 +168,15 @@ App.controller = (function () {
         var newName = $this.val();
         $this.parent().find('.title').html(newName);
         var itemId = $this.parents('.item-directory').removeClass('update').attr('item-id');
+        model.updateNavList({id:itemId, name:newName}, function () {
+          self.renderNavList();
+        });
+
+      }).on('blur', '.item-list .listTitleInput', function (e) {
+        var $this = $(this);
+        var newName = $this.val();
+        $this.parent().find('.title').html(newName);
+        var itemId = $this.parents('.item-list').removeClass('update').attr('item-id');
         model.updateNavList({id:itemId, name:newName}, function () {
           self.renderNavList();
         });
@@ -300,8 +325,12 @@ App.controller = (function () {
       //任务元素拖拽
       App.$container.on('dragstart', '#tasklist .item .name', function (e) {
         var $this = $(this).parents('.item');
+        var taskId = $this.attr('taskId');
+        if(taskId){
+          hasDragData.task = true;
+        }
         $($this[0].outerHTML).attr({id:'drag-task'}).appendTo('body');
-        e.originalEvent.dataTransfer.setData('taskId',$this.attr('taskId'));
+        e.originalEvent.dataTransfer.setData('taskId',taskId);
         e.originalEvent.dataTransfer.setDragImage(document.querySelector('#dragMouseImg'),0,0);
 
       }).on('drag', '#tasklist .item', function (e) {
@@ -309,28 +338,87 @@ App.controller = (function () {
 
         $('#drag-task').attr({'style':'position: fixed;top:'+ (e.clientY)+'px;left:'+ (e.clientX)+"px"});
 
-      }).on('dragend', '#tasklist .item', function (e) {
+      }).on('dragend', '#tasklist .item, nav .item-list', function (e) {
 
         $('#drag-task').remove();
         $('nav .item-list').removeClass('dragover');
+        hasDragData.task = false;
+
 
       }).on('drop', 'nav .item-list:not(.all-item-list)', function (e) {
         var $this = $(this);
-        var taskId = e.originalEvent.dataTransfer.getData('taskId');
-        var listId = $this.attr('item-id');
-        var task = model.getTask(taskId);
-        task.listId = listId;
+        var taskId = e.originalEvent.dataTransfer.getData('taskId') || 0;
+        var task = {};
+        var listId = "0";
+        if(taskId){
+          task = model.getTask(taskId);
+        }else{
+          return;
+        }
+        if(!$this.parent('.menu-filter-today').length){
+          listId = $this.attr('item-id');
+          task.listId = listId;
+        }else{
+          task.fDate = (new Date()).getTime();
+        }
         model.updateTaskList(task, function () {
           self.renderTaskList();
           self.renderNavList();
         });
+
         $('#drag-task').remove();
 
       }).on('dragover', 'nav .item-list', function (e) {
         e.preventDefault();
         var $this = $(this);
+        if(hasDragData.task){
+          $('nav .item-list').removeClass('dragover');
+          $this.addClass('dragover');
+        }
+
+      }).on('dragstart', 'nav .menu-your .item-list', function (e) {
+        var $this = $(this);
+        var listId = $this.attr('item-id');
+        if(listId){
+          hasDragData.list = true;
+        }
+        //$($this[0].outerHTML).attr({id:'drag-task'}).appendTo('body');
+        e.originalEvent.dataTransfer.setData('listId', listId);
+        e.originalEvent.dataTransfer.setDragImage(document.querySelector('#dragMouseImg'),0,0);
+
+      }).on('drag', 'nav .menu-your .item-list', function (e) {
+        var $this = $(this);
+
+        //$('#drag-task').attr({'style':'position: fixed;top:'+ (e.clientY)+'px;left:'+ (e.clientX)+"px"});
+
+      }).on('dragend', 'nav .menu-your .item-list', function (e) {
+
+        //$('#drag-task').remove();
         $('nav .item-list').removeClass('dragover');
-        $this.addClass('dragover');
+        hasDragData.list = false;
+
+      }).on('drop', 'nav .item-directory', function (e) {
+        var $this = $(this);
+        var listId = e.originalEvent.dataTransfer.getData('listId') || 0;
+        var directoryId = $this.attr('item-id') || "0";
+        if(listId){
+          nav = {id:listId,pid:directoryId};
+          model.updateNavList(nav, function () {
+            self.renderNavList();
+          });
+          //$('#drag-task').remove();
+        }else{
+          return;
+        }
+
+      }).on('dragover', 'nav .item-directory', function (e) {
+        e.preventDefault();
+        var $this = $(this);
+        if(hasDragData.list){
+          $('nav .item-directory').removeClass('dragover');
+          $this.addClass('dragover');
+        }
+
       });
 
 
@@ -345,6 +433,12 @@ App.controller = (function () {
       var navObj = model.getNavListRecursion();
 
       self.render(App.$navBox, App.$navTmpl, {navObj:navObj});
+    },
+    renderCtmMenu: function () {
+      var self = this;
+      var dirs = model.getDirs();
+
+      self.render($('.submenu-directory'), App.$ctmSubDirectoryTmpl, {dirs:dirs});
     },
     renderTaskList: function () {
       var self = this;

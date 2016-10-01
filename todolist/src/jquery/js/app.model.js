@@ -96,6 +96,17 @@ App.model = (function () {
       }
       return ids;
     },
+    getDirs: function () {
+      var self = this;
+      var navlist = self.getNavList();
+      var dirs = [];
+      for (var k in navlist) {
+        if(navlist[k].type === 'directory'){
+          dirs.push(navlist[k]);
+        }
+      }
+      return dirs;
+    },
     updateNavList: function (nav, callback) {
       var self = this;
       var navlist = self.getNavList();
@@ -122,6 +133,16 @@ App.model = (function () {
       }
       self.setNavList(navlist);
       callback && callback();
+    },
+    getNavMaxSort: function () {
+      var self = this;
+      var navlist = self.getNavList();
+      var sortList = [];
+
+      for (var k in navlist) {
+        sortList.push(navlist[k].sort);
+      }
+      return maxSort = Math.max.apply({}, sortList);
     },
     delTask: function (id, callback) {
       var self = this;
@@ -254,16 +275,6 @@ App.model = (function () {
         count:count,
         passedCount:passedCount
       }
-    },
-    getNavMaxSort: function () {
-      var self = this;
-      var navlist = self.getNavList();
-      var sortList = [];
-
-      for (var k in navlist) {
-        sortList.push(navlist[k].sort);
-      }
-      return maxSort = Math.max.apply({}, sortList);
     }
 
   }

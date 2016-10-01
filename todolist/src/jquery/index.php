@@ -88,6 +88,7 @@ include('../public/ejs/taskinfo.ejs');
 include('../public/ejs/tasklist.ejs');
 include('../public/ejs/nav.ejs');
 include('../public/ejs/context-menu.ejs');
+include('../public/ejs/context-submenu-directory.ejs');
 ?>
 <div id="audio-player">
   <audio id="audio-notification" class="hide">

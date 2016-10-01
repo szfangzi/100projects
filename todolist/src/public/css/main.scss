@@ -226,6 +226,9 @@ nav{
         }
         .menu-filter-today{
           a.item-list{
+            &.dragover{
+              border:2px solid orange;
+            }
             .icon{
               position: relative;
               svg{
@@ -244,9 +247,7 @@ nav{
       .menu-your{
         .item-list, .item-directory{
           position: relative;
-          &.dragover{
-            border:2px solid orange;
-          }
+          margin-top: .1rem;
           a{
             box-sizing: border-box;
             padding: .6rem .6rem .4rem;
@@ -289,11 +290,41 @@ nav{
           }
         }
         .item-list{
+          &.dragover{
+            border:2px solid orange;
+          }
           &.on{
             background-color: #e0eefa;
+            .r{
+              .count{
+                color: rgba(38,38,38,0.75);
+                &.passed{
+                  color: #f7f7f7;
+                  background-color: rgba(215,78,72,0.8);
+                }
+              }
+            }
+          }
+          &.update > a{
+            .title{
+              display: none;
+            }
+            .listTitleInput{
+              display: inline-block;
+            }
+          }
+          a {
+            .listTitleInput {
+              width: 9rem;
+              height: 1.4rem;
+              display: none;
+            }
           }
         }
         .item-directory{
+          &.dragover > a{
+            border:2px solid orange;
+          }
           &.update > a{
             .title{
               display: none;
