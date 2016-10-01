@@ -123,6 +123,15 @@ App.controller = (function () {
         model.updateNavList({id:itemId, pid:"0",sort:parseInt(sort)}, function(){
           self.renderNavList();
         });
+      }).on('click', '.dir-item', function (e) {
+        var $this = $(this);
+        var itemId = $this.parents('.ctm-box').attr('item-id');
+        var dirId = $this.attr('item-id');
+        $('.ctm-box').hide();
+        model.updateNavList({id:itemId, pid:dirId}, function () {
+          self.renderNavList();
+        });
+
       });
 
       //导航
