@@ -63,6 +63,15 @@ App.model = (function () {
         'list':{navlist:Util.nodeRecursion(navlist, "0")}
       };
     },
+    getNavItem: function (id) {
+      var self = this;
+      var navlist = self.getNavList();
+      for (var k in navlist) {
+        if(navlist[k].id === id){
+          return navlist[k];
+        }
+      }
+    },
     delNavItem: function (id, callback) {
       var self = this;
       var navlist = self.getNavList();
@@ -124,8 +133,8 @@ App.model = (function () {
         nav = $.fn.extend({
           "id": Util.uuid(),
           "name": "",
-          "pid": "",
-          "type": "",
+          "pid": "0",
+          "type": "list",
           "expand":false,
           "sort":self.getNavMaxSort()+1
         }, nav);

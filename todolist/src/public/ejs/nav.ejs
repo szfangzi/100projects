@@ -39,6 +39,7 @@
     <% for(var k in list){ %>
     <% if(list[k].type === 'directory'){ %>
     <li class="item-<%= list[k].type %> <% if(list[k].expand){ %> on <%}%> " item-id="<%= list[k].id %>" sort="<%= list[k].sort %>" >
+      <div class="dragLine"></div>
       <a href="javascript:;" item-id="<%= list[k].id %>">
         <svg class="folders rtl-flip" width="20px" height="20px" viewBox="0 0 20 20" >
           <g id="Web-svgs" stroke="none" stroke-width="1" fill-rule="evenodd">
@@ -54,6 +55,7 @@
         <input type="text" class="titleInput" value="<%= list[k].name %>" >
       <% }else{ %>
       <li class="item-<%= list[k].type %>" item-id="<%= list[k].id %>" sort="<%= list[k].sort %>" >
+        <div class="dragLine"></div>
         <a href="#/list-<%= list[k].id %>">
           <svg class="list rtl-flip" width="20px" height="20px" viewBox="0 0 20 20" >
             <g id="Web-svgs" stroke="none" stroke-width="1" fill-rule="evenodd">
@@ -80,7 +82,8 @@
           for(var i in childs){
           if(childs[i].type === "list"){
           %>
-          <li class="item-<%= childs[i].type %>" item-id="<%= childs[i].id %>">
+          <li class="item-<%= childs[i].type %>" item-id="<%= childs[i].id %>" sort="<%= childs[i].sort %>" >
+            <div class="dragLine"></div>
             <a href="#/list-<%= childs[i].id %>">
               <svg class="list rtl-flip" width="20px" height="20px" viewBox="0 0 20 20" >
                 <g id="Web-svgs" stroke="none" stroke-width="1" fill-rule="evenodd">
@@ -91,6 +94,7 @@
               </svg>
 
               <span class="title"><%= childs[i].name %></span>
+              <input type="text" class="listTitleInput" value="<%= childs[i].name %>" >
               <span class="r">
                 <span class="count passed"><%= childs[i].countObj.passedCount || 0 %></span>
                 <span class="count"><%= childs[i].countObj.count || 0 %></span>

@@ -19,6 +19,7 @@ var App = (function () {
     this.$ctmNavItemDirectoryList = $('#ctm-nav-item-directory-list');
     this.$ctmNavItemDirectory = $('#ctm-nav-item-directory');
     this.$ctmSubDirectoryTmpl = $('#ctmSubDirectoryTmpl');
+    this.$modal = $('#modal');
 
     this.$addTaskInput = $('#addTaskInput');
     this.$todolist = $('#todolist');

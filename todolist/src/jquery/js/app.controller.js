@@ -177,7 +177,7 @@ App.controller = (function () {
         var newName = $this.val();
         $this.parent().find('.title').html(newName);
         var itemId = $this.parents('.item-directory').removeClass('update').attr('item-id');
-        model.updateNavList({id:itemId, name:newName}, function () {
+        model.updateNavList({id:itemId, name:newName, type:"directory"}, function () {
           self.renderNavList();
         });
 
@@ -211,7 +211,11 @@ App.controller = (function () {
 
         }
 
-      })
+      });
+
+      $('.createList a').on('click', function (e) {
+        App.$modal.find('.create-list-dialog').show();
+      });
 
 
       App.$container.on('keydown', '#addTaskInput', function (e) {
@@ -331,6 +335,17 @@ App.controller = (function () {
 
       });
 
+      App.$modal.on('click', '.create-list-dialog .submit', function (e) {
+        var listName = $('.create-list-dialog .list-name').val();
+        model.updateNavList({
+          name:listName
+        }, function () {
+          self.renderNavList();
+          App.$modal.find('.create-list-dialog').hide();
+        });
+
+      });
+
       //任务元素拖拽
       App.$container.on('dragstart', '#tasklist .item .name', function (e) {
         var $this = $(this).parents('.item');
@@ -347,7 +362,7 @@ App.controller = (function () {
 
         $('#drag-task').attr({'style':'position: fixed;top:'+ (e.clientY)+'px;left:'+ (e.clientX)+"px"});
 
-      }).on('dragend', '#tasklist .item, nav .item-list', function (e) {
+      }).on('dragend', '#tasklist .item', function (e) {
 
         $('#drag-task').remove();
         $('nav .item-list').removeClass('dragover');
@@ -376,8 +391,9 @@ App.controller = (function () {
         });
 
         $('#drag-task').remove();
+        hasDragData.task = false;
 
-      }).on('dragover', 'nav .item-list', function (e) {
+      }).on('dragover', 'nav li.item-list, .menu-filter-today .item-list', function (e) {
         e.preventDefault();
         var $this = $(this);
         if(hasDragData.task){
@@ -385,7 +401,7 @@ App.controller = (function () {
           $this.addClass('dragover');
         }
 
-      }).on('dragstart', 'nav .menu-your .item-list', function (e) {
+      }).on('dragstart', 'nav .menu-your li.item-list', function (e) {
         var $this = $(this);
         var listId = $this.attr('item-id');
         if(listId){
@@ -395,19 +411,19 @@ App.controller = (function () {
         e.originalEvent.dataTransfer.setData('listId', listId);
         e.originalEvent.dataTransfer.setDragImage(document.querySelector('#dragMouseImg'),0,0);
 
-      }).on('drag', 'nav .menu-your .item-list', function (e) {
+      }).on('drag', 'nav .menu-your li.item-list', function (e) {
         var $this = $(this);
 
         //$('#drag-task').attr({'style':'position: fixed;top:'+ (e.clientY)+'px;left:'+ (e.clientX)+"px"});
 
-      }).on('dragend', 'nav .menu-your .item-list', function (e) {
+      }).on('dragend', 'nav .menu-your li.item-list', function (e) {
 
         //$('#drag-task').remove();
         $('nav .item-list').removeClass('dragover');
         hasDragData.list = false;
 
-      }).on('drop', 'nav .item-directory', function (e) {
-        var $this = $(this);
+      }).on('drop', 'nav .item-directory a', function (e) {
+        var $this = $(this).parents('.item-directory');
         var listId = e.originalEvent.dataTransfer.getData('listId') || 0;
         var directoryId = $this.attr('item-id') || "0";
         if(listId){
@@ -419,10 +435,11 @@ App.controller = (function () {
         }else{
           return;
         }
+        hasDragData.list = false;
 
-      }).on('dragover', 'nav .item-directory', function (e) {
+      }).on('dragover', 'nav .item-directory a', function (e) {
         e.preventDefault();
-        var $this = $(this);
+        var $this = $(this).parents('.item-directory');
         if(hasDragData.list){
           $('nav .item-directory').removeClass('dragover');
           $this.addClass('dragover');
